@@ -1041,7 +1041,7 @@ export const devotions: {
 }[] // 6
 
 export const images: {
-  hero: string;            // Wikimedia 2025 front view
+  hero: string;            // "/images/hero-church.jpg" (local — was Wikimedia in src.orig)
   heroFallback: string;    // "/images/hero-church.jpg"
   chapel: string;          // "/images/chapel-interior.jpg"
   sanctuary: string;       // "/images/sanctuary.jpg"
@@ -1050,9 +1050,9 @@ export const images: {
   hall: string;            // "/images/parish-hall.jpg"
   cemetery: string;        // "/images/cemetery.jpg"
   feast: string;           // "/images/feast.jpg"
-  naveCdn: string;         // Pexels
-  courtyardCdn: string;    // Pexels
-} // as const — 11 keys, 3 CDN (hero + 2 Pexels) on 2 hosts
+  naveCdn: string;         // local alias → "/images/sanctuary.jpg" (was Pexels in src.orig)
+  courtyardCdn: string;    // local alias → "/images/rosary-garden.jpg" (was Pexels in src.orig)
+} // as const — 11 keys, all local (naveCdn/courtyardCdn are local aliases; legacy CSP Wikimedia+Pexels retained unused)
 ```
 
 ### 20.2 Navigation Interfaces (`src/data/nav.ts`)
@@ -1072,64 +1072,75 @@ export interface NavItem {
 // footerNav: NavLink[] — 10 (The Parish, Mass Times→/worship#mass, History, FAQ, Liturgical→/ministries#liturgical, Faith Formation, Pastoral Care, News & Events, Serve, Give)
 ```
 
-### 20.3 Site Constants (`src/data/site.ts`)
+### 20.3 Site Constants (`src/data/site.ts`) — verbatim (drift-checked by `src/head.test.ts` + `src/data/site.test.ts`)
 
 ```ts
-// src/data/site.ts — single source for parish facts (as const)
-export const site: {
-  name: "Church of St Mary of the Angels";
-  shortName: "St Mary's Bukit Batok";
-  chineseName: "天神之后圣母堂";
-  tagline: "A vibrant, evangelizing and missionary Church, under the patronage of St Mary.";
-  vision: "To nourish faith in a loving, outreaching community.";
+// src/data/site.ts — single source for parish facts (as const) — verbatim from src/data/site.ts
+export const site = {
+  name: "Church of St Mary of the Angels",
+  shortName: "St Mary's Bukit Batok",
+  chineseName: "天神之后圣母堂",
+  tagline: "Towards a Prayerful & Missionary Parish.",
+  vision: "According to Thy Word.",
   address: {
-    street: "5 Bukit Batok East Ave 2";
-    city: "Singapore";
-    zip: "659918";
-    readonly full: string;   // getter: `${street}, ${city} ${zip}`
-    readonly query: string;  // getter: encodeURIComponent(full)
-  };
+    street: "5 Bukit Batok East Ave 2",
+    city: "Singapore",
+    zip: "659918",
+    get full() { return `${this.street}, ${this.city} ${this.zip}`; },
+    get query() { return encodeURIComponent(this.full); },
+  },
   hours: {
-    gates: "Daily, 8.00 a.m.–9.00 p.m.";
-    mainChurch: "Open for Mass and private prayer";
-    chapel: "Weekday Masses and scheduled devotion";
-    reception/parishOffice/columbarium: "Sat 4.30–7.00 p.m.; Sun 8.30 a.m.–1.00 p.m. (2nd Sunday also 5.30–7.00 p.m.)";
-    adorationRoom: "Tuesday Holy Hour, 8.00 p.m.";
-  };
+    gates: "Daily, 7.00 a.m.–9.30 p.m.",
+    mainChurch: "Open for Mass and private prayer",
+    chapel: "Adoration Chapel, daily 7.00 a.m.–9.30 p.m.",
+    reception: "Mon–Sat 9.00 a.m.–6.00 p.m. (lunch 1.00–2.00 p.m.); Sun 9.00 a.m.–1.00 p.m. Closed public holidays.",
+    parishOffice: "Mon–Fri 9.00 a.m.–6.00 p.m. (lunch 1.00–2.00 p.m.). Closed weekends and public holidays.",
+    columbarium: "Daily, 7.30 a.m.–9.30 p.m.",
+    adorationRoom: "Daily, 7.00 a.m.–9.30 p.m.",
+  },
   mass: {
-    weekdayMorning: "Mon–Fri, 7.00 a.m. (with Morning Prayer) and 12.15 p.m. — Main Church";
-    weekdayEvening: "Mon–Fri, 6.30 p.m. — Main Church";
-    saturday: "4.00 p.m. · 6.00 p.m. English · 7.45 p.m. Tamil";
-    sunday: readonly ["7.15 a.m. Mandarin", "9.00 a.m. English", "11.00 a.m. English", "1.00 p.m. English", "5.00 p.m. English", "7.00 p.m. English"];
-    confession: "Weekends, 30 min before English Masses until 10 min before: Sat 15.30/17.30, Sun 08.30/10.30/12.30/16.30/18.30";
-    adoration: "Adoration Chapel, daily 7.00 a.m.–9.30 p.m.";
-    secondCollection: "Church Maintenance Fund — announced in bulletin";
-    note: "All Masses in Main Church, Level 1, English unless indicated.";
-  };
+    weekdayMorning: "Mon–Fri, 7.00 a.m. (with Morning Prayer) and 12.15 p.m. — Main Church",
+    weekdayEvening: "Mon–Fri, 6.30 p.m. — Main Church",
+    saturday: "4.00 p.m. · 6.00 p.m. English · 7.45 p.m. Tamil",
+    sunday: ["7.15 a.m. Mandarin","9.00 a.m. English","11.00 a.m. English","1.00 p.m. English","5.00 p.m. English","7.00 p.m. English"] as const,
+    confession: "Weekends, 30 minutes before English Masses until 10 minutes before Mass begins. Saturday 3.30 p.m. and 5.30 p.m.; Sunday 8.30 a.m., 10.30 a.m., 12.30 p.m., 4.30 p.m. and 6.30 p.m.",
+    adoration: "Adoration Chapel, daily 7.00 a.m.–9.30 p.m.",
+    secondCollection: "Church Maintenance Fund — announced in the bulletin",
+    note: "All Masses are held in the Main Church, Level 1, and in English, unless otherwise indicated.",
+  },
   contact: {
-    parishPriestPhone: "+65 6567 3866";  // also officePhone (shared)
-    officePhone: "+65 6567 3866";
-    emergencyPhone: "+65 9682 7875";
-    columbariumPhone: "+65 6560 6361";
-    columbariumAfterHours: "+65 9774 7053";
-    email: "parish.stmary@catholic.org.sg";
-    connectEmail: "connect.stmary@catholic.org.sg";
-  };
+    parishPriestPhone: "+65 6567 3866", // also officePhone (shared)
+    officePhone: "+65 6567 3866",
+    emergencyPhone: "+65 9682 7875",
+    columbariumPhone: "+65 6560 6361",
+    columbariumAfterHours: "+65 9774 7053",
+    email: "parish.stmary@catholic.org.sg",
+    connectEmail: "connect.stmary@catholic.org.sg",
+  },
   transport: {
-    mrt: "Bukit Batok (NS2) · Beauty World (DT5)";
-    buses: "Ave 6: 61,66,157,174,178,852,871 · Ave 2: 970,985 · Ave 3: 61,77,106,157,174,178,506,852,963,990 · Ave 4: 173,177,963";
-  };
+    mrt: "Bukit Batok (NS2) · Beauty World (DT5)",
+    buses: "Ave 6: 61, 66, 157, 174, 178, 852, 871 · Ave 2: 970, 985 · Ave 3: 61, 77, 106, 157, 174, 178, 506, 852, 963, 990 · Ave 4: 173, 177, 963",
+  },
   feast: {
-    name: "Feast of Our Lady of the Angels · Portiuncula";
-    date: "1 May";
-  };
-  uen: "T08CC4053H";
-  chequePayee: "St. Joseph's Church (Bukit Timah)";
-  facebook: "https://www.facebook.com/sjcbt/";
-  archdiocese: "https://www.catholic.sg/";
-  mapsUrl: string;        // https://www.google.com/maps/search/?api=1&query=620+Upper+Bukit+Timah+Road+Singapore+659918
-  mapsEmbedSrc: string;   // https://www.google.com/maps?q=620+Upper+Bukit+Timah+Road,+Singapore+659918&output=embed
-} // as const — Footer + Worship + About consume it; never duplicate parish facts in pages
+    name: "Our Lady of the Angels · Portiuncula",
+    date: "2 August",
+  },
+  uen: "T08CC4053H",
+  uenPoorNeedy: "T08CC4053HRSM",
+  chequePayee: "Church of St Mary of the Angels",
+  facebook: "https://www.facebook.com/stmary.sg",
+  instagram: "https://instagram.com/stmary.sg",
+  youtube: "https://www.youtube.com/c/StMarysgtv",
+  telegram: "https://t.me/stmarysg",
+  whatsapp: "https://whatsapp.com/channel/0029Va663rp3rZZdVEyToo08",
+  archdiocese: "https://www.catholic.sg/",
+  franciscans: "https://franciscans.sg/",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=5+Bukit+Batok+East+Ave+2+Singapore+659918",
+  mapsEmbedSrc: "https://www.google.com/maps?q=5+Bukit+Batok+East+Ave+2,+Singapore+659918&output=embed",
+  origin: "https://www.stmary.sg",
+  get url() { return `${this.origin}/`; },
+  get ogImage() { return `${this.origin}/images/hero-church.jpg`; },
+} as const; // Footer + Worship + About consume it; never duplicate parish facts in pages — origin/url/ogImage drift-checked by head.test.ts
 
 // src/components/SafeImage.tsx
 export interface SafeImageProps {
