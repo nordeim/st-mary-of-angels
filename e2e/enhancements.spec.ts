@@ -93,13 +93,16 @@ test.describe("Round-2 enhancement audit", () => {
     await expect(rail).toBeAttached();
     await expect(rail).toHaveCSS("transform", "matrix(0, 0, 0, 1, 0, 0)");
 
-    await page.evaluate(() =>
-      window.scrollTo(0, document.documentElement.scrollHeight),
-    );
+    // Land at mid-depth (50%): a stable resting value that deterministically
+    // matches. (Scrolling to the very bottom rests at matrix(1, …) which the
+    // 0.x regex cannot match — the old form only passed when a poll sample
+    // caught the smooth-scroll animation mid-flight; racy under load.)
+    await page.evaluate(() => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo(0, Math.round(max * 0.5));
+    });
     await expect
-      .poll(() => rail.evaluate((el) => getComputedStyle(el).transform), {
-        timeout: 5_000,
-      })
+      .poll(() => rail.evaluate((el) => getComputedStyle(el).transform))
       .toMatch(/^matrix\(0\.[1-9]/);
   });
 
@@ -135,5 +138,34 @@ test.describe("Round-2 enhancement audit", () => {
     await page.click('button[aria-label="Open menu"]');
     const aboutLink = drawer.getByRole("link", { name: /^About$/ });
     await expect(aboutLink).toHaveAttribute("aria-current", "page");
+  });
+
+  // Round-4 remediation (docs/code-review-audit-round3-2026-08-30.md L-5):
+  // the mobile drawer is a modal dialog — dialog role, aria-modal, initial
+  // focus on the panel, and a Tab/Shift+Tab focus trap.
+  test("mobile drawer is a modal dialog with trapped focus", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoHash(page, "/");
+
+    await page.click('button[aria-label="Open menu"]');
+    const dialog = page.getByRole("dialog", { name: "Site menu" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAttribute("aria-modal", "true");
+
+    // Initial focus lands on the dialog panel itself.
+    await expect(dialog).toBeFocused();
+
+    // Focus cannot escape the drawer: Tab from the last link wraps to the
+    // first, Shift+Tab from the first wraps to the last.
+    const links = dialog.getByRole("link");
+    await links.last().focus();
+    await page.keyboard.press("Tab");
+    await expect(links.first()).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(links.last()).toBeFocused();
+
+    // Escape restores focus to the hamburger toggle.
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
   });
 });
