@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { gotoHash } from "./helpers";
 
 /**
@@ -79,7 +79,7 @@ test.describe("Round-5 enhancement audit", () => {
   });
 });
 
-async function gotoMain(page: import("@playwright/test").Page, route: string) {
+async function gotoMain(page: Page, route: string) {
   await gotoHash(page, route);
   await page.waitForTimeout(300);
 }
