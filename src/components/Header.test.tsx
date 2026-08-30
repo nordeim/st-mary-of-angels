@@ -115,4 +115,65 @@ describe("Header", () => {
     expect(items[1]!).toHaveClass("drawer-item-in");
     expect(items[1]!).toHaveStyle({ animationDelay: "40ms" });
   });
+
+  // Round-4 remediation (audit L-5): the mobile drawer is a modal dialog —
+  // initial focus, Tab/Shift+Tab focus trap, focus restore on close.
+  it("opens the drawer as a modal dialog that receives initial focus", async () => {
+    const user = userEvent.setup();
+    renderHeader();
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    const dialog = screen.getByRole("dialog", { name: "Site menu" });
+    expect(dialog).toHaveAttribute("aria-modal", "true");
+    expect(dialog).toHaveFocus();
+    // The mobile landmark stays inside the dialog for structure-aware AT.
+    expect(within(dialog).getByRole("navigation", { name: "Mobile" })).toBeInTheDocument();
+  });
+
+  it("traps focus: Tab from the last drawer link wraps to the first", async () => {
+    const user = userEvent.setup();
+    renderHeader("/");
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    const drawer = screen.getByRole("dialog", { name: "Site menu" });
+    const links = within(drawer).getAllByRole("link");
+    const first = links[0]!;
+    const last = links[links.length - 1]!;
+    last.focus();
+    await user.tab();
+    expect(document.activeElement).toBe(first);
+  });
+
+  it("traps focus: Shift+Tab from the first drawer link wraps to the last", async () => {
+    const user = userEvent.setup();
+    renderHeader("/");
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    const drawer = screen.getByRole("dialog", { name: "Site menu" });
+    const links = within(drawer).getAllByRole("link");
+    const first = links[0]!;
+    const last = links[links.length - 1]!;
+    first.focus();
+    await user.tab({ shift: true });
+    expect(document.activeElement).toBe(last);
+  });
+
+  it("restores focus to the hamburger toggle when Escape closes the drawer", async () => {
+    const user = userEvent.setup();
+    renderHeader();
+    const toggle = screen.getByRole("button", { name: "Open menu" });
+    await user.click(toggle);
+    expect(screen.getByRole("dialog", { name: "Site menu" })).toBeInTheDocument();
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog", { name: "Site menu" })).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(toggle);
+  });
+
+  it("restores focus to the hamburger toggle when a drawer link closes the drawer", async () => {
+    const user = userEvent.setup();
+    renderHeader("/");
+    const toggle = screen.getByRole("button", { name: "Open menu" });
+    await user.click(toggle);
+    const drawer = screen.getByRole("dialog", { name: "Site menu" });
+    await user.click(within(drawer).getByRole("link", { name: "Home" }));
+    expect(screen.queryByRole("dialog", { name: "Site menu" })).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(toggle);
+  });
 });

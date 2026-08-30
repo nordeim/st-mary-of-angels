@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Emblem } from "@/components/Emblem";
@@ -13,6 +13,9 @@ export function Header() {
   const { pathname, hash } = useLocation();
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const drawerWasOpenRef = useRef(false);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -36,6 +39,54 @@ export function Header() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // Modal drawer focus management (round-4, audit L-5): focus the panel on
+  // open, restore focus to the toggle on close, and close on outside taps so
+  // pointer focus cannot slip behind the aria-modal surface.
+  useEffect(() => {
+    if (!mobileOpen) {
+      if (drawerWasOpenRef.current) {
+        drawerWasOpenRef.current = false;
+        toggleRef.current?.focus();
+      }
+      return;
+    }
+    drawerWasOpenRef.current = true;
+    drawerRef.current?.focus();
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      if (drawerRef.current?.contains(target)) return;
+      if (toggleRef.current?.contains(target)) return;
+      setMobileOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [mobileOpen]);
+
+  const handleDrawerKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Tab") return;
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+    const focusables = Array.from(
+      drawer.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0]!;
+    const last = focusables[focusables.length - 1]!;
+    const active = document.activeElement;
+    if (event.shiftKey) {
+      if (active === first || active === drawer) {
+        event.preventDefault();
+        last.focus();
+      }
+    } else if (active === last || active === drawer) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
 
   const isHome = pathname === "/";
   const solid = scrolled || !isHome || mobileOpen;
@@ -158,6 +209,7 @@ export function Header() {
         </nav>
 
         <button
+          ref={toggleRef}
           type="button"
           className="flex h-11 w-11 items-center justify-center text-shrine-cream lg:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -170,7 +222,13 @@ export function Header() {
 
       {mobileOpen ? (
         <div
-          className="drawer-in border-t border-shrine-cream/10 bg-shrine-maroon-950 lg:hidden"
+          ref={drawerRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
+          tabIndex={-1}
+          className="drawer-in border-t border-shrine-cream/10 bg-shrine-maroon-950 focus:outline-none lg:hidden"
+          onKeyDown={handleDrawerKeyDown}
           onClickCapture={(event) => {
             if ((event.target as HTMLElement).closest("a")) {
               setMobileOpen(false);
