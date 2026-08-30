@@ -73,3 +73,36 @@ describe("index.html head completeness", () => {
     expect(json.address.postalCode).toBe(site.address.zip);
   });
 });
+
+/**
+ * Round-3 hardening contract: the CSP meta must deny plugin/base-tag
+ * injection vectors, allow the Cloudflare Pages-injected analytics beacon
+ * (blocked in the wild on the live deploy — see round-3 audit H-2), and the
+ * document must pin a Referrer-Policy the static host does not send.
+ */
+describe("index.html CSP & referrer hardening", () => {
+  const cspMatch = html.match(
+    /http-equiv="Content-Security-Policy"\s+content="([^"]+)"/,
+  );
+  const csp = cspMatch?.[1] ?? "";
+
+  it("parses the CSP meta tag", () => {
+    expect(csp).not.toBe("");
+  });
+
+  it("denies plugin content via object-src 'none'", () => {
+    expect(csp).toContain("object-src 'none'");
+  });
+
+  it("pins base-uri to 'self' (blocks <base> hijacking)", () => {
+    expect(csp).toContain("base-uri 'self'");
+  });
+
+  it("allows the Cloudflare Pages analytics beacon in script-src", () => {
+    expect(csp).toContain("https://static.cloudflareinsights.com");
+  });
+
+  it("declares a Referrer-Policy meta (host does not send the header)", () => {
+    headIncludes('<meta name="referrer" content="strict-origin-when-cross-origin" />');
+  });
+});
