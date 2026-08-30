@@ -42,7 +42,12 @@ export function Layout() {
       <ScrollProgress />
       <Header />
       <main id="main-content" className="min-h-screen">
-        <div key={pathname} className="page-in">
+        <div
+          key={pathname}
+          data-testid="page-container"
+          data-route={pathname}
+          className="page-in"
+        >
           <Outlet />
         </div>
       </main>

@@ -44,29 +44,32 @@ export function BackToTop() {
         visible ? "opacity-100" : "pointer-events-none opacity-0",
       )}
     >
-      <svg className="absolute inset-0 h-12 w-12" viewBox="0 0 48 48" aria-hidden="true">
-        <circle
-          cx="24"
-          cy="24"
-          r={RING_RADIUS}
-          fill="none"
-          stroke="currentColor"
-          strokeOpacity="0.2"
-          strokeWidth="2"
-        />
-        <circle
-          cx="24"
-          cy="24"
-          r={RING_RADIUS}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeDasharray={RING_CIRCUMFERENCE}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          transform="rotate(-90 24 24)"
-        />
-      </svg>
+      <span data-testid="back-to-top-progress" aria-hidden="true" className="absolute inset-0">
+        <svg className="absolute inset-0 h-12 w-12" viewBox="0 0 48 48" aria-hidden="true">
+          <circle
+            cx="24"
+            cy="24"
+            r={RING_RADIUS}
+            fill="none"
+            stroke="currentColor"
+            strokeOpacity="0.2"
+            strokeWidth="2"
+          />
+          <circle
+            cx="24"
+            cy="24"
+            r={RING_RADIUS}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeDasharray={RING_CIRCUMFERENCE}
+            strokeDashoffset={offset}
+            strokeLinecap="round"
+            transform="rotate(-90 24 24)"
+            data-progress=""
+          />
+        </svg>
+      </span>
       <ArrowUp className="relative h-5 w-5" />
     </button>
   );

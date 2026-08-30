@@ -26,6 +26,17 @@ export function Header() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenDesktopMenu(null);
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   const isHome = pathname === "/";
   const solid = scrolled || !isHome || mobileOpen;
 
@@ -167,22 +178,26 @@ export function Header() {
           }}
         >
           <nav className="max-h-[calc(100vh-5rem)] overflow-y-auto px-5 py-4" aria-label="Mobile">
-            {primaryNav.map((item, index) => (
-              <div
-                key={item.label}
-                className="drawer-item-in border-b border-shrine-cream/10 py-3"
-                style={{ animationDelay: `${index * 40}ms` }}
-              >
-                <Link
-                  to={item.to}
-                  aria-current={pathname === item.to ? "page" : undefined}
-                  className={cn(
-                    "block text-sm font-semibold uppercase tracking-wide text-shrine-cream",
-                    pathname === item.to && "text-shrine-gold-300",
-                  )}
+            {primaryNav.map((item, index) => {
+              const mobileParentActive =
+                item.children?.some((child) => child.to.split("#")[0] === pathname) ??
+                pathname === item.to;
+              return (
+                <div
+                  key={item.label}
+                  className="drawer-item-in border-b border-shrine-cream/10 py-3"
+                  style={{ animationDelay: `${index * 40}ms` }}
                 >
-                  {item.label}
-                </Link>
+                  <Link
+                    to={item.to}
+                    aria-current={mobileParentActive ? "page" : undefined}
+                    className={cn(
+                      "block text-sm font-semibold uppercase tracking-wide text-shrine-cream",
+                      mobileParentActive && "text-shrine-gold-300",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
                 {item.children ? (
                   <ul className="mt-2 space-y-1 pl-3">
                     {item.children.map((child) => (
@@ -197,8 +212,9 @@ export function Header() {
                     ))}
                   </ul>
                 ) : null}
-              </div>
-            ))}
+                </div>
+              );
+            })}
             <Link
               to="/give"
               className="mt-4 block py-3 text-sm font-semibold uppercase tracking-wide text-shrine-gold-300"
