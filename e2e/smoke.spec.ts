@@ -107,11 +107,17 @@ test.describe("smoke — routing & hash anchors", () => {
     ).toBe("1");
   });
 
+  // Round-5 chip system (docs/design-enhancement-round5-2026-08-30.md P-6):
+  // category inside a bordered gold chip + display-serif date beside it.
   test("event cards render gold category chips", async ({ page }) => {
     await page.goto("/#/news-events");
-    const chips = page.locator("article p", { hasText: /Parish ·|Devotion ·|Formation ·|Archdiocese ·/ });
+    const chips = page.locator("article span", { hasText: /^(Parish|Devotion|Formation|Archdiocese)$/ });
     await expect(chips.first()).toBeVisible();
-    await expect(chips.first()).toHaveClass(/text-shrine-maroon-500/);
+    await expect(chips.first()).toHaveClass(/rounded-full/);
+    await expect(chips.first()).toHaveClass(/text-shrine-(maroon|gold|pine|terracotta)-/);
+    // The date sits beside the chip in the display serif voice.
+    const date = chips.first().locator("xpath=following-sibling::span");
+    await expect(date).toHaveClass(/font-display/);
   });
 
   test("back-to-top appears after scrolling and returns to the top", async ({ page }) => {
