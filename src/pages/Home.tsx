@@ -10,6 +10,29 @@ import { site } from "@/data/site";
 
 const featured = upcomingEvents.slice(0, 4);
 
+/** Round-5 chip system (docs/design-enhancement-round5-2026-08-30.md P-6):
+ * same language as the NewsEvents card — bordered gold chip for the
+ * category + display-serif date beside it. */
+const categoryTone: Record<(typeof upcomingEvents)[number]["category"], string> = {
+  Parish: "text-shrine-maroon-500",
+  Devotion: "text-shrine-gold-600",
+  Formation: "text-shrine-pine-600",
+  Archdiocese: "text-shrine-terracotta-500",
+};
+
+function EventMeta({ category, date }: { category: string; date: string }) {
+  return (
+    <p className="flex flex-wrap items-center gap-3">
+      <span
+        className={`inline-flex items-center rounded-full border border-shrine-gold-400/40 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] ${categoryTone[category as keyof typeof categoryTone]}`}
+      >
+        {category}
+      </span>
+      <span className="font-display text-sm text-shrine-charcoal/70">{date}</span>
+    </p>
+  );
+}
+
 export function Home() {
   return (
     <>
@@ -137,7 +160,7 @@ export function Home() {
                     src={place.image}
                     fallback={place.imageFallback}
                     alt={place.imageAlt}
-                    className="aspect-[16/10] w-full object-cover"
+                    className="img-zoom aspect-[16/10] w-full object-cover"
                   />
                   <div className="p-6">
                     <h3 className="font-display text-2xl text-shrine-maroon-700">{place.title}</h3>
@@ -166,11 +189,9 @@ export function Home() {
           </div>
           <div className="mt-12 grid gap-5 sm:grid-cols-2">
             {featured.map((event, index) => (
-              <Reveal key={event.title} delay={index * 70}>
-                <article className="card-lift rounded-sm border border-shrine-stone bg-shrine-parchment p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-shrine-maroon-500">
-                    {event.category} · {event.date}
-                  </p>
+              <Reveal key={event.title} delay={index * 70} className="h-full">
+                <article className="card-lift h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-6">
+                  <EventMeta category={event.category} date={event.date} />
                   <h3 className="mt-2 font-display text-2xl text-shrine-maroon-700">{event.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-shrine-charcoal/80">
                     {event.summary}
@@ -184,6 +205,7 @@ export function Home() {
 
       <section className="relative overflow-hidden bg-shrine-maroon-950 py-20 sm:py-28">
         <div className="bg-adobe-texture pointer-events-none absolute inset-0" />
+        <div className="bg-gold-bloom pointer-events-none absolute inset-0" />
         <Container className="relative grid items-center gap-10 lg:grid-cols-2">
           <div>
             <SectionHeading

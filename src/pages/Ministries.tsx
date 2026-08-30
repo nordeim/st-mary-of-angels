@@ -65,12 +65,14 @@ export function Ministries() {
                 ))}
               </ul>
             </div>
-            <SafeImage
-              src={ministry.image}
-              fallback={ministry.imageFallback}
-              alt={ministry.imageAlt}
-              className="aspect-[16/10] w-full rounded-sm object-cover shadow-shrine"
-            />
+            <div className="group overflow-hidden rounded-sm shadow-shrine">
+              <SafeImage
+                src={ministry.image}
+                fallback={ministry.imageFallback}
+                alt={ministry.imageAlt}
+                className="img-zoom aspect-[16/10] w-full object-cover"
+              />
+            </div>
           </Container>
         </section>
       ))}

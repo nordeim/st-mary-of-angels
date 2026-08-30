@@ -112,6 +112,17 @@
       radial-gradient(circle at 80% 60%, rgba(0, 0, 0, 0.08), transparent 45%);
   }
 
+  /* Round-5 "Light of the Portiuncula": a faint gold bloom anchored to the
+     top of dark bands — the WOHA "house of light" motif. #e2bf72 is
+     --color-shrine-gold-300 expressed as rgba (same pattern as above). */
+  .bg-gold-bloom {
+    background-image: radial-gradient(
+      640px 320px at 18% 0%,
+      rgba(226, 191, 114, 0.1),
+      transparent 70%
+    );
+  }
+
   .bg-grain {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
@@ -326,6 +337,19 @@
     transform: translateY(-4px);
     box-shadow: var(--shadow-shrine);
     border-color: var(--color-shrine-gold-300);
+  }
+
+  /* Round-5 image drift: inside a `.group` card, the photograph drifts while
+     the `.card-lift` frame lifts. Transform-only; the global
+     prefers-reduced-motion block already collapses the transition. */
+  .img-zoom {
+    transition-property: transform;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .group:hover .img-zoom {
+    transform: scale(1.045);
   }
 
   .link-underline {
