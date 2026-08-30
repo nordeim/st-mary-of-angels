@@ -1,6 +1,6 @@
 # Church of St Mary of the Angels
 
-![version 1.1.0](https://img.shields.io/badge/version-1.1.0-33100f)
+![version 1.2.0](https://img.shields.io/badge/version-1.2.0-33100f)
 ![React](https://img.shields.io/badge/React-19.2.8-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7.3.6-646CFF?logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.3-06B6D4?logo=tailwindcss&logoColor=white)
@@ -18,13 +18,13 @@ Every row below is implemented — no placeholders. Pages are named exports from
 |  | Feature | What it does |
 |---|---|---|
 | 🏔️ | **Home — According to Thy Word.** | Hero with `hero-ken-burns` + `site.feast`/`site.address` facts (Sunday 7.15 a.m.–7 p.m., Bukit Batok MRT, Portiuncula 2 Aug, Friars OFM), welcome (`site.tagline` + `site.vision`), 3-place grounds preview (`grounds` → Main Church / Adoration Chapel / Garden of Peace & Piazza), and 4 featured events from `upcomingEvents`. |
-| ⛪ | **About — the household** | Parish vision Pray·Form·Go (3 pillars: Prayer / Formation / Mission), friars (`priests` — 4 OFM: Esmond Chua, Julian Mariaratnam, Justin Lim, Robin Toha with emails), and household (`ppcMembers` — 6: 4 friars ex-officio + vision · Custody). |
+| ⛪ | **About — the household** | Parish vision Pray·Form·Go (3 ghost-numeral pillars: Prayer / Formation / Mission), friars (`priests` — 4 OFM, monogram-disc cards: Esmond Chua, Julian Mariaratnam, Justin Lim, Robin Toha with emails), and household (`ppcMembers` — 6: 4 friars ex-officio + vision · Custody). |
 | 📜 | **History — 1957–2026** | 8-entry `lifeTimeline` via `Timeline` — sociological institute (1957) → hilltop chapel Olçomendy (1958) → Portiuncula parish (1970) → west grows (1985–2003) → WOHA consecration (2004, SIA award) → Design of the Year (2006) → Jubilee monstrance (2025) → Pray·Form·Go (2026, Friar Esmond). |
-| 🙏 | **Worship — Mass, mercy & Find Us** | Anchor-linked sections with `scroll-mt-28` + `Layout` hash restore: `#mass` (Mass schedule from `site.mass`: Main Church weekdays 7/12.15/18.30, Sat 16.00/18.00 + 19.45 Tamil, 6 Sunday Masses incl. Mandarin 7.15 + note), `#confession` (weekend Reconciliation 30 min before English Masses 7 slots, Adoration daily 7–21.30, + 6 `devotions`: St Anthony Tue 18.30 / Adoration daily / Reconciliation wknd / Lauds / Deaf Community Sun 16.00 / Portiuncula 2 Aug), `#visit` (address, Reception, MRT Beauty World/Bukit Batok + buses Ave 2/3/4/6, `mapsEmbedSrc` iframe). Aliases: `/mass-times`, `/hours-location`, `/visit` → `/worship`. |
+| 🙏 | **Worship — Mass, mercy & Find Us** | Anchor-linked sections with `scroll-mt-28` + `Layout` hash restore: `#mass` (Mass schedule from `site.mass`: Main Church weekdays 7/12.15/18.30, Sat 16.00/18.00 + 19.45 Tamil, 6 Sunday Masses incl. Mandarin 7.15 + note — the card matching today via `massDayKey` carries a gold top rule + "Today" chip, Sunday slots render as a gold-dot hover list), `#confession` (weekend Reconciliation 30 min before English Masses 7 slots, Adoration daily 7–21.30, + 6 `devotions`: St Anthony Tue 18.30 / Adoration daily / Reconciliation wknd / Lauds / Deaf Community Sun 16.00 / Portiuncula 2 Aug), `#visit` (address, Reception, MRT Beauty World/Bukit Batok + buses Ave 2/3/4/6, `mapsEmbedSrc` iframe). Aliases: `/mass-times`, `/hours-location`, `/visit` → `/worship`. |
 | 🧭 | **Ministries — 6 with jump nav** | Pill-bordered jump nav (`/ministries#<id>`) + alternating `shrine-cream`/`shrine-parchment` sections from `ministries` (6 ids): Liturgical (servers/choirs/hospitality), Faith Formation (CGS), Pastoral Care (Poor & Needy UEN HRSM/emergency), Family Life (baptism/marriage), Youth (WYD 2027), Language Communities (Mandarin 7.15, Tamil 19.45, Sinhala, Malayalam, Indonesian). Canonical `/ministries`, alias `/ministry`. |
 | 📰 | **News & Events** | 6 `upcomingEvents` (`NewsEvents` page, compact `PageHero`): First Holy Communion 29 Aug 2026, CGS info, WYD 2027 briefing, Beatitudes retreat, St Francis art exhibition, Franciscan Jubilee Year — categories `Parish`/`Devotion`/`Formation`/`Archdiocese`. Canonical `/news-events`, alias `/news-and-events`. |
 | 🤝 | **Serve — take a place** | 4 `serveRoles` (Liturgical ministers / Catechists & facilitators / Pastoral care / Hospitality & grounds) with `connect.stmary@catholic.org.sg`. No section ids. Canonical `/serve`, alias `/volunteer`. |
-| 💛 | **Give · FAQ · NotFound** | **Give** — 8 `givingOptions` (PayNow UEN `T08CC4053H`, Poor & Needy `T08CC4053HRSM`, weekend Tap & Give, Church Maintenance Fund, cheque to `Church of St Mary of the Angels`, cash at Reception, General Church Offering, Mass offerings). Alias `/donate`. **FAQ** — 6 questions (Mass times, confession wknd, how to get there, parking B1/B2, baptism/marriage/Mass intention, columbarium/funeral) via `Accordion` (single-open) at `/faq`. **NotFound** — `*` catch-all (404, "This path does not lead to the church"). |
+| 💛 | **Give · FAQ · NotFound** | **Give** — closes with a dark "house of prayer" band (Reception facts from `site.ts`). 8 `givingOptions` (PayNow UEN `T08CC4053H`, Poor & Needy `T08CC4053HRSM`, weekend Tap & Give, Church Maintenance Fund, cheque to `Church of St Mary of the Angels`, cash at Reception, General Church Offering, Mass offerings). Alias `/donate`. **FAQ** — 6 questions (Mass times, confession wknd, how to get there, parking B1/B2, baptism/marriage/Mass intention, columbarium/funeral) via `Accordion` (single-open) at `/faq`. **NotFound** — `*` catch-all (404, "This path does not lead to the church"). |
 
 ## Architecture
 
@@ -40,8 +40,8 @@ Every row below is implemented — no placeholders. Pages are named exports from
 | Icons | lucide-react | `1.34.0` | Header/footer + page iconography |
 | Utils | clsx + tailwind-merge | `2.1.1` / `3.6.0` | `cn()` class merging — always merge via `cn()` |
 | Bundling | vite-plugin-singlefile | `2.3.3` | Inlines JS+CSS into `dist/index.html` (`public/images/` copied to `dist/images/`) |
-| Testing | Vitest + Testing Library + jsdom | `3.2.6` / `16.2.0` / `26.1.0` | `vitest run` — **17 files / 109 tests** (`cn` 5 + `nav` 7 + `content` 10 + `site` 7 + `Button` 9 + `SkipLink` 3 + `Accordion` 6 + `SafeImage` 6 + `Header` 16 + `BackToTop` 7 + `Ministries` 3 + `cta-bands` 3 + `Layout` 2 + `useScrollProgress` 4 + `ScrollProgress` 2 + `head` 13 + `security-headers` 6) via `src/test/setup.ts` |
-| E2E | Playwright | `1.55.1` | `chromium`, `webServer` → `pnpm exec vite --port 5173 --host 127.0.0.1 --strictPort`, `e2e/` — **36 tests** (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9) |
+| Testing | Vitest + Testing Library + jsdom | `3.2.6` / `16.2.0` / `26.1.0` | `vitest run` — **24 files / 134 tests** (`cn` 5 + `nav` 7 + `content` 10 + `site` 7 + `massDay` 5 + `Button` 11 + `SkipLink` 3 + `Accordion` 6 + `SafeImage` 6 + `Header` 16 + `BackToTop` 7 + `Ministries` 3 + `cta-bands` 4 + `worship-mass` 4 + `about-visuals` 3 + `event-chips` 3 + `Timeline` 3 + `NotFound` 2 + `History` 2 + `Layout` 2 + `useScrollProgress` 4 + `ScrollProgress` 2 + `head` 13 + `security-headers` 6) via `src/test/setup.ts` |
+| E2E | Playwright | `1.55.1` | `chromium`, `webServer` → `pnpm exec vite --port 5173 --host 127.0.0.1 --strictPort`, `e2e/` — **42 tests** (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6) |
 | Linting | ESLint flat + typescript-eslint + react-hooks | `9.39.5` / `8.28.0` / `5.2.0` | `eslint . --max-warnings 0`, `eslint.config.js` (ignores `dist`, `skills`, `src.orig`) |
 | Fonts | Google Fonts | — | `Fraunces` (display) + `Source Sans 3` (body) via `index.html` |
 
@@ -105,7 +105,7 @@ flowchart TB
 ├── 📂 src/
 │   ├── 📄 App.tsx           # HashRouter + 17 Route entries (16 content paths + * → NotFound; 5 alias groups / 7 alias paths; hash anchors #mass/#confession/#visit + 6 ministry ids)
 │   ├── 📄 main.tsx          # StrictMode + createRoot
-│   ├── 📄 index.css         # @theme shrine-* tokens (24 colors + 2 shadows) + @layer base/utilities (24 utilities: text-balance, bg-adobe-texture, bg-grain, divider-weave, divider-weave-thin, gold-rule, gold-rule-left, hero-ken-burns, mask-fade-b, reveal, reveal-visible, rise-in + rise-in-d1..d4, menu-in, drawer-in, drawer-item-in, page-in, dot-pulse, card-lift, link-underline, skip-link + 8 keyframes)
+│   ├── 📄 index.css         # @theme shrine-* tokens (24 colors + 2 shadows) + @layer base/utilities (26 utilities: text-balance, bg-adobe-texture, bg-gold-bloom, bg-grain, divider-weave, divider-weave-thin, gold-rule, gold-rule-left, hero-ken-burns, img-zoom, mask-fade-b, reveal, reveal-visible, rise-in + rise-in-d1..d4, menu-in, drawer-in, drawer-item-in, page-in, dot-pulse, card-lift, link-underline, skip-link + 8 keyframes)
 │   ├── 📂 components/
 │   │   ├── 📄 Layout.tsx    # Outlet + scroll/hash restoration (double-hash aware, split on #, strip /, setTimeout 80ms, fallback window.scrollTo) + ScrollProgress + SkipLink + keyed page-in container
 │   │   ├── 📄 Header.tsx    # fixed maroon-950 bar, useScrolled(16), hover/focus-open dropdown (primaryNav; trigger has no click-toggle — keyboard via onFocusCapture), mobile modal drawer (round-4: dialog + aria-modal + focus trap + focus restore; closes on in-drawer link, Escape, outside tap), includes top bar Give link
@@ -115,7 +115,7 @@ flowchart TB
 │   │   ├── 📄 SafeImage.tsx # local fallback (fallback default /images/hero-church.jpg, lazy, onError dataset.fallback guard, optional fetchPriority)
 │   │   ├── 📄 SkipLink.tsx  # skip-to-main-content (preventDefault + focus #main-content; never rewrites hash)
 │   │   ├── 📄 SocialIcons.tsx # hand-drawn brand glyphs (4 icons)
-│   │   ├── 📄 Timeline.tsx  # left rail (border-l) + Reveal — renders lifeTimeline (1957–2026)
+│   │   ├── 📄 Timeline.tsx  # gradient rail + display-serif years + Reveal — renders lifeTimeline (1957–2026)
 │   │   ├── 📄 BackToTop.tsx # threshold 480 + SVG progress ring (stroke-dashoffset via useScrollProgress) + reduced-motion
 │   │   ├── 📄 ScrollProgress.tsx # fixed gold rail (scaleX progress, aria-hidden, z-[60])
 │   │   └── 📂 ui/           # Button (to/href/button + icon; variants primary|secondary|ghost|outline-light), Container, SectionHeading, Accordion (single-open, inert), Reveal
@@ -128,11 +128,12 @@ flowchart TB
 │   │   ├── 📄 content.ts    # 8 interfaces + images 11 (all local) + priests 4 OFM + ppcMembers 6 + lifeTimeline 8 (1957–2026) + grounds 3 (main-church/chapel/rosary-garden) + ministries 6 + faqs 6 + upcomingEvents 6 (Parish/Devotion/Formation/Archdiocese) + givingOptions 8 + serveRoles 4 + devotions 6
 │   │   └── 📄 site.ts       # canonical single source: name/shortName/chineseName ("天神之后圣母堂")/tagline/vision, address 5 Bukit Batok East Ave 2 659918, hours (gates/mainChurch/chapel/reception/parishOffice/columbarium/adorationRoom), mass (weekdayMorning/weekdayEvening/saturday/sunday×6/confession/adoration/secondCollection + note), contact (parishPriest/office/emergency/columbarium + email), transport (Bukit Batok NS2 + Beauty World DT5 + buses Ave 2/3/4/6), feast 2 Aug, UEN T08CC4053H/4053HRSM, chequePayee, socials, mapsUrl/mapsEmbedSrc (Google Maps iframe)
 │   ├── 📂 utils/
-│   │   └── 📄 cn.ts         # twMerge(clsx) — always merge via cn()
+│   │   ├── 📄 cn.ts         # twMerge(clsx) — always merge via cn()
+│   │   └── 📄 massDay.ts    # massDayKey(date) — single source for the Worship today-highlight
 │   ├── 📂 test/
 │   │   └── 📄 setup.ts      # vitest jsdom setup (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub)
-│   └── 📂 **/*.test.{ts,tsx} # 17 files / 109 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), ui/Button (9), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (3), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
-├── 📂 e2e/                  # 36 tests (Playwright chromium)
+│   └── 📂 **/*.test.{ts,tsx} # 24 files / 134 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
+├── 📂 e2e/                  # 42 tests (Playwright chromium)
 │   ├── 📄 smoke.spec.ts     # 11 smoke (hero + rise-in entrance + Worship/Ministries aliases + hash anchors + NotFound + mobile drawer + drawer same-route close regression + event chips + back-to-top)
 │   ├── 📄 navigation.spec.ts# 8 desktop Worship/Ministries dropdown + keyboard + SkipLink + footer 10 links + Give + aria-current nav states
 │   ├── 📄 ministries.spec.ts# 4 sections (6 ids) + imageAlt + fallback + jump nav (aria-current pills) + Home grounds → Worship anchors
@@ -152,7 +153,7 @@ flowchart TB
 └── 📄 AGENTS.md             # Compact agent cheat sheet
 ```
 
-Current audits — port + 2026-08-28 review + 2026-08-30 `src` vs `src.orig` validation + **2026-08-30 round-3 tiered review & security audit** (`docs/code-review-audit-round3-2026-08-30.md` — CSP/headers hardening, BackToTop focus release, SSH-key/lockfile/src.orig untracking, docs alignment) + **2026-08-30 round-4 L-5 closure** (`docs/remediation-round4-2026-08-30.md` — mobile drawer as modal dialog with focus trap/focus restore/outside-tap close; scroll-rail E2E race root-caused deterministic): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 17 unit files / 109 tests + 36 E2E green; singlefile `dist/index.html 381.41 kB` + `dist/_headers` + `dist/images/8` (pinned exact, pnpm 11).
+Current audits — port + 2026-08-28 review + 2026-08-30 `src` vs `src.orig` validation + **2026-08-30 round-3 tiered review & security audit** (`docs/code-review-audit-round3-2026-08-30.md` — CSP/headers hardening, BackToTop focus release, SSH-key/lockfile/src.orig untracking, docs alignment) + **2026-08-30 round-4 L-5 closure** (`docs/remediation-round4-2026-08-30.md` — mobile drawer as modal dialog with focus trap/focus restore/outside-tap close; scroll-rail E2E race root-caused deterministic) + **2026-08-30 round-5 "Light of the Portiuncula" design enhancement** (`docs/design-enhancement-round5-2026-08-30.md` — Worship "today" Mass highlight via `massDayKey`, event category chips, Give closing band, sticky History story column, timeline gradient rail, `.img-zoom` image drift, Button icon nudge, About monogram discs, NotFound emblem warmth): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 24 unit files / 134 tests + 42 E2E green; singlefile `dist/index.html 387.84 kB` + `dist/_headers` + `dist/images/8` (pinned exact, pnpm 11).
 
 ## Quick Start
 
@@ -186,7 +187,7 @@ pnpm preview
 ```bash
 pnpm lint               # eslint flat — expect no output (clean)
 pnpm typecheck         # tsc --noEmit — expect no output (clean)
-pnpm test               # vitest jsdom — expect 17 files / 109 passed (cn 5 + nav 7 + content 10 + site 7 + Button 9 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 3 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
+pnpm test               # vitest jsdom — expect 24 files / 134 passed (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
 pnpm test:e2e           # Playwright chromium — expect 36 passed (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9)
 pnpm build              # expect: "✓ built in ~3s" + "Inlining: index-*.js / style-*.css"
 ls -lh dist/index.html  # expect: single HTML file, no separate assets chunk
@@ -198,7 +199,7 @@ ls -lh dist/images/     # expect: 8 images (hero-church + chapel-interior + sanc
 | `pnpm dev` | Vite ready on `:5173`, HMR active |
 | `pnpm lint` | Exit `0`, no warnings (`--max-warnings 0`) |
 | `pnpm typecheck` | Exit `0`, no errors |
-| `pnpm test` | `17 test files — 109 passed` (cn + nav + content + site + Button + SkipLink + Accordion + SafeImage + Header + BackToTop + Ministries + cta-bands + Layout + useScrollProgress + ScrollProgress + head + security-headers) |
+| `pnpm test` | `24 test files — 134 passed` (cn + nav + content + site + Button + SkipLink + Accordion + SafeImage + Header + BackToTop + Ministries + cta-bands + Layout + useScrollProgress + ScrollProgress + head + security-headers) |
 | `pnpm test:e2e` | `36 passed` (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9, chromium) |
 | `pnpm build` | `dist/index.html` exists + `dist/images/` (8 files) |
 | `pnpm preview` | Prod preview on `:4173`, alias routes (`/mass-times`, `/ministry`, `/donate`, `/volunteer`…) + hash anchors (`#/worship#mass`, `#/ministries#liturgical`) navigate |
@@ -259,7 +260,7 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 - **Commits:** Conventional Commits — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `style:` — atomic, subject ≤72 chars.
 - **Branches:** `feat/<slug>`, `fix/<slug>`, `docs/<slug>` — short-lived (1–3 days), squash-merge.
 - **Conventions:** `PascalCase.tsx` for components/pages, `camelCase.ts` for data/utils, `primaryNav` single-source, alias routes preserved, `cn()` for merges, `shrine-*` tokens only.
-- **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (17 unit files / 109 tests + 36 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
+- **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (24 unit files / 134 tests + 42 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
 
 > `skills/` is committed-but-pruned vendored reference content — round 3 (2026-08-30) removed the agent-skills index (`skills/skills-catalog.md`) and all per-skill `SKILL.md` files from tracking (full historical tree retrievable at `c774ed9`); lint/build tooling ignores what remains. `src.orig/` is the **archived St Joseph BT port** (Rother → St Joseph → St Mary lineage), retained locally and untracked since round 3 (`.gitignore` active); its ignore entries are active guards. `package-lock.json` and `docs/ssh-key.txt` are also untracked (stale-lockfile drift + secret hygiene — see round-3 audit). See `AGENTS.md` for the compact cheat sheet.
 

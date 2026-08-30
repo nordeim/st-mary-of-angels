@@ -22,3 +22,5 @@ test-results/
 coverage/
 docs/ssh-key.txt
 package-lock.json
+docs/audit-shots-round5/
+scripts/
