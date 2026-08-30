@@ -20,3 +20,5 @@ dist/
 playwright-report/
 test-results/
 coverage/
+docs/ssh-key.txt
+package-lock.json
