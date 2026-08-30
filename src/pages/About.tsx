@@ -21,6 +21,21 @@ const pillars = [
   },
 ];
 
+/** Round-5 (docs/design-enhancement-round5-2026-08-30.md P-5): initials
+ * monogram — first letters of the person's given name + surname, skipping
+ * honorifics and order suffixes ("Friar Esmond Chua, OFM" → "EC"). */
+const MONOGRAM_TITLES = new Set(["friar", "fr", "rev", "father", "ofm"]);
+
+function monogram(name: string): string {
+  const words = name
+    .split(/\s+/)
+    .map((word) => word.replace(/[^A-Za-z]/g, ""))
+    .filter((word) => word.length > 0 && !MONOGRAM_TITLES.has(word.toLowerCase()));
+  const first = words[0]?.[0] ?? "";
+  const last = words[words.length - 1]?.[0] ?? "";
+  return `${first}${last}`.toUpperCase();
+}
+
 export function About() {
   return (
     <>
@@ -42,11 +57,11 @@ export function About() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {pillars.map((pillar, index) => (
               <Reveal key={pillar.title} delay={index * 80}>
-                <article className="card-lift rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-shrine-gold-600">
+                <article className="card-lift h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
+                  <p className="font-display text-5xl leading-none text-shrine-gold-300">
                     0{index + 1}
                   </p>
-                  <h3 className="mt-3 font-display text-2xl">{pillar.title}</h3>
+                  <h3 className="mt-4 font-display text-2xl">{pillar.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-shrine-charcoal/85">{pillar.body}</p>
                 </article>
               </Reveal>
@@ -70,9 +85,15 @@ export function About() {
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {priests.map((priest, index) => (
-              <Reveal key={priest.name} delay={index * 70}>
-                <article className="rounded-sm border border-shrine-stone bg-shrine-cream p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-shrine-maroon-500">
+              <Reveal key={priest.name} delay={index * 70} className="h-full">
+                <article className="card-lift h-full rounded-sm border border-shrine-stone bg-shrine-cream p-6">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-shrine-gold-400/50 bg-shrine-maroon-50 font-display text-sm font-semibold text-shrine-maroon-700"
+                  >
+                    {monogram(priest.name)}
+                  </span>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-shrine-maroon-500">
                     {priest.role}
                   </p>
                   <h3 className="mt-2 font-display text-xl leading-snug">{priest.name}</h3>
@@ -101,7 +122,10 @@ export function About() {
           />
           <ul className="mt-10 divide-y divide-shrine-stone/70 border-y border-shrine-stone/70">
             {ppcMembers.map((member) => (
-              <li key={`${member.role}-${member.name}`} className="flex flex-col gap-1 py-4 sm:flex-row sm:justify-between">
+              <li
+                key={`${member.role}-${member.name}`}
+                className="flex flex-col gap-1 rounded-sm px-3 py-4 transition-colors hover:bg-shrine-maroon-50/60 sm:flex-row sm:justify-between"
+              >
                 <span className="text-sm uppercase tracking-[0.15em] text-shrine-maroon-500">
                   {member.role}
                 </span>
