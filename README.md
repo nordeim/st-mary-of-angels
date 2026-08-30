@@ -20,7 +20,7 @@ Every row below is implemented — no placeholders. Pages are named exports from
 | 🏔️ | **Home — According to Thy Word.** | Hero with `hero-ken-burns` + `site.feast`/`site.address` facts (Sunday 7.15 a.m.–7 p.m., Bukit Batok MRT, Portiuncula 2 Aug, Friars OFM), welcome (`site.tagline` + `site.vision`), 3-place grounds preview (`grounds` → Main Church / Adoration Chapel / Garden of Peace & Piazza), and 4 featured events from `upcomingEvents`. |
 | ⛪ | **About — the household** | Parish vision Pray·Form·Go (3 pillars: Prayer / Formation / Mission), friars (`priests` — 4 OFM: Esmond Chua, Julian Mariaratnam, Justin Lim, Robin Toha with emails), and household (`ppcMembers` — 6: 4 friars ex-officio + vision · Custody). |
 | 📜 | **History — 1957–2026** | 8-entry `lifeTimeline` via `Timeline` — sociological institute (1957) → hilltop chapel Olçomendy (1958) → Portiuncula parish (1970) → west grows (1985–2003) → WOHA consecration (2004, SIA award) → Design of the Year (2006) → Jubilee monstrance (2025) → Pray·Form·Go (2026, Friar Esmond). |
-| 🙏 | **Worship — Mass, mercy & Find Us** | Anchor-linked sections with `scroll-mt-28` + `Layout` hash restore: `#mass` (Mass schedule from `site.mass`: Main Church weekdays 7/12.15/18.30, Sat 16.00/18.00 + 19.45 Tamil, 6 Sunday Masses incl. Mandarin 7.15 + note), `#confession` (weekend Reconciliation 30 min before English Masses 6 slots, Adoration daily 7–21.30, + 6 `devotions`: St Anthony Tue 18.30 / Adoration daily / Reconciliation wknd / Lauds / Deaf Community Sun 16.00 / Portiuncula 2 Aug), `#visit` (address, Reception, MRT Beauty World/Bukit Batok + buses Ave 2/3/4/6, `mapsEmbedSrc` iframe). Aliases: `/mass-times`, `/hours-location`, `/visit` → `/worship`. |
+| 🙏 | **Worship — Mass, mercy & Find Us** | Anchor-linked sections with `scroll-mt-28` + `Layout` hash restore: `#mass` (Mass schedule from `site.mass`: Main Church weekdays 7/12.15/18.30, Sat 16.00/18.00 + 19.45 Tamil, 6 Sunday Masses incl. Mandarin 7.15 + note), `#confession` (weekend Reconciliation 30 min before English Masses 7 slots, Adoration daily 7–21.30, + 6 `devotions`: St Anthony Tue 18.30 / Adoration daily / Reconciliation wknd / Lauds / Deaf Community Sun 16.00 / Portiuncula 2 Aug), `#visit` (address, Reception, MRT Beauty World/Bukit Batok + buses Ave 2/3/4/6, `mapsEmbedSrc` iframe). Aliases: `/mass-times`, `/hours-location`, `/visit` → `/worship`. |
 | 🧭 | **Ministries — 6 with jump nav** | Pill-bordered jump nav (`/ministries#<id>`) + alternating `shrine-cream`/`shrine-parchment` sections from `ministries` (6 ids): Liturgical (servers/choirs/hospitality), Faith Formation (CGS), Pastoral Care (Poor & Needy UEN HRSM/emergency), Family Life (baptism/marriage), Youth (WYD 2027), Language Communities (Mandarin 7.15, Tamil 19.45, Sinhala, Malayalam, Indonesian). Canonical `/ministries`, alias `/ministry`. |
 | 📰 | **News & Events** | 6 `upcomingEvents` (`NewsEvents` page, compact `PageHero`): First Holy Communion 29 Aug 2026, CGS info, WYD 2027 briefing, Beatitudes retreat, St Francis art exhibition, Franciscan Jubilee Year — categories `Parish`/`Devotion`/`Formation`/`Archdiocese`. Canonical `/news-events`, alias `/news-and-events`. |
 | 🤝 | **Serve — take a place** | 4 `serveRoles` (Liturgical ministers / Catechists & facilitators / Pastoral care / Hospitality & grounds) with `connect.stmary@catholic.org.sg`. No section ids. Canonical `/serve`, alias `/volunteer`. |
@@ -40,7 +40,7 @@ Every row below is implemented — no placeholders. Pages are named exports from
 | Icons | lucide-react | `1.34.0` | Header/footer + page iconography |
 | Utils | clsx + tailwind-merge | `2.1.1` / `3.6.0` | `cn()` class merging — always merge via `cn()` |
 | Bundling | vite-plugin-singlefile | `2.3.3` | Inlines JS+CSS into `dist/index.html` (`public/images/` copied to `dist/images/`) |
-| Testing | Vitest + Testing Library + jsdom | `3.2.6` / `16.2.0` / `26.1.0` | `vitest run` — **16 files / 92 tests** (`src/utils/cn` 5 + `data/nav` 7 + `data/content` 10 + `data/site` 7 + `ui/Button` 9 + `SkipLink` 3 + `ui/Accordion` 6 + `SafeImage` 6 + `Header` 11 + `BackToTop` 6 + `pages/Ministries` 3 + `pages/cta-bands` 3 + `Layout` 2 + `hooks/useScrollProgress` 4 + `ScrollProgress` 2 + `head` 8) via `src/test/setup.ts` |
+| Testing | Vitest + Testing Library + jsdom | `3.2.6` / `16.2.0` / `26.1.0` | `vitest run` — **17 files / 104 tests** (`cn` 5 + `nav` 7 + `content` 10 + `site` 7 + `Button` 9 + `SkipLink` 3 + `Accordion` 6 + `SafeImage` 6 + `Header` 11 + `BackToTop` 7 + `Ministries` 3 + `cta-bands` 3 + `Layout` 2 + `useScrollProgress` 4 + `ScrollProgress` 2 + `head` 13 + `security-headers` 6) via `src/test/setup.ts` |
 | E2E | Playwright | `1.55.1` | `chromium`, `webServer` → `pnpm exec vite --port 5173 --host 127.0.0.1 --strictPort`, `e2e/` — **35 tests** (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8) |
 | Linting | ESLint flat + typescript-eslint + react-hooks | `9.39.5` / `8.28.0` / `5.2.0` | `eslint . --max-warnings 0`, `eslint.config.js` (ignores `dist`, `skills`, `src.orig`) |
 | Fonts | Google Fonts | — | `Fraunces` (display) + `Source Sans 3` (body) via `index.html` |
@@ -101,14 +101,14 @@ flowchart TB
 ├── 📄 package.json          # scripts: dev / build / preview / typecheck / lint / test / test:e2e / test:watch + pnpm@11.0.0 + engines node>=20 (all deps pinned exact)
 ├── 📄 pnpm-lock.yaml        # committed — deterministic installs via `pnpm install --frozen-lockfile` (CI)
 ├── 📂 public/
-│   └── 📂 images/           # 8 files: hero-church.jpg, chapel-interior.jpg, sanctuary.jpg, rosary-garden.jpg, stained-glass.jpg, parish-hall.jpg, cemetery.jpg, feast.jpg (Vite publicDir → dist/images/ — upload alongside dist/index.html); all local — CDN keys hero/naveCdn/courtyardCdn point to local fallbacks
+│   └── 📂 images/           # 8 files: hero-church.jpg, chapel-interior.jpg, sanctuary.jpg, rosary-garden.jpg, stained-glass.jpg, parish-hall.jpg, cemetery.jpg, feast.jpg (Vite publicDir → dist/images/ — upload alongside dist/index.html); all local — CDN keys hero/naveCdn/courtyardCdn point to local fallbacks. Sibling `public/_headers` ships Cloudflare Pages security headers (round-3 M-2)
 ├── 📂 src/
 │   ├── 📄 App.tsx           # HashRouter + 17 Route entries (16 content paths + * → NotFound; 5 alias groups / 7 alias paths; hash anchors #mass/#confession/#visit + 6 ministry ids)
 │   ├── 📄 main.tsx          # StrictMode + createRoot
 │   ├── 📄 index.css         # @theme shrine-* tokens (24 colors + 2 shadows) + @layer base/utilities (24 utilities: text-balance, bg-adobe-texture, bg-grain, divider-weave, divider-weave-thin, gold-rule, gold-rule-left, hero-ken-burns, mask-fade-b, reveal, reveal-visible, rise-in + rise-in-d1..d4, menu-in, drawer-in, drawer-item-in, page-in, dot-pulse, card-lift, link-underline, skip-link + 8 keyframes)
 │   ├── 📂 components/
 │   │   ├── 📄 Layout.tsx    # Outlet + scroll/hash restoration (double-hash aware, split on #, strip /, setTimeout 80ms, fallback window.scrollTo) + ScrollProgress + SkipLink + keyed page-in container
-│   │   ├── 📄 Header.tsx    # fixed maroon-950 bar, useScrolled(16), hover+click dropdown (primaryNav), mobile drawer (closes on any in-drawer link + Escape), includes top bar Give link
+│   │   ├── 📄 Header.tsx    # fixed maroon-950 bar, useScrolled(16), hover/focus-open dropdown (primaryNav; trigger has no click-toggle — keyboard via onFocusCapture), mobile drawer (closes on any in-drawer link + Escape), includes top bar Give link
 │   │   ├── 📄 Footer.tsx    # 4-col + divider-weave-thin + 4 socials (Facebook/Instagram/YouTube/Telegram) + site.ts address
 │   │   ├── 📄 PageHero.tsx  # maroon hero primitive (bg-grain + gradients + rise-in)
 │   │   ├── 📄 Emblem.tsx    # inline SVG emblem (crook + wheat)
@@ -131,7 +131,7 @@ flowchart TB
 │   │   └── 📄 cn.ts         # twMerge(clsx) — always merge via cn()
 │   ├── 📂 test/
 │   │   └── 📄 setup.ts      # vitest jsdom setup (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub)
-│   └── 📂 **/*.test.{ts,tsx} # 16 files / 92 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), ui/Button (9), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (11), BackToTop (6), pages/Ministries (3), pages/cta-bands (3), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (8)
+│   └── 📂 **/*.test.{ts,tsx} # 17 files / 104 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), ui/Button (9), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (11), BackToTop (7), pages/Ministries (3), pages/cta-bands (3), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
 ├── 📂 e2e/                  # 35 tests (Playwright chromium)
 │   ├── 📄 smoke.spec.ts     # 11 smoke (hero + rise-in entrance + Worship/Ministries aliases + hash anchors + NotFound + mobile drawer + drawer same-route close regression + event chips + back-to-top)
 │   ├── 📄 navigation.spec.ts# 8 desktop Worship/Ministries dropdown + keyboard + SkipLink + footer 10 links + Give + aria-current nav states
@@ -141,15 +141,17 @@ flowchart TB
 ├── 📄 .github/workflows/ci.yml # CI: lint → typecheck → test → test:e2e (chromium) → build (Node 24, pnpm 11)
 ├── 📂 docs/
 │   ├── 📄 prompts.md        # Intent lineage
-│   ├── 📄 validation-src-vs-src.orig-2026-08-30.md # Validation: `src` adopted 10/10 contracts from `src.orig` and improved 7 (no regression, 16/92 +35 E2E green)
+│   ├── 📄 validation-src-vs-src.orig-2026-08-30.md # Validation: `src` adopted 10/10 contracts from `src.orig` and improved 7 (no regression, 16/92 +35 E2E green — historical)
 │   ├── 📄 ui-ux-remediation-plan-2026-08-28.md # UI/UX audit + Sacred Motion enhancements
-│   └── 📄 code-review-audit-2026-08-28.md  # Tiered review + security audit
-├── 📄 src.orig note         # Archived previous port — St Joseph BT (Rother → St Joseph → St Mary lineage); retained locally, ignored via .gitignore (not committed); not linted/built; ignore entries are active guards
+│   ├── 📄 code-review-audit-2026-08-28.md  # Round-2 tiered review + security audit
+│   ├── 📄 code-review-audit-round3-2026-08-30.md # Round-3 tiered review + security audit (C1/H3/M4/L6/I4 + verification ledger)
+│   └── 📄 remediation-plan-round3-2026-08-30.md # Round-3 TDD remediation plan (cycles + non-goals + success criteria)
+├── 📄 src.orig note         # Archived previous port — St Joseph BT (Rother → St Joseph → St Mary lineage); retained locally, untracked since round-3 (2026-08-30: git rm -r --cached + .gitignore, NOT committed); not linted/built; ignore entries are active guards
 ├── 📄 CLAUDE.md             # Deep conventions (authoritative — update alongside README)
 └── 📄 AGENTS.md             # Compact agent cheat sheet
 ```
 
-Current audits — port + 2026-08-28 review + **2026-08-30 `src` vs `src.orig` validation** (10/10 contracts adopted, 7 improved — tokens frozen, Header solidity `||mobileOpen`, motion kill expanded, `SafeImage` typing, `ScrollProgress` decoupled, `.skip-link` extraction, image locality; no regression): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 16 unit files / 92 tests + 35 E2E green; singlefile `dist/index.html 380.19 kB` + `dist/images/8` (pinned exact, pnpm 11). See `docs/validation-src-vs-src.orig-2026-08-30.md`.
+Current audits — port + 2026-08-28 review + 2026-08-30 `src` vs `src.orig` validation + **2026-08-30 round-3 tiered review & security audit** (`docs/code-review-audit-round3-2026-08-30.md` — CSP/headers hardening, BackToTop focus release, SSH-key/lockfile/src.orig untracking, docs alignment): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 17 unit files / 104 tests + 35 E2E green; singlefile `dist/index.html 380.53 kB` + `dist/_headers` + `dist/images/8` (pinned exact, pnpm 11).
 
 ## Quick Start
 
@@ -183,7 +185,7 @@ pnpm preview
 ```bash
 pnpm lint               # eslint flat — expect no output (clean)
 pnpm typecheck         # tsc --noEmit — expect no output (clean)
-pnpm test               # vitest jsdom — expect 16 files / 92 passed (cn 5 + nav 7 + content 10 + site 7 + Button 9 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 11 + BackToTop 6 + Ministries 3 + cta-bands 3 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 8)
+pnpm test               # vitest jsdom — expect 17 files / 104 passed (cn 5 + nav 7 + content 10 + site 7 + Button 9 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 11 + BackToTop 7 + Ministries 3 + cta-bands 3 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
 pnpm test:e2e           # Playwright chromium — expect 35 passed (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8)
 pnpm build              # expect: "✓ built in ~3s" + "Inlining: index-*.js / style-*.css"
 ls -lh dist/index.html  # expect: single HTML file, no separate assets chunk
@@ -195,7 +197,7 @@ ls -lh dist/images/     # expect: 8 images (hero-church + chapel-interior + sanc
 | `pnpm dev` | Vite ready on `:5173`, HMR active |
 | `pnpm lint` | Exit `0`, no warnings (`--max-warnings 0`) |
 | `pnpm typecheck` | Exit `0`, no errors |
-| `pnpm test` | `16 test files — 92 passed` (cn + nav + content + site + Button + SkipLink + Accordion + SafeImage + Header + BackToTop + Ministries + cta-bands + Layout + useScrollProgress + ScrollProgress + head) |
+| `pnpm test` | `17 test files — 104 passed` (cn + nav + content + site + Button + SkipLink + Accordion + SafeImage + Header + BackToTop + Ministries + cta-bands + Layout + useScrollProgress + ScrollProgress + head + security-headers) |
 | `pnpm test:e2e` | `35 passed` (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8, chromium) |
 | `pnpm build` | `dist/index.html` exists + `dist/images/` (8 files) |
 | `pnpm preview` | Prod preview on `:4173`, alias routes (`/mass-times`, `/ministry`, `/donate`, `/volunteer`…) + hash anchors (`#/worship#mass`, `#/ministries#liturgical`) navigate |
@@ -233,9 +235,11 @@ Tokens live in `src/index.css` `@theme`. Extend there — never use arbitrary `b
 
 ## Deployment
 
-Primary artifact `dist/index.html` (+ `dist/images/` — 8 files) — no server, no env vars, no rewrites needed. The artifact ships a scoped `Content-Security-Policy` meta (inline JS/CSS from the singlefile build, Google Fonts, legacy Wikimedia+Pexels imagery allowlist retained, unused — all `images.*` now local, Google Maps iframe) — set HSTS/X-Content-Type-Options at the CDN/host layer, which a static file cannot control.
+Primary artifact `dist/index.html` (+ `dist/images/` — 8 files, + `dist/_headers`) — no server, no env vars, no rewrites needed. The artifact ships a scoped `Content-Security-Policy` meta (inline JS/CSS from the singlefile build, Google Fonts, Cloudflare Pages beacon allowance in `script-src`, `object-src 'none'`, `base-uri 'self'`, legacy Wikimedia+Pexels imagery allowlist retained, unused — all `images.*` now local, Google Maps iframe) + a `Referrer-Policy` meta. `public/_headers` adds the host-level headers a static file cannot set (HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`) on Cloudflare Pages — on other hosts, set HSTS/X-Content-Type-Options at the CDN/host layer.
 
-CSP (current `index.html`): `img-src 'self' data: blob: https://images.pexels.com https://upload.wikimedia.org` (legacy allowlist retained, unused) + `frame-src https://www.google.com` + `style-src https://fonts.googleapis.com`.
+CSP (current `index.html`): `img-src 'self' data: blob: https://images.pexels.com https://upload.wikimedia.org` (legacy allowlist retained, unused) + `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com` (beacon allowance for the Cloudflare Pages deploy) + `object-src 'none'` + `base-uri 'self'` + `frame-src https://www.google.com` + `style-src https://fonts.googleapis.com`; `<meta name="referrer" content="strict-origin-when-cross-origin">`.
+
+Preview deployment: this repo is also exercised live at `https://st-mary-of-angels.jesspete.shop/` (Cloudflare Pages — verified byte-identical to the local build in the round-3 audit); canonical `og:url`/JSON-LD intentionally remain `https://www.stmary.sg/`.
 
 ```bash
 pnpm build                # produces dist/index.html + dist/images/ (publicDir copy — singlefile inlines JS+CSS, not public/)
@@ -254,9 +258,9 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 - **Commits:** Conventional Commits — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `style:` — atomic, subject ≤72 chars.
 - **Branches:** `feat/<slug>`, `fix/<slug>`, `docs/<slug>` — short-lived (1–3 days), squash-merge.
 - **Conventions:** `PascalCase.tsx` for components/pages, `camelCase.ts` for data/utils, `primaryNav` single-source, alias routes preserved, `cn()` for merges, `shrine-*` tokens only.
-- **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (16 unit files / 92 tests + 35 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
+- **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (17 unit files / 104 tests + 35 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
 
-> `skills/` is vendored, git-tracked reference content (agent skills index: `skills/skills-catalog.md`) — not project source; lint/build tooling ignores it. `src.orig/` is **archived St Joseph BT port** (Rother → St Joseph → St Mary lineage) retained locally, ignored via `.gitignore` (not committed); its ignore entries are active guards. See `AGENTS.md` for the compact cheat sheet.
+> `skills/` is committed-but-pruned vendored reference content — round 3 (2026-08-30) removed the agent-skills index (`skills/skills-catalog.md`) and all per-skill `SKILL.md` files from tracking (full historical tree retrievable at `c774ed9`); lint/build tooling ignores what remains. `src.orig/` is the **archived St Joseph BT port** (Rother → St Joseph → St Mary lineage), retained locally and untracked since round 3 (`.gitignore` active); its ignore entries are active guards. `package-lock.json` and `docs/ssh-key.txt` are also untracked (stale-lockfile drift + secret hygiene — see round-3 audit). See `AGENTS.md` for the compact cheat sheet.
 
 ## Troubleshooting
 
@@ -268,7 +272,7 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 | Bare `href="#mass"` routes to NotFound | Use `<Link to="/worship#mass">` (or `/ministries#liturgical`) — plain `#id` replaces the `HashRouter` hash and routes to `*`. |
 | `tsc --noEmit` fails on unused var | `noUnusedLocals/Params` is `true` — remove or prefix with `_` only if intentionally unused. |
 | External image not loading | `SafeImage` falls back to `fallback` (default `/images/hero-church.jpg`) via `dataset.fallback` guard; current `images.*` are all local but legacy CSP allowlist `upload.wikimedia.org` / `images.pexels.com` is retained, unused. |
-| `pnpm test` finds 0 tests | Should list 16 files — `src/test/setup.ts` + `src/**/*.test.*` must exist. Re-add `vite.config.ts` `test` block and `tsconfig.json` `types [vitest/globals]`. |
+| `pnpm test` finds 0 tests | Should list 17 files — `src/test/setup.ts` + `src/**/*.test.*` must exist. Re-add `vite.config.ts` `test` block and `tsconfig.json` `types [vitest/globals]`. |
 | `pnpm test:e2e` fails | Check `playwright.config.ts` `baseURL` / `webServer` and stale assertions — specs target `/worship#mass`, `/ministries#liturgical`, `/history`, `5 Bukit Batok East Ave 2`. Run `pnpm test:e2e:ui` to inspect. |
 
 ## License
@@ -277,5 +281,5 @@ Private — all rights reserved. © Church of St Mary of the Angels, Archdiocese
 
 ---
 
-**Docs:** [`st-mary-of-angels_SKILL.md`](st-mary-of-angels_SKILL.md) (canonical) · [`rothershrine-v2_SKILL.md`](rothershrine-v2_SKILL.md) (redirect stub) · [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md) · **Live:** [www.stmary.sg](https://www.stmary.sg/)
+**Docs:** [`st-mary-of-angels_SKILL.md`](st-mary-of-angels_SKILL.md) (canonical) · [`rothershrine-v2_SKILL.md`](rothershrine-v2_SKILL.md) (redirect stub) · [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md) · Round-3 audit: [`docs/code-review-audit-round3-2026-08-30.md`](docs/code-review-audit-round3-2026-08-30.md) · **Live:** [www.stmary.sg](https://www.stmary.sg/) (canonical parish site) · preview: [st-mary-of-angels.jesspete.shop](https://st-mary-of-angels.jesspete.shop/)
 
