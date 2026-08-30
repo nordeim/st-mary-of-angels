@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { cn } from "@/utils/cn";
@@ -16,9 +16,20 @@ const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
   const progress = useScrollProgress();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > SCROLL_THRESHOLD);
+    const onScroll = () => {
+      const next = window.scrollY > SCROLL_THRESHOLD;
+      setVisible(next);
+      // A focused element must never sit inside an aria-hidden subtree: when
+      // the button hides while focused (e.g. right after its own click-scroll
+      // lands at the top), release focus first. Round-3 audit L-4.
+      const el = buttonRef.current;
+      if (!next && el && document.activeElement === el) {
+        el.blur();
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -33,6 +44,7 @@ export function BackToTop() {
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       data-testid="back-to-top"
       aria-label="Back to top"

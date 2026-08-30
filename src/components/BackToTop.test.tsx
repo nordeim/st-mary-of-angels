@@ -78,6 +78,17 @@ describe("BackToTop", () => {
     media.mockRestore();
   });
 
+  it("releases focus when it hides (focus must not rest inside aria-hidden)", () => {
+    render(<BackToTop />);
+    setScrollY(600);
+    const button = screen.getByTestId("back-to-top");
+    button.focus();
+    expect(document.activeElement).toBe(button);
+    setScrollY(100); // back near the top — the button hides again
+    expect(button).toHaveAttribute("aria-hidden", "true");
+    expect(document.activeElement).not.toBe(button);
+  });
+
   it("carries a scroll progress ring that fills with page depth", async () => {
     setScrollMetrics(0, 2000, 800);
     render(<BackToTop />);
