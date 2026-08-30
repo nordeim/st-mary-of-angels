@@ -42,4 +42,23 @@ describe("CTA band headings carry correct explicit color", () => {
     });
     expect(h2.className).toContain("text-shrine-maroon-700");
   });
+
+  // Round-5 (docs/design-enhancement-round5-2026-08-30.md P-4): Give closes
+  // with a dark band mirroring the Home CTA band — the new h2 must carry the
+  // explicit cream color or it inherits maroon-700 on maroon-950 (invisible).
+  it("Give closing band h2 on maroon-950 is cream (light heading)", () => {
+    renderWithRouter(<Give />);
+    const h2 = screen.getByRole("heading", {
+      level: 2,
+      name: /every gift keeps the hill a house of prayer/i,
+    });
+    expect(h2.className).toContain("text-shrine-cream");
+    // The band surfaces canonical site.ts facts, not new copy.
+    expect(screen.getByText(/Prefer to give in person\?/).textContent).toContain(
+      "Reception",
+    );
+    expect(
+      screen.getByRole("link", { name: /write to the parish/i }),
+    ).toHaveAttribute("href", `mailto:connect.stmary@catholic.org.sg`);
+  });
 });
