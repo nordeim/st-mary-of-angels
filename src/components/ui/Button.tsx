@@ -38,7 +38,7 @@ type NativeButtonProps = BaseProps &
 export type ButtonProps = LinkButtonProps | AnchorButtonProps | NativeButtonProps;
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-[transform,box-shadow,background-color,color,border-color,opacity] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-shrine active:translate-y-0 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shrine-gold-500 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:active:scale-100";
+  "group inline-flex items-center justify-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-[transform,box-shadow,background-color,color,border-color,opacity] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-shrine active:translate-y-0 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shrine-gold-500 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:active:scale-100";
 
 export function Button(props: ButtonProps) {
   const classes = cn(baseClasses, variantClasses[props.variant ?? "primary"], props.className);
@@ -48,7 +48,7 @@ export function Button(props: ButtonProps) {
     return (
       <Link to={to} className={classes}>
         {children}
-        {icon}
+        {icon ? <IconSlot>{icon}</IconSlot> : null}
       </Link>
     );
   }
@@ -64,7 +64,7 @@ export function Button(props: ButtonProps) {
         {...anchorRest}
       >
         {children}
-        {icon}
+        {icon ? <IconSlot>{icon}</IconSlot> : null}
       </a>
     );
   }
@@ -74,7 +74,20 @@ export function Button(props: ButtonProps) {
   return (
     <button type="button" className={classes} {...buttonRest}>
       {children}
-      {icon}
+      {icon ? <IconSlot>{icon}</IconSlot> : null}
     </button>
+  );
+}
+
+/** Round-5 (docs/design-enhancement-round5-2026-08-30.md P-8): decorative
+ * icons are aria-hidden at the component layer and nudge forward on hover. */
+function IconSlot({ children }: { children: ReactNode }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-flex items-center transition-transform duration-300 ease-out group-hover:translate-x-0.5"
+    >
+      {children}
+    </span>
   );
 }

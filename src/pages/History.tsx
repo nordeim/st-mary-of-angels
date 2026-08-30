@@ -16,7 +16,10 @@ export function History() {
       />
       <section className="bg-shrine-cream py-20 sm:py-28">
         <Container className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
+          {/* Round-5 (docs/design-enhancement-round5-2026-08-30.md P-2): the
+              story stays anchored (lg:sticky) while the 1957–2026 timeline
+              scrolls beside it — no dead whitespace below the prose. */}
+          <div data-testid="history-story" className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeading
               eyebrow="The story"
               title="A little portion of land"
@@ -31,6 +34,10 @@ export function History() {
               In 1970 the chapel became a parish. The west of the island filled; the church was
               rebuilt. In 2004 WOHA's folded planes of concrete and timber were consecrated — a
               house where Mary at the west of the garden still looks toward her Son.
+            </p>
+            <div className="gold-rule-left mt-8 w-28" />
+            <p className="mt-4 font-display text-lg text-shrine-gold-600">
+              1957 → 2026 — the hill is still being written.
             </p>
           </div>
           <Timeline />

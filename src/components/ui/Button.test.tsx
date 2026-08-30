@@ -52,6 +52,19 @@ describe("Button", () => {
     expect(screen.getByTestId("icon")).toBeInTheDocument();
   });
 
+  // Round-5 (docs/design-enhancement-round5-2026-08-30.md P-8): decorative
+  // icons are hidden from assistive tech at the component layer.
+  it("wraps the icon in an aria-hidden decorative span", () => {
+    render(<Button icon={<span data-testid="icon">★</span>}>WithIcon</Button>);
+    const wrapper = screen.getByTestId("icon").parentElement!;
+    expect(wrapper.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("root carries the group class so icons can nudge on hover", () => {
+    renderWithRouter(<Button to="/" icon={<span>→</span>}>Nudge</Button>);
+    expect(screen.getByRole("link", { name: "Nudge" }).className).toMatch(/group/);
+  });
+
   it("gives press feedback via active-state classes", () => {
     renderWithRouter(<Button to="/">Press</Button>);
     const link = screen.getByRole("link", { name: "Press" });
