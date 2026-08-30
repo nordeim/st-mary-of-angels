@@ -423,7 +423,8 @@ You are done when:
 - When a route alias or hash anchor is added or removed, update `App.tsx`, `src/data/nav.ts` nav children, the Routing Contract table, and the Architecture hash-anchor rows together.
 - When a new `GivingOption` icon or `EventItem` category is added, update the `GivingOption.icon` / `EventItem.category` union and this file's Data section.
 - Re-audit this file after any framework bump (React 19, Vite 7, Tailwind 4) or after restoring tests/lint/CMS — verify counts via `fd` and grep `src/App.tsx` for `Route` entries.
-- Keep `README.md` + `AGENTS.md` + this file in sync on version, routing, and data shape after every port change.
+- When a validation report is added (`docs/validation-*.md`), link it from `README.md` File Hierarchy + `AGENTS.md` Where to look next + this checklist, and bump `Current audits` in `README.md`.
+- Keep `README.md` + `AGENTS.md` + this file + `st-mary-of-angels_SKILL.md` in sync on version, routing, and data shape after every port/validation change.
 
 ---
 
@@ -445,4 +446,5 @@ You are done when:
 | 12 | System Integration (tools + skills vendored note) | — | ✅ |
 | 13 | Anti-Patterns to Avoid (12 incl. ScrollProgress decoupled + UEN 4053H + St Joseph reintroduction) | — | ✅ |
 | 14 | Continuous Improvement (re-audit after bumps/tests/CMS, 24 utilities) | — | ✅ |
+| 15 | Validation Report `docs/validation-src-vs-src.orig-2026-08-30.md` (10/10 contracts adopted, 7 improved — no regression, `lint 0 + typecheck 0 + 16/92 + 35 E2E + 380 kB` green) | — | ✅ |
 

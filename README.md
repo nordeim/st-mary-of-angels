@@ -141,6 +141,7 @@ flowchart TB
 ├── 📄 .github/workflows/ci.yml # CI: lint → typecheck → test → test:e2e (chromium) → build (Node 24, pnpm 11)
 ├── 📂 docs/
 │   ├── 📄 prompts.md        # Intent lineage
+│   ├── 📄 validation-src-vs-src.orig-2026-08-30.md # Validation: `src` adopted 10/10 contracts from `src.orig` and improved 7 (no regression, 16/92 +35 E2E green)
 │   ├── 📄 ui-ux-remediation-plan-2026-08-28.md # UI/UX audit + Sacred Motion enhancements
 │   └── 📄 code-review-audit-2026-08-28.md  # Tiered review + security audit
 ├── 📄 src.orig note         # Archived previous port — St Joseph BT (Rother → St Joseph → St Mary lineage); retained locally, ignored via .gitignore (not committed); not linted/built; ignore entries are active guards
@@ -148,7 +149,7 @@ flowchart TB
 └── 📄 AGENTS.md             # Compact agent cheat sheet
 ```
 
-Current audit (port + 2026-08-28 review): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 16 unit files / 92 tests + 35 E2E green; singlefile deploy (pinned exact, pnpm 11).
+Current audits — port + 2026-08-28 review + **2026-08-30 `src` vs `src.orig` validation** (10/10 contracts adopted, 7 improved — tokens frozen, Header solidity `||mobileOpen`, motion kill expanded, `SafeImage` typing, `ScrollProgress` decoupled, `.skip-link` extraction, image locality; no regression): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 16 unit files / 92 tests + 35 E2E green; singlefile `dist/index.html 380.19 kB` + `dist/images/8` (pinned exact, pnpm 11). See `docs/validation-src-vs-src.orig-2026-08-30.md`.
 
 ## Quick Start
 

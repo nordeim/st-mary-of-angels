@@ -100,6 +100,7 @@ src.orig/              # Archived previous port — St Joseph's Church (Bukit Ti
 
 - `CLAUDE.md` — full six-phase workflow, detailed conventions, anti-patterns, env contract, and validation checklist.
 - `st-mary-of-angels_SKILL.md` — canonical engineering distillate (full §§ 1–20 + Appendices, verified against `src/`); `rothershrine-v2_SKILL.md` is a redirect stub retained for lineage.
+- `docs/validation-src-vs-src.orig-2026-08-30.md` — **validation: `src` adopted 10/10 good contracts from `src.orig` and improved 7** (tokens frozen, motion kill expanded, Header solidity, `SafeImage` typing, `ScrollProgress` decoupling, `.skip-link` extraction, image locality — no regression, `lint 0 + typecheck 0 + 16/92 + 35 E2E + 380 kB` green).
 - `docs/prompts.md` — intent lineage.
 - `docs/ui-ux-remediation-plan-2026-08-28.md` — UI/UX audit findings + "Sacred Motion" enhancement plan (TDD mapping, validation table).
 - `src/index.css` — authoritative token list.

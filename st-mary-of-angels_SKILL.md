@@ -50,6 +50,7 @@ port_provenance: Singapore port of https://www.stmary.sg/ — Church of St Mary 
 - [Appendix B — Live-Site Validation](#appendix-b--live-site-validation)
 - [Appendix C — The Meticulous Approach (6-Phase Workflow)](#appendix-c--the-meticulous-approach-6-phase-workflow)
 - [Appendix D — Migration Note (Rother → St Joseph BT → St Mary)](#appendix-d--migration-note-rother--st-joseph-bt--st-mary)
+- [Appendix E — Validation: src vs src.orig (2026-08-30)](#appendix-e--validation-src-vs-srcorig-2026-08-30)
 - [Quick Reference Card](#quick-reference-card)
 
 ---
@@ -1326,6 +1327,30 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 - **Do not import** from it — the app must not depend on `src.orig/`.
 - **Do not lint/type-check** it — it is excluded from `eslint.config.js` `ignores` and `tsconfig.json` `include`.
 - **Do not delete** it — it is the provenance record for the Rother Shrine line and the template for rewriting `e2e/` + unit tests (6 files/29 tests reference).
+
+---
+
+## Appendix E — Validation: src vs src.orig (2026-08-30)
+
+Full report: [`docs/validation-src-vs-src.orig-2026-08-30.md`](docs/validation-src-vs-src.orig-2026-08-30.md) — `lint 0 + typecheck 0 + 16/92 + 35 E2E + 380.19 kB` green at time of audit.
+
+**Scope:** Did `src/` (5 Bukit Batok East Ave 2 / T08CC4053H / 1957–2026, 52 files) adopt every good contract from `src.orig/` (620 Upper Bukit Timah / T08CC4043C / 1845–2017, 52 files) and improve where the port demanded? Parish facts *must* differ; design *must not* regress. `src.orig/` is archived, ignored via `.gitignore` (not committed).
+
+**Verdict — 10/10 adopted, 7 improved, 0 regression:**
+
+| Dimension | Adopted? | Improved? | Evidence |
+|---|---|---|---|
+| 1. Structure & interfaces | ✅ 52 files, 10 pages, 8 interfaces, 92 tests preserved | — | `find src\|wc -l` 52/52, `grep export interface` 8/8 |
+| 2. Design system (`@theme` 24+2, 24 utilities, 8 keyframes) | ✅ Tokens byte-identical, 8 keyframes | ✅ `.skip-link` extracted, `link-underline 300ms→0.35s`, motion kill expanded 1→7 | `diff index.css`, `grep @keyframes` 8/8 |
+| 3. Components (Layout/Header/SafeImage/Button/BackToTop/SkipLink/Accordion/ScrollProgress/cn) | ✅ All contracts (HashRouter-safe, hash discipline, 44px, grid-rows+inert) | ✅ Header `solid = scrolled\|\|!isHome\|\|mobileOpen`, `ScrollProgress` decoupled to `Layout`, `SafeImage` typed `delete dataset.fallback`, `Button` types cleaned | `diff -u src.orig/components/*` + 11+6+6… tests |
+| 4. Routing & nav (17 entries, 5 alias groups/7 aliases, 9 anchors) | ✅ Routes identical, shape `NavItem` identical | ✅ CDN `naveCdn/courtyardCdn` Pexels→local, alias groups preserved | `grep -c Route` 17/17 |
+| 5. Data single-source (`content.ts`/`site.ts`/`nav.ts`) | ✅ 8 interfaces preserved | ✅ `Priest.phone→email`, `hours 5→7`, `mass sunday 4→6`, `contact 3→5`, `uen 4043C→4053H`, `images 11 local` | `diff site.ts` |
+| 6. Quality gates | ✅ `lint 0 + typecheck 0 + 16/92 + 35 + singlefile` | ✅ `dist/images/ 4→8`, `server.watch.ignored` adds `src.orig/**` | `pnpm lint && typecheck && test && build` |
+| 7. A11y/perf | ✅ SkipLink hash, focus ring, landmarks, alt, Accordion inert | ✅ Motion kill 1→7, fewer external fetches (legacy CSP retained unused) | `rg prefers-reduced-motion` |
+
+**7 improvements ledger (what `src/` does better):** image locality (all local), header solidity (`||mobileOpen`), motion kill expanded, type safety, `ScrollProgress` decoupling, `.skip-link` extraction, parish fidelity (5 Bukit Batok, 6 Masses, UEN 4053H). No token drift, no route dropped, no test lost.
+
+Recorded in `README.md` (Current audits + File Hierarchy `docs/`) and `AGENTS.md` (Where to look next) and `CLAUDE.md` (Continuous Improvement + Validation Checklist row 15). Re-run `lint && typecheck && test && test:e2e && build` before claiming regression.
 
 ---
 
