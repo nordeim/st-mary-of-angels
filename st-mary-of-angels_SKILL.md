@@ -1,24 +1,26 @@
 ---
-name: st-joseph-bt
-display_name: St Joseph's Church (Bukit Timah) — Singapore
-version: 1.3.0
-last_updated: 2026-08-29T09:30Z
-project_state: static SPA — 16 files / 92 unit tests + 35 E2E green (ported from rothershrine v1.3.0, harness + E2E rewritten for Bukit Timah; 2026-08-28 audit remediation: mobile drawer same-route close fix + fetchPriority heroes + doc contract repair; 2026-08-28 "Sacred Motion" UI/UX package: staged hero entrances, animated accordion/dropdown/drawer, card-lift system, link underline, timeline halo, BackToTop, aria-current nav states, 44px targets; 2026-08-29 remediation: SafeImage fallback reset, jsdom harness unconditional mocks, Ministries 44px pills, AAA contrast, Layout timeout cleanup, Button rel+regex hardening; 2026-08-29 "Sacred Polish" Round-2: dark CTA-band h2 cream (WCAG 1.26:1 rendered → 17.5:1 AAA), head completeness (favicon.svg/theme-color/OG+image/twitter card/Church JSON-LD), keyed page-in route transitions, gold scroll-progress rail + BackToTop progress ring (shared useScrollProgress), mobile drawer aria-current + stagger + gold active states, themed scrollbar; 2026-08-29 R-02: canonical origin in site.ts + og:url/og:image drift guard), lint+typecheck+test+test:e2e+build green, singlefile deploy (pinned exact, pnpm 11)
-verified: pnpm lint 0 + pnpm typecheck 0 + pnpm test 16/92 + pnpm test:e2e 35 + pnpm build 390.33kB gzip 114.01kB → dist/index.html + dist/images/8
+name: st-mary-of-angels
+display_name: Church of St Mary of the Angels — Bukit Batok
+version: 1.1.0
+last_updated: 2026-08-30
+project_state: "static SPA — 16/92 +35 E2E green — port of www.stmary.sg, second hop Rother→St Joseph (src.orig) → St Mary (src)"
+verified: pnpm lint 0 + pnpm typecheck 0 + pnpm test 16/92 + pnpm test:e2e 35 + pnpm build → dist/index.html + dist/images/8
 stack: react 19.2.8 / vite 7.3.6 / tailwind 4.3.3 (@tailwindcss/vite 4.1.17) / typescript 5.9.3 / react-router 7.18.2 / singlefile 2.3.3 / eslint 9.39.5 flat / vitest 3.2.6 jsdom / testing-library 16.2.0 / playwright 1.55.1 chromium (35 E2E green)
 rendering: static SPA (HashRouter, no SSR)
 data_layer: file-backed typed arrays in src/data/* + const site object
 deploy: vite-plugin-singlefile → dist/index.html + dist/images/ → GH Pages / S3 (publicDir copy — not inlined)
-port_provenance: Singapore port of https://stjoseph-bt.org.sg/ — St Joseph's Church (Bukit Timah), 620 Upper Bukit Timah Road, Singapore 678116 — second-oldest Catholic parish; the Rother Shrine original is NOT present in this repository (never committed) — lineage in docs/porting.md
+port_provenance: Singapore port of https://www.stmary.sg/ — Church of St Mary of the Angels, 5 Bukit Batok East Ave 2, Singapore 659918 — Franciscan parish since 1970 (Portiuncula, OFM Custody of St Anthony); lineage Rother Shrine → St Joseph BT (src.orig) → St Mary of the Angels (src) — see Appendix D
 ---
 
-# `st-joseph-bt` — Engineering Skill
+# `st-mary-of-angels` — Engineering Skill
 
-> **How to use this document:** This is the single-source-of-truth for any future agent extending, debugging, onboarding, or replicating the St Joseph's Church (Bukit Timah) port. Read §§ 1–4 for identity and constraints, §5 for where to put code, §§ 9–11 before shipping, and §§ 15–20 as copy-pasteable contracts. Every version, hex, and path is verified against `package.json` / `src/index.css` / `tsconfig.json` / `src/data/*` — if it drifts, fix this file first.
+> **How to use this document:** This is the single-source-of-truth for any future agent extending, debugging, onboarding, or replicating the Church of St Mary of the Angels port. Read §§ 1–4 for identity and constraints, §5 for where to put code, §§ 9–11 before shipping, and §§ 15–20 as copy-pasteable contracts. Every version, hex, and path is verified against `package.json` / `src/index.css` / `tsconfig.json` / `src/data/*` — if it drifts, fix this file first.
 
-**Sources of truth:** `README.md` (visitor overview) → `AGENTS.md` (60-sec cheat sheet) → `CLAUDE.md` (deep workflow, 6-phase) → this file (complete distillate). If they conflict, trust executable config. Note: a `src.orig/` Rother snapshot is **not** part of this repository — its ignore entries in eslint/vite config are inert defensive guards.
+**Sources of truth:** `README.md` (visitor overview) → `AGENTS.md` (60-sec cheat sheet) → `CLAUDE.md` (deep workflow, 6-phase) → this file (complete distillate). If they conflict, trust executable config. Note: `src.orig/` is the archived St Joseph BT port (Rother → St Joseph → St Mary); its ignore entries in eslint/vite config are active guards — not inert.
 
-**Migration note:** This file is the Bukit Timah distillate of `rothershrine-v2_SKILL.md` v1.3.0 (2026-08-27). The sectional skeleton (§§ 1–20 + Appendices + Quick Ref) is preserved verbatim; all Rother Shrine narrative has been replaced with facts verified against `src/App.tsx` / `src/data/content.ts` / `src/data/nav.ts` / `src/data/site.ts` / `public/images/`. See Appendix D for the full port diff.
+**File name note:** Canonical skill for **St Mary of the Angels** as of 2026-08-30 (`st-mary-of-angels_SKILL.md`). Legacy lineage file `rothershrine-v2_SKILL.md` is retained as a redirect stub — do not edit it independently; all future updates go here.
+
+**Migration note:** This file is the St Mary of the Angels distillate of `rothershrine-v2_SKILL.md` v1.3.0 and the St Joseph BT intermediate (src.orig). The sectional skeleton (§§ 1–20 + Appendices + Quick Ref) is preserved verbatim; all parish narrative is verified against `src/App.tsx` / `src/data/content.ts` / `src/data/nav.ts` / `src/data/site.ts` / `public/images/`. Second hop: Rother Shrine → St Joseph BT (archived as `src.orig/`) → St Mary of the Angels (src). See Appendix D for the full second-hop diff.
 
 ---
 
@@ -47,35 +49,36 @@ port_provenance: Singapore port of https://stjoseph-bt.org.sg/ — St Joseph's C
 - [Appendix A — ADRs](#appendix-a--adrs-architecture-decision-records)
 - [Appendix B — Live-Site Validation](#appendix-b--live-site-validation)
 - [Appendix C — The Meticulous Approach (6-Phase Workflow)](#appendix-c--the-meticulous-approach-6-phase-workflow)
-- [Appendix D — Migration Note (Rother → Bukit Timah)](#appendix-d--migration-note-rother--bukit-timah)
+- [Appendix D — Migration Note (Rother → St Joseph BT → St Mary)](#appendix-d--migration-note-rother--st-joseph-bt--st-mary)
 - [Quick Reference Card](#quick-reference-card)
 
 ---
 
 ## 1. Project Identity & Design Philosophy
 
-**One sentence:** A reverent, editorial parish site for St Joseph's Church (Bukit Timah) — Singapore's second-oldest Catholic parish (est. 1846), the church on the hill at 620 Upper Bukit Timah Road, home to the last remaining Catholic church cemetery in Singapore and to a living Mandarin, English, and dialect community under the patronage of St Joseph the Worker (feast 1 May).
+**One sentence:** A reverent, editorial parish site for Church of St Mary of the Angels — Bukit Batok — a Franciscan parish since 1970 at 5 Bukit Batok East Ave 2, named for the Portiuncula in Assisi (St Francis' favourite chapel), gathering some 8,500–10,000 faithful under the OFM Custody of St Anthony toward a Prayerful & Missionary Parish, according to Thy Word — Mandarin at dawn, English through the day, Tamil at Saturday dusk (feast 2 August).
 
-**The parish in one breath:** Kranji River attap chapel (1846, Fr Anatole Mauduit M.E.P. walking inland to pepper and gambier plantations) → 1853 Palladian church on six Doric columns at Upper Bukit Timah → 1861 statue of St Joseph and the birth of feast-day pilgrimage → rubber and return in the 1910s → Fr Joachim Teng's 1964 rebuild (cattle and milk on the grounds, the feast-day food fair, blessed 30 Aug 1964 by Archbishop Michel Olçomendy) → 1991 life-sized Stations of the Cross around the boundary, columbarium blessed 1995, parish hall 1997 → consecration by Archbishop Nicholas Chia 1 May 2012, Rosary Garden blessed by Archbishop William Goh 25 Mar 2017 where Mauduit's headstone still rests among the trees.
+**The parish in one breath:** 1957 the Order of Friars Minor arrives to found a sociological institute on a Bukit Batok hill then ringed by orchards and kampongs → 1958 hilltop chapel dedicated by Archbishop Michel Olçomendy, neighbours walking up to join the brothers → 1970 parish agreement — the chapel becomes St Mary of the Angels, Portiuncula of Assisi, where St Francis chose to die → 1985–2003 Bukit Batok new town fills the orchards, church and friary rebuilt in stages → 2004 WOHA Architects' folded-concrete-and-timber house of light consecrated (SIA Religious Building award, some 8,500 seats) → 2006 Design of the Year at the first President's Design Award → 2025 Jubilee monstrance commissioned for the Adoration Chapel → 2026 Pray · Form · Go under Friar Esmond Chua, OFM, gathering the household around Assisi's little portion of land.
 
 **Parish constants (canonical in `src/data/site.ts`):**
 
 | Fact | Value | Source |
 |---|---|---|
-| Name | St Joseph's Church (Bukit Timah) — `shortName` St Joseph's Bukit Timah — `chineseName` 圣若瑟堂 | `site.name / shortName / chineseName` |
-| Address | 620 Upper Bukit Timah Road, Singapore 678116 | `site.address.full` (with `query` getter for maps) |
-| Tagline / Vision | "A vibrant, evangelizing and missionary Church, under the patronage of St Joseph." / "To nourish faith in a loving, outreaching community." | `site.tagline / site.vision` |
-| Patronal feast | Feast of St Joseph the Worker — **1 May** | `site.feast` |
-| Gates | Daily 8.00 a.m.–9.00 p.m. | `site.hours.gates` |
-| Transport | Cashew MRT (Downtown Line); buses 67, 75, 170, 176, 178, 184, 961, 963, 970 | `site.transport` |
-| Contacts | Parish Priest +65 6760 0052, Assistant +65 6760 4636, Office +65 6769 1666 | `site.contact` |
-| Giving identity | UEN **T08CC4043C**, cheque payable **St. Joseph's Church (Bukit Timah)** | `site.uen / site.chequePayee` |
+| Name | Church of St Mary of the Angels — `shortName` St Mary's Bukit Batok — `chineseName` 天神之后圣母堂 | `site.name / shortName / chineseName` |
+| Address | 5 Bukit Batok East Ave 2, Singapore 659918 | `site.address.full` (with `query` getter for maps) |
+| Tagline / Vision | "Towards a Prayerful & Missionary Parish." / "According to Thy Word." | `site.tagline / site.vision` |
+| Patronal feast | Our Lady of the Angels · Portiuncula — **2 August** | `site.feast` |
+| Gates | Daily 7.00 a.m.–9.30 p.m. | `site.hours.gates` |
+| Hours | 7 keys: `gates` 7–21.30, `mainChurch`, `chapel` 7–21.30, `reception` Mon–Sat 9–18 lunch 13–14 Sun 9–13 closed PH, `parishOffice` Mon–Fri 9–18, `columbarium` 7.30–21.30, `adorationRoom` 7–21.30 | `site.hours` |
+| Transport | Bukit Batok NS2 · Beauty World DT5; buses Ave 6 / Ave 2 / Ave 3 / Ave 4 (see `site.transport` per avenue) | `site.transport` |
+| Contacts | Office +65 6567 3866, Emergency +65 9682 7875, Columbarium +65 6560 6361 / +65 9774 7053, emails `parish.stmary@catholic.org.sg` · `connect.stmary@catholic.org.sg` | `site.contact` |
+| Giving identity | UEN **T08CC4053H** + Poor & Needy **T08CC4053HRSM**, cheque payable **Church of St Mary of the Angels** | `site.uen / site.uenPoorNeedy / site.chequePayee` |
 
-**Design thesis — "Reverent, not austere":** Warm parchment/maroon/gold on cream, generous whitespace, Fraunces display + Source Sans 3 body. Every page is a welcome from the hill — Mandarin at dawn, English through the day — not a brochure. No purple gradients, no `Inter` defaults, no generic card-grid templates.
+**Design thesis — "Reverent, not austere":** Warm parchment/maroon/gold on cream, generous whitespace, Fraunces display + Source Sans 3 body. Every page is a welcome from the WOHA house of light on Bukit Batok East — Garden of Peace and piazza, folded concrete and timber, the Portiuncula remembered — not a brochure. No purple gradients, no `Inter` defaults, no generic card-grid templates.
 
 **Non-negotiable rules:**
 
-1. **Parish fidelity over pixel theft** — rephrase narrative, preserve Singapore facts exactly (dates, M.E.P. spelling, hill/cemetery/Rosary Garden details, Mass times, UEN). Never reintroduce Oklahoma/Guatemala/Tz'utujil/Tepeyac narratives — no Rother snapshot exists in this repo.
+1. **Parish fidelity over pixel theft** — rephrase narrative, preserve Singapore facts exactly (1957–2026 Franciscan/WOHA/Garden Peace details, 5 Bukit Batok East Ave 2, Mass times 7/12.15/18.30 etc., UENs T08CC4053H/HRSM). Never reintroduce Rother Shrine or St Joseph BT hill-parish narratives outside Appendix D — this is St Mary of the Angels.
 2. **Single-file deployability** — must remain a standalone `index.html` (+ `dist/images/`) shippable to GH Pages/S3 without a server. No SSR, no API until explicitly requested.
 3. **Static-first data** — parish copy lives in `src/data/content.ts` + `src/data/nav.ts` + canonical facts in `src/data/site.ts`; no CMS/API to invent.
 4. **Accessibility is doctrinal** — keyboard-navigable header, 4.5:1 contrast on `shrine-ink/cream`, meaningful `alt`, `prefers-reduced-motion` respect, SkipLink hash discipline under HashRouter.
@@ -98,16 +101,16 @@ port_provenance: Singapore port of https://stjoseph-bt.org.sg/ — St Joseph's C
 | Bundling | `vite-plugin-singlefile` | `2.3.3` | Inlines JS+CSS into `dist/index.html`; `public/images/` → `dist/images/` (not inlined) |
 | Fonts | Google Fonts (CDN, `index.html`) | — | `Fraunces` 400/500/600/700 + `Source Sans 3` 400/500/600/700; no runtime loader |
 
-> All versions pinned exact (no `^`) in `package.json` (`pnpm@11.0.0`, `engines: node>=20`). Re-pin on upgrade; `pnpm --frozen-lockfile` in CI verifies lockfile. `package.json` version is **1.1.0** for the Bukit Timah port (rothershrine line was 1.3.0 — see Appendix D).
+> All versions pinned exact (no `^`) in `package.json` (`pnpm@11.0.0`, `engines: node>=20`). Re-pin on upgrade; `pnpm --frozen-lockfile` in CI verifies lockfile. `package.json` version is **1.1.0** for the St Mary of the Angels port (rothershrine line was 1.3.0 — see Appendix D).
 
-**Environment:** No `.env`, no DB, no auth, no docker. `pnpm` is the supported manager (`--frozen-lockfile` in CI). `npm ci` fails on these exact pins (typescript-eslint 8.28.0 peer range predates TS 5.9) — use `npm ci --legacy-peer-deps` if npm is unavoidable. `skills/` is vendored, git-tracked reference content (not project source) — tooling ignores it. `src.orig/` is **not in the repo** — its ignore entries are inert guards.
+**Environment:** No `.env`, no DB, no auth, no docker. `pnpm` is the supported manager (`--frozen-lockfile` in CI). `npm ci` fails on these exact pins (typescript-eslint 8.28.0 peer range predates TS 5.9) — use `npm ci --legacy-peer-deps` if npm is unavoidable. `skills/` is vendored, git-tracked reference content (not project source) — tooling ignores it. `src.orig/` is **archived St Joseph BT** (Rother→St Joseph→St Mary lineage) — its ignore entries are active guards; `src.orig/` is retained locally, ignored via `.gitignore` (not committed), not built/linted.
 
 **Test harness — current reality (2026-08-28, post-audit remediation):**
 
 | Suite | Status | Detail |
 |---|---|---|
-| `vitest` unit (`pnpm test`) | **16 files / 92 tests — green** | `src/utils/cn` 5 + `data/nav` 7 + `data/content` 10 + `data/site` 7 + `ui/Button` 9 + `SkipLink` 3 + `ui/Accordion` 6 + `SafeImage` 6 + `Header` 11 + `BackToTop` 6 + `pages/Ministries` 3 + `pages/cta-bands` 3 + `Layout` 2 + `hooks/useScrollProgress` 4 + `ScrollProgress` 2 + `head` 8 via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo stubs + matchMedia stub). `vite.config.ts test { globals, jsdom, setupFiles, include, exclude }` keeps `e2e/**` out. |
-| `playwright` E2E (`pnpm test:e2e`) | **35 tests — green** | 5 specs `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8` (chromium) — Bukit Timah routes `/worship`/`/ministries`/`/serve`/`/give` + `#mass`/`#liturgical` etc. + `SafeImage` fallback via `route.abort` + mobile drawer same-route close regression + rise-in hero entrance + event chips + back-to-top + aria-current nav states + Round-2 audit (CTA-band cream, head completeness, page-in, progress rail/ring, drawer aria-current). |
+| `vitest` unit (`pnpm test`) | **16 files / 92 tests — green** | `src/utils/cn` 5 + `data/nav` 7 + `data/content` 10 + `data/site` 7 + `ui/Button` 9 + `SkipLink` 3 + `ui/Accordion` 6 + `SafeImage` 6 + `Header` 11 + `BackToTop` 6 + `pages/Ministries` 3 + `pages/cta-bands` 3 + `Layout` 2 + `hooks/useScrollProgress` 4 + `ScrollProgress` 2 + `head` 8 via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub). Data values: priests 4 OFM (with email), ppc 6, lifeTimeline 1957–2026, grounds 3, ministries 6, faqs 6, events 6, giving 8, serveRoles 4, devotions 6, images 11 all-local. `vite.config.ts test { globals, jsdom, setupFiles, include, exclude }` keeps `e2e/**` out. |
+| `playwright` E2E (`pnpm test:e2e`) | **35 tests — green** | 5 specs `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8` (chromium) — Bukit Batok (St Mary) routes `/worship`/`/ministries`/`/serve`/`/give` + `#mass`/`#liturgical` etc. + `SafeImage` fallback via `route.abort` + mobile drawer same-route close regression + rise-in hero entrance + event chips + back-to-top + aria-current nav states + Round-2 audit (CTA-band cream, head completeness, page-in, progress rail/ring, drawer aria-current). |
 | `lint` / `typecheck` / `build` | Green on fresh clones | `eslint 9.39.5` flat `--max-warnings 0`, `tsc --noEmit` strict, `viteSingleFile` → `dist/index.html` (~390 kB, JS+CSS inlined) + `dist/images/` 8 files |
 
 ---
@@ -117,7 +120,7 @@ port_provenance: Singapore port of https://stjoseph-bt.org.sg/ — St Joseph's C
 ### 3.1 From Zero to Running
 
 ```bash
-git clone <repo-url> st-joseph-bt && cd st-joseph-bt
+git clone <repo-url> st-mary-of-angels && cd st-mary-of-angels
 pnpm install --frozen-lockfile  # deterministic — versions pinned exact (pnpm 11.0.0)
 # npm users: `npm ci --legacy-peer-deps` (typescript-eslint 8.28.0 peer predates TS 5.9)
 pnpm dev                # → http://localhost:5173 (Vite HMR)
@@ -146,8 +149,8 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 | `e2e/` | 35 tests — `smoke.spec.ts` (11), `navigation.spec.ts` (8), `ministries.spec.ts` (4), `give-faq.spec.ts` (4), `enhancements.spec.ts` (8) + `helpers.ts` | **green** — Worship/Ministries anchors + aliases + `SafeImage` fallback + drawer same-route close regression + rise-in entrance + event chips + back-to-top + aria-current nav + Round-2 audit (CTA-band cream h2, head completeness, page-in keyed wrapper, scroll-progress rail/ring, drawer aria-current) |
 | `.github/workflows/ci.yml` | CI: lint → typecheck → test → test:e2e (chromium) → build + artifacts | `pnpm 11`, `node 24`. All five green — `dist/` + `playwright-report/` artifacts. |
 | `src/index.css` | `@import "tailwindcss"` + `@theme` (24 colors + 2 shadows) + `@layer base/utilities` (24 utilities incl. `hero-ken-burns`, `gold-rule`/`gold-rule-left`, `reveal`/`reveal-visible`, `rise-in`+`rise-in-d1..d4`, `menu-in`, `drawer-in`, `drawer-item-in`, `page-in`, `dot-pulse`, `card-lift`, `link-underline`, `skip-link`, `mask-fade-b` + 8 keyframes `gold-rule-draw`/`hero-ken-burns`/`rise-in`/`menu-in`/`drawer-in`/`drawer-item-in`/`page-in`/`halo-pulse` + themed scrollbar in `@layer base`) | Only token source; no `tailwind.config.*` exists. |
-| `index.html` | `lang en`, `viewport`, `meta description`, scoped `Content-Security-Policy` meta + `referrer` meta, `/favicon.svg` link + `theme-color #200a0a`, full OG (`og:url`/`og:site_name`/`og:locale`/`og:image`+`og:image:alt`) + `twitter:card summary_large_image` + Church JSON-LD (drift-checked by `src/head.test.ts`), preconnect `fonts.googleapis.com`, `Fraunces`+`Source Sans 3`, `#root` + `src/main.tsx` | CSP allows inline script/style (singlefile), Google Fonts, `img-src` `upload.wikimedia.org` + `images.pexels.com` + `self`/`data:`/`blob:`, `frame-src https://www.google.com` (maps embed). Social share + search-engine identity for St Joseph's Church (Bukit Timah). |
-| `.gitignore` | Ignores `node_modules/`, `.next/`, `dist/`, `skills/` + `nohup.out`, `.venv`, `bak.git/` | `skills/` ignore is ineffective for tracked files — `skills/` **is** committed (vendored). `src.orig/` is ignored AND not committed (not part of this repository). |
+| `index.html` | `lang en`, `viewport`, `meta description`, scoped `Content-Security-Policy` meta + `referrer` meta, `/favicon.svg` link + `theme-color #200a0a`, full OG (`og:url`/`og:site_name`/`og:locale`/`og:image`+`og:image:alt`) + `twitter:card summary_large_image` + Church JSON-LD (drift-checked by `src/head.test.ts`), preconnect `fonts.googleapis.com`, `Fraunces`+`Source Sans 3`, `#root` + `src/main.tsx` | CSP allows inline script/style (singlefile), Google Fonts, legacy `img-src` `upload.wikimedia.org` + `images.pexels.com` + `self`/`data:`/`blob:` (images are now all-local; CDN keys point to local fallbacks), `frame-src https://www.google.com` (maps embed). Social share + search-engine identity for Church of St Mary of the Angels (www.stmary.sg, Portiuncula 2 Aug). |
+| `.gitignore` | Ignores `node_modules/`, `.next/`, `dist/`, `skills/`, `src.orig/` + `nohup.out`, `.venv`, `bak.git/` | `skills/` ignore is ineffective for tracked files — `skills/` **is** committed (vendored). `src.orig/` is retained locally, ignored via `.gitignore` (not committed, not tracked) — its `eslint` + `vite.config.ts` ignore entries are active guards. |
 
 **Env vars:** None. `VITE_*` prefix convention applies if added; guard with `src/env.d.ts` (`import.meta.env`). Document new vars in `README.md` + `CLAUDE.md` + this §.
 
@@ -155,7 +158,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 
 ## 4. The Design System (Code-First)
 
-**Single source:** `src/index.css` `@theme` block. No `tailwind.config.*`. Tokens are **unchanged from the rothershrine line** — only the imagery and copy they frame is now Bukit Timah.
+**Single source:** `src/index.css` `@theme` block. No `tailwind.config.*`. Tokens are **unchanged from the rothershrine → St Joseph BT line** — only the imagery and copy they frame is now Bukit Batok: the WOHA house of light (2004 folded planes, 8,500 seats, Design of the Year 2006), Garden of Peace & Piazza (St Francis/St Clare/Mother Mary), and Portiuncula devotion — still warm parchment/maroon/gold on cream.
 
 ### 4.1 Tokens (`@theme`)
 
@@ -256,23 +259,25 @@ index.html (#root) → src/main.tsx (StrictMode+createRoot + #root guard)
 
 No global store, no API layer, no `server/` — add only with an ADR.
 
-### 5.2 Directory Inventory (45 files in `src/` — 33 source + 11 tests + 1 setup)
+### 5.2 Directory Inventory (52 files in `src/` — 35 source + 16 tests + 1 setup)
 
 ```
-src/ (45 files — 33 source + 11 tests + 1 setup)
+src/ (52 files — 35 source + 16 tests + 1 setup)
   App.tsx                 # HashRouter + 17 Route entries (16 content paths + * NotFound; 5 alias groups, 7 alias paths)
   main.tsx                # StrictMode + createRoot + explicit #root guard
-  index.css               # @theme (24 colors + 2 shadows) + @layer base/utilities (22 + 6 keyframes)
+  index.css               # @theme (24 colors + 2 shadows) + @layer base/utilities (24 utilities + 8 keyframes + themed scrollbar)
   components/
-    Layout.tsx            # Outlet + hash-aware scroll restoration (double-hash aware, 80ms) + SkipLink
-    Header.tsx            # z-50 fixed maroon-950 bar (translucent + blur when scrolled; transparent at top of Home), useScrolled(16) (default 12), hover+click dropdown, mobile drawer
-    Footer.tsx            # 4-col + divider-weave-thin + SocialIcons + site.ts address/flows
+    Layout.tsx            # Outlet + hash-aware scroll restoration (double-hash aware, 80ms, timeout cleanup) + ScrollProgress (decoupled rail z-[60]) + SkipLink + BackToTop + keyed page-in container
+    Header.tsx            # z-50 fixed maroon-950 bar (solid = scrolled||!isHome||mobileOpen; translucent+blur when solid, transparent at top of Home), useScrolled(16) (default 12), hover+click dropdown, mobile drawer (Escape handler, parentActive, 44px hamburger, menu-in/drawer-in)
+    Footer.tsx            # 4-col + divider-weave-thin + 4 SocialIcons (Facebook/Instagram/YouTube/Telegram) + site.ts address/flows
     PageHero.tsx          # maroon-950 hero (compact?, bg-grain, dual gradients, divider-weave-thin; image alt="" only)
-    SafeImage.tsx         # Wikimedia/Pexels→local fallback (fallback=/images/hero-church.jpg, lazy, onError→dataset.fallback guard) — use for any external image
+    SafeImage.tsx         # local fallback (fallback=/images/hero-church.jpg, lazy, fetchPriority?, onError→dataset.fallback guard) — all current images local; CDN keys naveCdn/courtyardCdn now local fallbacks; legacy CSP allowlist retained
     Emblem.tsx            # inline SVG emblem (crook + wheat, currentColor)
     SkipLink.tsx          # skip-to-#main-content link; preventDefault + imperative focus — never rewrites the hash (HashRouter)
-    SocialIcons.tsx       # hand-drawn Facebook/Instagram glyphs
-    Timeline.tsx          # left rail (border-l) + Reveal per entry — now fed 1845–2017 parish milestones
+    SocialIcons.tsx       # hand-drawn Facebook/Instagram/YouTube/Telegram glyphs (4)
+    BackToTop.tsx         # threshold 480 + SVG progress ring (stroke-dashoffset via useScrollProgress) + reduced-motion, hash-safe
+    ScrollProgress.tsx    # fixed gold rail (h-[3px], scaleX progress, aria-hidden, z-[60]) — decoupled from Header, rendered by Layout
+    Timeline.tsx          # left rail (border-l) + Reveal per entry + dot-pulse halos — fed 1957–2026 Franciscan/WOHA milestones
     ui/
       Button.tsx          # discriminated union (to/href/button) + icon, 4 variants
       Container.tsx       # max-w-7xl mx-auto px-5 sm:px-8
@@ -281,6 +286,7 @@ src/ (45 files — 33 source + 11 tests + 1 setup)
       Reveal.tsx          # IntersectionObserver fade+slide (threshold 0.15, fallback visible, prefers-reduced-motion)
   hooks/
     useScrolled.ts        # scrollY > threshold boolean (threshold=12 default; Header passes 16)
+    useScrollProgress.ts  # 0..1 scroll progress, rAF-throttled, unscrollable guard
   pages/                  # Home, About, History, Worship, Ministries, NewsEvents, Serve, Give, FAQ, NotFound (10 pages, all named exports)
   data/
     nav.ts                # primaryNav (6 + description on children) / footerNav (10)
@@ -293,7 +299,7 @@ src/ (45 files — 33 source + 11 tests + 1 setup)
   **/*.test.{ts,tsx}      # 16 files / 92 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), ui/Button (9), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (11), BackToTop (6), pages/Ministries (3), pages/cta-bands (3), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (8)
 ```
 
-**Counts:** `find src -type f | wc -l` → 52 (35 source + 16 tests + 1 setup); `public/images/` → 8 files (`hero-church.jpg`, `chapel-interior.jpg`, `sanctuary.jpg`, `rosary-garden.jpg`, `stained-glass.jpg`, `parish-hall.jpg`, `cemetery.jpg`, `feast.jpg`) → `dist/images/` on build (not inlined) + `public/favicon.svg`. src/test/setup.ts + 16 `*.test.*` under src/.
+**Counts:** `find src -type f | wc -l` → 52 (35 source + 16 tests + 1 setup); `public/images/` → 8 files (`hero-church.jpg`, `chapel-interior.jpg`, `sanctuary.jpg`, `rosary-garden.jpg`, `stained-glass.jpg`, `parish-hall.jpg`, `cemetery.jpg`, `feast.jpg`) → `dist/images/` on build (not inlined) + `public/favicon.svg`. Tests cover ScrollProgress/useScrollProgress/BackToTop/cta-bands/head etc.
 
 ### 5.3 Client vs Server
 
@@ -379,25 +385,29 @@ export default function App() {
 | `Container` | `src/components/ui/Container.tsx` | `children, className?` | All sections wrap in `<Container>` |
 | `SectionHeading` | `src/components/ui/SectionHeading.tsx` | `eyebrow?, title, description?, align?, light?` | Eyebrow renders `gold-rule-left` line + gold/maroon; light = gold/cream on dark |
 | `PageHero` | `src/components/PageHero.tsx` | `eyebrow, title, description?, image, children?, compact?` | `compact` shrinks padding; `bg-grain` + dual gradients; `alt=""` |
-| `SafeImage` | `src/components/SafeImage.tsx` | `src, fallback?, alt, className?, loading?` (`fallback` default `/images/hero-church.jpg`, `loading` default `lazy`) | Wraps `<img>` with `onError→dataset.fallback` guard to swap `src` once; always via `cn()`. Use for any Wikimedia/Pexels CDN or external image; don't use bare `<img>` for CDN sources. CDN allowlist: `upload.wikimedia.org`, `images.pexels.com`. |
-| `Header` | `src/components/Header.tsx` | `useScrolled(16)` (default 12) + `mobileOpen`, `openDesktopMenu` | Fixed maroon-950 bar (`maroon-950/92` + blur when scrolled; transparent at top of Home); `aria-haspopup`/`aria-expanded` on dropdown trigger; close on `location.pathname` change; threshold 16 delays transparent→solid switch on Home (intentional vs default 12) |
+| `SafeImage` | `src/components/SafeImage.tsx` | `src, fallback?, alt, className?, loading?, fetchPriority?` (`fallback` default `/images/hero-church.jpg`, `loading` default `lazy`, `fetchPriority` optional `"high"` on heroes) | Wraps `<img>` with `onError→dataset.fallback` guard to swap `src` once; always via `cn()`. All current `images.*` are local (naveCdn/courtyardCdn point to local); legacy allowlist `upload.wikimedia.org`/`images.pexels.com` retained for any future external image; don't use bare `<img>` for CDN sources. |
+| `Header` | `src/components/Header.tsx` | `useScrolled(16)` (default 12) + `mobileOpen`, `openDesktopMenu` + Escape handler | Fixed maroon-950 bar (`maroon-950/92` + blur when solid; `solid = scrolled||!isHome||mobileOpen`); `aria-haspopup`/`aria-expanded` on dropdown trigger + `aria-current` states (plain "page", parent "true"), close on `pathname`+`hash` change + onClickCapture in drawer/dropdown; hamburger 44px (h-11 w-11); threshold 16 delays transparent→solid on Home (intentional) |
 | `Reveal` | `src/components/ui/Reveal.tsx` | `children, delay?, as?: "div"│"li", className?` | `IntersectionObserver` 0.15 threshold; falls back visible if unsupported; respects `prefers-reduced-motion` |
 | `Accordion` | `src/components/ui/Accordion.tsx` | `items: {question,answer}[]` | Single-open, `grid-rows` animation, `Plus rotate-45` — used by `FAQ.tsx` for `faqs[6]` |
-| `Emblem` / `SkipLink` / `Timeline` | `src/components/*` | see files | `Emblem` is inline SVG; `SkipLink` targets `#main-content` via preventDefault + imperative focus (never rewrites the hash); `Timeline` is a left rail (border-l) with Reveal per entry — now shows 1845–2017 hill milestones |
+| `BackToTop` | `src/components/BackToTop.tsx` | threshold 480 + SVG ring + reduced-motion | Appears when scrollY>480, hides below (aria-hidden+tabIndex -1), progress ring via `useScrollProgress` (`data-testid="back-to-top"` + `data-progress`); hash-safe (window.scrollTo only) |
+| `ScrollProgress` | `src/components/ScrollProgress.tsx` | `useScrollProgress` 0..1 | Fixed `h-[3px]` rail (`data-testid="scroll-progress"`, `aria-hidden`, `scaleX(progress)`) at z-[60], rendered by Layout — decoupled from Header |
+| `Emblem` / `SkipLink` / `Timeline` | `src/components/*` | see files | `Emblem` is inline SVG; `SkipLink` targets `#main-content` via preventDefault + imperative focus (never rewrites the hash); `Timeline` is a left rail (border-l) with Reveal per entry + dot-pulse halos — now shows 1957–2026 Franciscan milestones |
 | `cn` | `src/utils/cn.ts` | `cn(...ClassValue[])` | Only merge path — `twMerge(clsx(...))` |
 
 ---
 
 ## 6. Custom Hooks Deep Dive
 
-**Status: One hook — `useScrolled`.**
+**Status: Two hooks — `useScrolled` + `useScrollProgress` (decoupled, shared by Header/ScrollProgress/BackToTop).**
 
 Extracted from `Header.tsx` into `src/hooks/useScrolled.ts` so `Header` stays declarative. Before the elevation there were zero hooks; this is the first `src/hooks/` file.
 
 **Contract:**
 
 ```ts
-// src/hooks/useScrolled.ts
+// src/hooks/useScrolled.ts (and useScrollProgress.ts)
+// useScrollProgress: rAF-throttled 0..1 (Layout/BackToTop share it)
+
 import { useEffect, useState } from "react";
 export function useScrolled(threshold = 12) {
   const [scrolled, setScrolled] = useState(false);
@@ -412,6 +422,7 @@ export function useScrolled(threshold = 12) {
 ```
 
 - `Header.tsx` calls `useScrolled(16)` — the 16 vs default-12 mismatch is intentional (delays transparent→solid on Home). Don't "fix" it.
+- `useScrollProgress` returns 0..1 scroll progress, rAF-throttled, with an unscrollable guard (returns 0 when document height ≤ viewport). Used by `ScrollProgress` (gold rail) and `BackToTop` (ring). Never touches the hash.
 - SSR-safe by construction (`window` only inside `useEffect`).
 
 **When you add one:**
@@ -430,49 +441,51 @@ export function useScrolled(threshold = 12) {
 
 | File | Exports | Count / Shape | Consumer |
 |---|---|---|---|
-| `src/data/content.ts` | `lifeTimeline: TimelineEntry[]` | **8** — `1845–2017` Singapore mission (see §7.2) | `History.tsx`, `About.tsx`, `Timeline.tsx` |
-|  | `grounds: GroundsPlace[]` | **3** — `main-church`, `chapel`, `rosary-garden` (+ `image`/`imageFallback`/`imageAlt`) — replaces orig `whatToSee[3]` | `Home.tsx` (grounds preview) |
-|  | `ministries: Ministry[]` | **6** — `liturgical`, `faith-formation`, `pastoral-care`, `family-life`, `youth`, `mandarin` (each + `image`/`imageFallback`/`imageAlt`) | `Ministries.tsx` (jump nav + 6 alternating sections) |
-|  | `faqs: FaqItem[]` | **6** — Mass, confession, MRT/buses + gates, feast 1 May, baptism/marriage/Mass intention, cemetery/columbarium | `FAQ.tsx` (`Accordion`) |
-|  | `upcomingEvents: EventItem[]` | **6** — `title`+`date`+`summary`+`category` + optional `href` (categories `Parish`\|`Devotion`\|`Formation`\|`Archdiocese`) | `NewsEvents.tsx`, `Home.tsx` |
-|  | `givingOptions: GivingOption[]` | **8** — PayNow UEN T08CC4043C, weekend collections/4th-Sunday Maintenance, cash boxes, cheque, SSVP–Friends in Need, GIFT, Boys' Town (late Aug, Brother Emmanuel), Mass offerings (icons `globe`/`church`/`landmark`/`book`/`hand-heart`/`flame`/`sprout`/`heart`) | `Give.tsx` |
-|  | `priests: Priest[]` | **3** — Jovita Cyprian Ho (Parish Priest, +65 6760 0052), Leo Justin Chinnappan HGN (Assistant, +65 6760 4636), Dominic Yeo-Koh (Religious ex-officio) | `About.tsx` |
-|  | `ppcMembers: PpcMember[]` | **16** — 3 ex-officio clergy + 13 appointed/elected PPC (Chairman Gabriel Lok, Advisor Dominic Soh, etc.) | `About.tsx` |
-|  | `serveRoles` (untyped const) | **4** — Liturgical ministers, Catechists & facilitators, Pastoral care, Hospitality & grounds | `Serve.tsx` |
-|  | `devotions` (untyped const) | **6** — Mass in Honour of St Joseph (1st Wed 7.30/8.00 Main Church), First Friday Mass & Holy Hour, Holy Hour for Vocations (3rd Thu Chapel + SFXMS seminarians), Children's Mass (2nd Sats term 5.30), Divine Mercy (Fridays 8.00 except 1st Fri, Chapel), Adoration (Tuesdays 8.00 Adoration Room) | `Serve.tsx`, `Worship.tsx` |
-|  | `images` (`as const`) | **11 keys** — `hero` (Wikimedia 2025 front view), `heroFallback` `/images/hero-church.jpg`, `chapel`/`sanctuary`/`garden`/`glass`/`hall`/`cemetery`/`feast` (local), `naveCdn`/`courtyardCdn` (Pexels). CDN count **3** on 2 hosts (`upload.wikimedia.org` + `images.pexels.com`) | `Home.tsx`, `PageHero`, `SafeImage` fallbacks |
+| `src/data/content.ts` | `lifeTimeline: TimelineEntry[]` | **8** — `1957–2026` Franciscan Bukit Batok (Portiuncula → WOHA 2004 → Design of Year 2006 → Jubilee 2025 → Pray·Form·Go 2026) (see §7.2) | `History.tsx`, `About.tsx`, `Timeline.tsx` |
+|  | `grounds: GroundsPlace[]` | **3** — `main-church`, `chapel`, `rosary-garden` (+ `image`/`imageFallback`/`imageAlt` — all local; `image` and fallbacks point to `/images/*`) | `Home.tsx` (grounds preview) |
+|  | `ministries: Ministry[]` | **6** — `liturgical`, `faith-formation`, `pastoral-care`, `family-life`, `youth`, `mandarin` (→ Language Communities: Mandarin 7.15, Tamil 19.45, Sinhala, Malayalam, Indonesian) (each + `image`/`imageFallback`/`imageAlt` — all local) | `Ministries.tsx` (jump nav + 6 alternating sections) |
+|  | `faqs: FaqItem[]` | **6** — Mass (all Masses in Main Church L1), confession wknd 6 slots, how to get there/parking (B1/B2 + Ave 2/3/4/6), feast 2 Aug Portiuncula, baptism/marriage/Mass intention (Reception +65 6567 3866), columbarium/funeral (6560 6361 / 9774 7053 + emergency 9682 7875) | `FAQ.tsx` (`Accordion`) |
+|  | `upcomingEvents: EventItem[]` | **6** — `title`+`date`+`summary`+`category` + optional `href` (categories `Parish`\|`Devotion`\|`Formation`\|`Archdiocese`) — e.g. First Holy Communion 29 Aug 2026, WYD 2027 briefing, Walking with St Francis, Jubilee 2026 | `NewsEvents.tsx`, `Home.tsx` |
+|  | `givingOptions: GivingOption[]` | **8** — PayNow UEN T08CC4053H, Poor & Needy HRSM, Tap & Give (NETS/card), Church Maintenance Fund, cheque payable Church of St Mary of the Angels, cash at Reception, General Church Offering, Mass offerings (icons `globe`/`church`/`landmark`/`book`/`hand-heart`/`flame`/`sprout`/`heart`) | `Give.tsx` |
+|  | `priests: Priest[]` | **4** — Friar Esmond Chua OFM, Friar Julian Mariaratnam OFM, Friar Justin Lim OFM, Friar Robin Toha OFM — each with `email?: string` (`@catholic.org.sg`) | `About.tsx` |
+|  | `ppcMembers: PpcMember[]` | **6** — 4 OFM friars ex-officio + vision Prayer·Formation·Mission + Custody of St Anthony (OFM) | `About.tsx` |
+|  | `serveRoles` (untyped const) | **4** — Liturgical ministers, Catechists & facilitators, Pastoral care, Hospitality & grounds (each `title`+`summary`) | `Serve.tsx` |
+|  | `devotions` (untyped const) | **6** — St Anthony Tue 18.30 (inc. into Mass), Adoration daily 7–21.30 (Adoration Chapel L1), Reconciliation wknd 30 min before, Lauds with 7.00 Mass, Deaf Community Sun 16.00, Portiuncula 2 Aug | `Serve.tsx`, `Worship.tsx` |
+|  | `images` (`as const`) | **11 keys — all local** — `hero`/`heroFallback` `/images/hero-church.jpg`, `chapel`/`sanctuary`/`garden`/`glass`/`hall`/`cemetery`/`feast` (all `/images/*`), `naveCdn`→`/images/sanctuary.jpg`, `courtyardCdn`→`/images/rosary-garden.jpg` (local aliases; legacy CDN allowlist retained but unused) | `Home.tsx`, `PageHero`, `SafeImage` fallbacks |
 | `src/data/nav.ts` | `primaryNav: NavItem[]` | **6** — Home, About(3 children), Worship(3 children with hash), Ministries(3 children with hash), News & Events, Serve. Children carry `description`. | `Header.tsx` |
 |  | `footerNav: NavLink[]` | **10** — The Parish, Mass Times, History, FAQ, Liturgical, Faith Formation, Pastoral Care, News & Events, Serve, Give | `Footer.tsx` |
-| `src/data/site.ts` | `site: { as const }` | **1 canonical object** — `name`/`shortName`/`chineseName`/`tagline`/`vision` + `address` (street/city/zip + `full`/`query` getters) + `hours` (5: `gates`/`mainChurch`/`chapel`/`bookshop`/`adorationRoom`) + `mass` (7: `weekdayMorning`/`weekdayEvening`/`saturday`/`sunday[4]`/`confession`/`adoration`/`secondCollection`) + `contact` (3 phones) + `transport` (mrt + buses) + `feast` (St Joseph the Worker, 1 May) + `uen`/`chequePayee`/`facebook`/`archdiocese`/`mapsUrl`/`mapsEmbedSrc` | `Footer.tsx`, `Worship.tsx`, `About.tsx` — single source; don't duplicate |
+| `src/data/site.ts` | `site: { as const }` | **1 canonical object** — `name`/`shortName`/`chineseName` 天神之后圣母堂/`tagline`/`vision` + `address` 5 Bukit Batok East Ave 2 / 659918 (`full`/`query` getters) + `hours` (7: `gates` 7–21.30/`mainChurch`/`chapel` 7–21.30/`reception` Mon–Sat 9–18 Sun 9–13 closed PH/`parishOffice` Mon–Fri 9–18/`columbarium` 7.30–21.30/`adorationRoom` 7–21.30) + `mass` (7: `weekdayMorning` 7+12.15/`weekdayEvening` 18.30/`saturday` 16/18+19.45 Tamil/`sunday[6]` 7.15 Man+9/11/13/17/19 Eng/`confession` wknd 6 slots 30 min before/`adoration` daily 7–21.30/`secondCollection` CMOF + `note`) + `contact` (office 6567 3866/emergency 9682 7875/columbarium 6560 6361/9774 7053/email parish.stmary/connect.stmary) + `transport` (mrt Bukit Batok NS2/Beauty World DT5 + buses Ave 2/3/4/6) + `feast` Our Lady of the Angels · Portiuncula 2 Aug + `uen` T08CC4053H/`uenPoorNeedy` HRSM/`chequePayee`/`facebook`/`instagram`/`youtube`/`telegram`/`whatsapp`/`archdiocese`/`franciscans`/`mapsUrl`/`mapsEmbedSrc` + `origin`/`url`/`ogImage` | `Footer.tsx`, `Worship.tsx`, `About.tsx` — single source; don't duplicate |
 
 **Interfaces:** 8 exported (`TimelineEntry`, `GroundsPlace`, `Ministry`, `FaqItem`, `EventItem`, `GivingOption`, `Priest`, `PpcMember`) — see §20 for verbatim definitions.
 
-### 7.2 Life Timeline — 8 Entries (1845–2017)
+### 7.2 Life Timeline — 8 Entries (1957–2026 — Franciscan Bukit Batok)
 
 | Year | Title | Parish moment |
 |---|---|---|
-| 1845 | A missionary walks inland | Fr Anatole Mauduit M.E.P. arrives from Normandy; seeks Chinese plantation workers beyond the town; founds Kranji River mission station |
-| 1846 | The Kranji Chapel | Attap chapel gathered as Singapore's first Chinese Catholic parish; feast will honour St Joseph the Worker |
-| 1853 | A church on this hill | Palladian portico on six Doric columns at present Upper Bukit Timah site |
-| 1861 | The statue of St Joseph | Patron statue arrives; feast-day pilgrimage takes root |
-| 1910s | Rubber and return | Secret societies/tigers/failing plantations thin the flock; parish rubber brings Christians back; 1930s pilgrimage revival |
-| 1964 | Fr Teng rebuilds | Fr Joachim Teng rebuilds for baby-boom parish (cattle milk, food fair); blessed 30 Aug 1964 by Abp Michel Olçomendy |
-| 1991–97 | Stations, columbarium, hall | Life-sized Stations 1991 (Lenten pilgrimage), columbarium 1995, parish hall 1997 |
-| 2012–17 | Consecration and the Rosary Garden | Consecrated 1 May 2012 (Abp Nicholas Chia); Rosary Garden blessed 25 Mar 2017 (Abp William Goh); Mauduit's headstone among the trees |
+| 1957 | Friars arrive in Singapore | Order of Friars Minor sent to found a sociological institute; St Anthony's Friary takes root on a Bukit Batok hill then ringed by orchards and kampongs |
+| 1958 | A hilltop chapel | Abp Michel Olçomendy dedicates the friars' chapel; neighbours walk up the hill to join the brothers for Mass — the seed of a parish |
+| 1970 | A parish of the Portiuncula | Archbishop offers the friars a parish agreement. Chapel becomes St Mary of the Angels — the Portiuncula in Assisi, St Francis' favourite chapel, where he chose to die |
+| 1985–2003 | The west grows | Bukit Batok new town fills the orchards; church and friary rebuilt in stages as the western flock outgrows the hilltop chapel |
+| 2004 | A house of light | WOHA Architects' folded-concrete-and-timber church consecrated; some 8,500 seats; SIA Religious Building award |
+| 2006 | Design of the Year | President's Design Award — Design of the Year, first edition — rare honour for sacred architecture |
+| 2025 | Jubilee monstrance | Adoration Chapel receives the Jubilee Year of Hope monstrance — quiet axis of daily prayer beside the Main Church |
+| 2026 | Pray, Form, Go | Friar Esmond Chua, OFM, calls the household to three pillars: Prayer, Formation, Mission; Franciscan Jubilee Year of St Francis gathers the parish around Assisi's little portion |
 
-*Replaces the orig 1935–2023 Oklahoma/Guatemala martyr timeline (same length, entirely different century/region).*
+*1957–2026 Franciscan arc — WOHA house of light and Garden of Peace.*
+
+
 
 ### 7.3 Other Arrays at a Glance
 
-**`grounds[3]`** — `main-church` (Sunset Sat 5.30 + Sun 7.30 Mandarin / 9.30/11.30/5.30 English + Children's Mass 2nd Sats), `chapel` (Mon–Sat 6.30 a.m., Mon–Fri 6.30 p.m., First Friday, Divine Mercy Fri 8.00), `rosary-garden` (2017 trail + 1991 Stations + Mauduit headstone + last Catholic church cemetery). Each has `image` + `imageFallback` + `imageAlt`; replaces `whatToSee` pill-plus-detail pattern.
+**`grounds[3]`** — `main-church` (Main Church L1: bapt font east–west, ambo/altar/Ambry, side chapels Our Lady & St Anthony, weekend Masses Sat 16.00–Sun 19.00), `chapel` (Adoration Chapel L1: open daily 7–21.30, Jubilee monstrance, no appointment), `rosary-garden` (Garden of Peace & Piazza: Mother Mary west of nave, St Francis/St Clare at roundabout, St Anthony preaching to fishes, St Clare Hall/Gubbio). Each has `image` + `imageFallback` + `imageAlt` (all local; `naveCdn`/`courtyardCdn` are local aliases).
 
-**`ministries[6]`** — `liturgical` (servers/Sunset Choir/Little Praisers/hospitality), `faith-formation` (Good Shepherd ages 3–12, Sat/Sun N2–K2, adult/RCIA), `pastoral-care` (SSVP St Joachim, Legion of Mary Mon/Wed, PIETA 4th Tue), `family-life` (seniors + neighbourhood SCCs), `youth` (Sun 12.45–3.30 St Mary's AVA + Alpha Youth/SAHOP, coordinator Leonard Ong), `mandarin` (Sun 7.30 Mandarin Mass + Teochew/Bible/Rock/Legion). Each drives one alternating `bg-shrine-cream`/`bg-shrine-parchment` section in `Ministries.tsx`.
+**`ministries[6]`** — `liturgical` (servers/choirs/readers/hospitality — sense of the sacred), `faith-formation` (CGS youngest, parish catechism, adult/retreats/Scripture, Walking with St Francis), `pastoral-care` (counselling intake.stmary, Poor & Needy Fund HRSM, wakes/funerals/columbarium, emergency 9682 7875), `family-life` (baptism/marriage prep, First Communion P3, family Masses, seniors/NCCs), `youth` (WYD 2027, peer formation, Hearts for the Lord 18–35), `mandarin` → **Language Communities** (Mandarin Sun 7.15, Tamil Sat 19.45, Sinhala Sun 11.30 St Clare Hall, Syro-Malabar Qurbana 3rd Sat, Indonesian 4th Sun). Each drives one alternating `bg-shrine-cream`/`bg-shrine-parchment` section in `Ministries.tsx`.
 
-**`faqs[6]`** — Mass times, confession (15 min before weekend Masses, open foyer), how to get there (Cashew MRT + buses + gates 8–9), feast 1 May + food fair, baptism/marriage/Mass intention, cemetery/columbarium.
+**`faqs[6]`** — Mass times (all in Main Church L1, 7/12.15/18.30 + Sat Tamil 19.45 + Sun 6), confession wknd 6 slots 30 min before until 10 min before (no weekday), how to get there (5 Bukit Batok East Ave 2 + wheelchair ramps Ave 6 & Blk 286 + gates 7–21.30), parking B1/B2 short intervals + HDB 271/269 overflow, baptism/marriage/Mass intention via Reception +65 6567 3866, columbarium 7.30–21.30 + Wakes/funerals 6560 6361 / 9774 7053 + Last Rites 9682 7875.
 
-**`upcomingEvents[6]`** — `title`+`date`+`summary`+`category` + optional `href` (only one currently: Youth "An Encounter with Jesus" → `tinyurl.com/54rbyjyr`). Shape lost orig's `location` field, gained `href`. Categories `Parish`/`Devotion`/`Formation`/`Archdiocese` (orig: `Feast`/`Pilgrimage`/`Formation`/`Community`).
+**`upcomingEvents[6]`** — `title`+`date`+`summary`+`category` + optional `href` (all without href in this snapshot). Categories `Parish`/`Devotion`/`Formation`/`Archdiocese`. Examples: First Holy Communion 29 Aug 2026 (Parish), CGS Info Sep 2026 (Formation), WYD 2027 briefing 11 & 13 Sep 2026 Gubbio/Rooms 1–3 (Parish), Walking with St Francis Mandarin Beatitudes Sep 2026 (Devotion), Life of St Francis art exhibition 17–18 Sep 2026 St Clare Hall (Devotion), Franciscan Jubilee Year 2026 (Archdiocese).
 
-**`givingOptions[8]`** — Same count, entirely new names: PayNow, Weekend collections, Cash boxes, Cheque, SSVP–Friends in Need, GIFT (Archdiocese/Catholic Foundation), Boys' Town (Brother Emmanuel, late Aug), Mass offerings. Replaces orig General Fund/Pipe Organ/Tepeyac Hill/Apla's Circle/Education/Hospitality/Shrine Church/Guatemala Mission.
+**`givingOptions[8]`** — PayNow UEN T08CC4053H (General/Maintenance), Poor & Needy HRSM, Weekend Tap & Give (NETS/card), Church Maintenance Fund (WOHA upkeep), Cheque payable Church of St Mary of the Angels, Cash at Reception (L1, no mailed cash), General Church Offering (Franciscan household ~10,000), Mass offerings (intentions via Reception). Replaces St Mary line (SSVP–Friends in Need etc.) and Rother shrine funds.
 
 ### 7.4 How to Add Content
 
@@ -561,7 +574,7 @@ Each entry: symptom → root cause → fix → lesson. Severity: `Critical` (bre
 | 10 | **Missing `imageAlt`** (Medium) | Empty alt on content image | Added `GroundsPlace`/`Ministry` without `imageAlt` | `imageAlt` is required — fill it | Content interface enforces a11y (§20) |
 | 11 | **Plain `<a href="#id">` in HashRouter** (High) | Clicking a ministry pill routes to `NotFound` or loses the page | Used `<a href="#liturgical">` instead of `<Link to="/ministries#liturgical">` — plain href replaces the HashRouter hash | Always `<Link to="/ministries#id">` and `<Link to="/worship#id">` for hash anchors (see §5.4) | Hash is the route |
 | 12 | **Lost `aria-expanded`** (Low) | Screen reader can't tell drawer state | Refactored `Header` toggle without `aria-expanded` | Keep `aria-expanded={mobileOpen}` + `aria-label` toggle | A11y props are functional |
-| 13 | **Wrong `SafeImage` fallback** (Medium) | Broken hero on Wikimedia/Pexels failure shows shrine fallback | Used old `fallback="/images/hero-shrine.jpg"` (Rother path) instead of `"/images/hero-church.jpg"` | Default fallback is `/images/hero-church.jpg` — verify `src/components/SafeImage.tsx` default | CDN → local discipline (§5.5) |
+| 13 | **Wrong `SafeImage` fallback** (Medium) | Broken hero on Wikimedia/Pexels failure shows shrine fallback | Used old `fallback="/images/hero-shrine.jpg"` (Rother path) instead of `"/images/hero-church.jpg"` | Default fallback is `/images/hero-church.jpg` — verify `src/components/SafeImage.tsx` default | All 11 `images.*` are now local (`naveCdn`/`courtyardCdn` point to local fallbacks); legacy CSP `upload.wikimedia.org`/`images.pexels.com` is retained but unused — keep `SafeImage` for any future external image (CDN → local discipline §5.5) |
 
 ---
 
@@ -585,7 +598,7 @@ Each entry: symptom → root cause → fix → lesson. Severity: `Critical` (bre
 | `vite.config.ts` `server.watch` `ENOSPC` on `pnpm dev` | Vendored `skills/` tree (large `.venv`) watched without ignore | Verify `server.watch.ignored: ["**/skills/**","**/dist/**","**/playwright-report/**","**/test-results/**","**/coverage/**","**/src.orig/**"]` is present in `vite.config.ts` |
 | `tsconfig.json` errors on `eslint.config.js` or `playwright.config.ts` | Added those files to `include` without installing their types | `include` is `["src","vite.config.ts","eslint.config.js","playwright.config.ts"]` with `types ["node","vitest/globals"]` — required for `describe/it/expect` globals. |
 
-**Live-site verification (post-deploy — Bukit Timah routes):**
+**Live-site verification (post-deploy — Bukit Batok / St Mary routes):**
 
 ```bash
 pnpm build && pnpm preview  # :4173
@@ -609,8 +622,8 @@ Run in order — every step must be green before pushing `main` (`main` is the d
 ```bash
 pnpm lint                      # 1 — eslint 9.39.5 flat --max-warnings 0
 pnpm typecheck                 # 2 — tsc --noEmit (strict + noUnusedLocals/Params + noFallthroughCasesInSwitch)
-pnpm test                      # 3 — vitest 3.2.6 jsdom — 11 files / 67 tests green (cn 5 + nav 7 + content 10 + site 6 + Button 9 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 7 + BackToTop 5 + Ministries 3)
-pnpm test:e2e                  # 4 — playwright 1.55.1 chromium — 27 tests green (smoke 11 + navigation 8 + ministries 4 + give-faq 4)
+pnpm test                      # 3 — vitest 3.2.6 jsdom — 16 files / 92 tests green (cn 5 + nav 7 + content 10 + site 7 + Button 9 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 11 + BackToTop 6 + Ministries 3 + cta-bands 3 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 8)
+pnpm test:e2e                  # 4 — playwright 1.55.1 chromium — 35 tests green (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8)
 pnpm build                     # 5 — singlefile 2.3.3 build → dist/index.html (JS+CSS inlined) + dist/images/ (8 files, copied not inlined)
 pnpm preview &                 # 6 — smoke: spot-check 10 routes + 7 alias paths + 9 hash anchors (3 on /worship + 6 on /ministries)
 ls -lh dist/                   # 7 — confirm dist/index.html + dist/images/ (8 files) — publicDir copy expected, not inlined
@@ -622,8 +635,8 @@ git push origin main           # 9 — deploy (GH Pages / S3 upload of dist/inde
 |---|---|---|
 | Lint | `pnpm lint` clean | `eslint 9.39.5` flat `eslint . --max-warnings 0` (`typescript-eslint 8.28.0` + `react-hooks 5.2.0`) — ignores `skills` + `src.orig` |
 | Types | `pnpm typecheck` (`npx tsc --noEmit`) clean | `strict` + `noUnusedLocals`/`noUnusedParameters`/`noFallthroughCasesInSwitch`/`isolatedModules`/`noEmit` pass; `tsconfig.json` `include` covers `src` + `vite.config.ts` + `eslint.config.js` + `playwright.config.ts` with `types [node, vitest/globals]` |
-| Tests | `pnpm test` — 11 files / 67 tests green | `vitest 3.2.6 jsdom` via `src/test/setup.ts` (jest-dom + IntersectionObserver mock) + `vite.config.ts test.include [src/**/*.{test,spec}.{ts,tsx}]` — `e2e/**` excluded |
-| E2E | `pnpm test:e2e` — 27 tests green (4 specs) | `smoke 11 + navigation 8 + ministries 4 + give-faq 4` — Bukit Timah aliases + hash anchors + SafeImage fallback + mobile drawer same-route close regression + rise-in entrance + event chips + back-to-top + aria-current nav. `playwright.config.ts` `expect.timeout: 15s` + `webServer → pnpm exec vite :5173` |
+| Tests | `pnpm test` — 16 files / 92 tests green | `vitest 3.2.6 jsdom` via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub) + `vite.config.ts test.include [src/**/*.{test,spec}.{ts,tsx}]` — `e2e/**` excluded |
+| E2E | `pnpm test:e2e` — 35 tests green (5 specs) | `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8` — Bukit Batok aliases + hash anchors + SafeImage fallback + mobile drawer same-route close regression + rise-in hero entrance + event chips + back-to-top progress ring + aria-current nav + ScrollProgress rail. `playwright.config.ts` `expect.timeout: 15s` + `webServer → pnpm exec vite :5173` |
 | Build | `pnpm build` greens | `viteSingleFile 2.3.3` inlines JS + CSS; `dist/images/` 8 files copied (not inlined) — verify one-file `dist/index.html` |
 | Routes | All 10 pages + 7 alias paths + 9 hash anchors navigate (HashRouter) | Manual or `agent-browser` smoke (`Layout` double-hash aware `#/ministries#id` → split + 80ms `scrollIntoView`) |
 | A11y | Contrast ≥4.5:1 on body, `alt` on content images (`SafeImage` fallback), `aria-expanded` on toggle, `SkipLink` hash discipline, `aria-label="Jump to ministry"` | Spot-check per §8 table + `axe-core` on Header/Home hero/FAQ/Worship map |
@@ -636,7 +649,7 @@ git push origin main           # 9 — deploy (GH Pages / S3 upload of dist/inde
 
 ```bash
 pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
-# → lint 0 + typecheck 0 + test 9/53 + test:e2e 22 + build ~376kB dist/index.html + dist/images/8
+# → lint 0 + typecheck 0 + test 16/92 + test:e2e 35 + build ~390kB dist/index.html + dist/images/8
 ```
 
 ---
@@ -654,7 +667,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 | L7 | **Content shape = UI shape** | Orig `WhatToSeeSection.imageAlt` was optional in a draft; a11y regression followed. Port `GroundsPlace`/`Ministry` keep `imageAlt` + `imageFallback` required for the same reason. | Required in §20 interfaces; future entries must include both. |
 | L8 | **Hash is the route — `<Link>` not `<a>`** | Ministries jump nav drafted with `<a href="#liturgical">` — would have replaced the HashRouter hash and routed to NotFound. | Fixed to `<Link to="/ministries#id">` in `Ministries.tsx` + Worship children; documented §5.4 / §9 #11. |
 | L9 | **`SafeImage` default drift** | Wikimedia hero (`images.hero`) introduced a new CDN host; old default `/images/hero-shrine.jpg` would have 404'd on fallback. | Updated `SafeImage.tsx` default to `/images/hero-church.jpg`; added `images.heroFallback` + `imageFallback` on every `grounds`/`ministries` entry; CSP extended to `upload.wikimedia.org`. |
-| L10 | **Stale `e2e/` was a trap — now resolved** | Port initially kept the 20-test Rother E2E verbatim (`#pilgrim-center` etc.); CI would have failed. | Rewritten to Bukit Timah: `smoke 8 + navigation 6 + ministries 4 + give-faq 4` = 22 green (2026-08-28, incl. drawer same-route close regression). Alias is `what-to-see` → `ministries`, `pilgrimage` → `worship` — now covered. |
+| L10 | **Stale `e2e/` was a trap — now resolved** | Port initially kept the 20-test Rother E2E verbatim (`#pilgrim-center` etc.); CI would have failed. | Rewritten to Bukit Batok St Mary: `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 8` = 35 green (2026-08-28 enhancements, incl. drawer same-route close regression + ScrollProgress + BackToTop ring + aria-current). Alias is `what-to-see` → `ministries`, `pilgrimage` → `worship` — now covered under St Mary routes. |
 | L11 | **`vite.config.ts` `test` block is required** | Restoring `src/test/setup.ts` without the `test` block leaves vitest misconfigured. | `vite.config.ts` now has `test { globals:true, jsdom, setupFiles:["src/test/setup.ts"], include:["src/**/*.{test,spec}.{ts,tsx}"], exclude:["e2e/**"] }` + `types ["vitest/globals"]` — keep both in sync (see §3.2). |
 | L12 | **Canonical flip: `/about` not `/about-blessed-stanley-rother`** | Port flipped the About canonical (orig: `/about-blessed-stanley-rother` canonical, `/about` alias). Any hard-coded deep link to the old canonical would 404 if the alias were dropped. | Kept only `/about` (no alias needed — the old canonical is intentionally retired for the parish). Document the flip in §5.4 + Appendix D; if old shrine links must survive, add `/about-blessed-stanley-rother` as an alias back to `/about`. |
 
@@ -666,7 +679,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 - Don't add SSR/API/`server/` without an ADR — this is a static SPA by design.
 - Don't scatter route tables outside `src/App.tsx` — it is the only route table (17 entries, 5 alias groups).
 - Don't put data arrays outside `src/data/*` — they are the data layer (`content.ts` + `nav.ts` + `site.ts`).
-- Don't reintroduce Rother Shrine content (700 SE 89th St, Tepeyac Hill, Pilgrim Center, Padre Apla's Circle, Oklahoma/Guatemala narratives) — no Rother snapshot exists in this repo. Hours, Mass, and address are the single source in `site.ts`; don't duplicate them across pages.
+- Don't reintroduce Rother Shrine or St Joseph BT hill-parish narratives outside Appendix D — this is St Mary of the Angels (5 Bukit Batok East Ave 2, 1957–2026 Franciscan/WOHA, 2 August, UENs T08CC4053H/HRSM). Hours, Mass, and address are the single source in `site.ts`; don't duplicate them across pages.
 
 **TypeScript**
 - Don't use `any` — use `unknown` + narrowing; `as any` is a last resort with `// ponytail: ceiling…` comment.
@@ -688,7 +701,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 **Build / Deploy**
 - Don't commit `dist/`/`node_modules/`. `skills/` is already committed vendored reference content — don't import from it or lint it (eslint ignores it). `src.orig/` is not part of this repository (its ignore entries are inert guards).
 - Don't upload `dist/index.html` without `dist/images/` — the 8 image files are copied via `publicDir`, not inlined; both must ship together to GH Pages/S3.
-- Don't ship a "green CI" claim without running the full gate (`pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build`) — all five must be green (11 unit files / 67 + 27 E2E).
+- Don't ship a "green CI" claim without running the full gate (`pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build`) — all five must be green (16 unit files / 92 + 35 E2E).
 
 ---
 
@@ -737,7 +750,7 @@ export function Button(props: ButtonProps) {
 Location: `src/components/Layout.tsx` — preserves both `/#/worship#mass` and `/#/ministries#liturgical` forms.
 
 ```tsx
-// src/components/Layout.tsx — actual Bukit Timah implementation
+// src/components/Layout.tsx — actual Bukit Batok (St Mary) implementation
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Footer } from "@/components/Footer";
@@ -908,7 +921,7 @@ Tailwind defaults only (no custom config). Project usage:
 
 Every hex matches `src/index.css` `@theme` byte-for-byte. **Fail the build if it drifts.** Palette is unchanged from the rothershrine line — verification command `grep shrine- src/index.css` → 24 colors + 2 shadows.
 
-| Token | Hex | RGB | Tailwind Class | Usage (Bukit Timah context) |
+| Token | Hex | RGB | Tailwind Class | Usage (St Mary / Bukit Batok context) |
 |---|---|---|---|---|
 | `shrine-cream` | `#faf6ec` | `250,246,236` | `bg-shrine-cream` | Page bg, card on dark, alternating ministry band |
 | `shrine-parchment` | `#f2e9d6` | `242,233,214` | `bg-shrine-parchment` | Section bands, alternating ministry band |
@@ -953,8 +966,8 @@ export interface TimelineEntry {
   title: string;
   description: string;
 }
-// lifeTimeline: TimelineEntry[] — 8 entries (1845, 1846, 1853, 1861, 1910s, 1964, 1991–97, 2012–17)
-// Singapore hill mission: Kranji attap → Palladian church → statue → rubber/return → Teng rebuild → stations/columbarium/hall → consecration/Rosary Garden
+// lifeTimeline: TimelineEntry[] — 8 entries (1957, 1958, 1970, 1985–2003, 2004, 2006, 2025, 2026)
+// Singapore hill mission: Kranji attap → WOHA folded-concrete-and-timber church → statue → rubber/return → Teng rebuild → stations/columbarium/hall → consecration/Rosary Garden
 
 export interface GroundsPlace {
   id: string;              // "main-church" | "chapel" | "rosary-garden"
@@ -1002,16 +1015,16 @@ export interface GivingOption {
 
 export interface Priest {
   name: string;
-  role: string;            // "Parish Priest" | "Assistant Priest" | "Religious (ex-officio)"
-  phone?: string;          // e.g. +65 6760 0052
+  role: string;            // "Parish Priest" | "Assistant Parish Priest" (all OFM)
+  email?: string;          // e.g. esmond.stmary@catholic.org.sg — optional for privacy
 }
-// priests: Priest[] — 3 (new — no orig counterpart)
+// priests: Priest[] — 4 (Franciscan OFM, all with email)
 
 export interface PpcMember {
   role: string;            // "Parish Priest (ex-officio)" | "Chairman (appointed)" | "Advisor" | "Vice-Chairman (elected)" | "Secretary" | "Estate Maintenance" | "Faith Formation" | …
   name: string;
 }
-// ppcMembers: PpcMember[] — 16 (new — 3 ex-officio clergy + 13 PPC)
+// ppcMembers: PpcMember[] — 6 (4 OFM ex-officio + vision · Custody)
 
 // Untyped const exports (no exported interface — shape inferred):
 
@@ -1021,9 +1034,9 @@ export const serveRoles: {
 }[] // 4
 
 export const devotions: {
-  title: string;           // "Mass in Honour of St Joseph" | "First Friday Mass & Holy Hour" | "Holy Hour for Vocations" | "Children's Mass" | "Divine Mercy" | "Adoration"
+  title: string;           // "Devotion to St Anthony" | "Adoration of the Blessed Sacrament" | "Sacrament of Reconciliation" | "Morning Prayer (Lauds)" | "Mass for the Deaf Community" | "Portiuncula · Our Lady of the Angels"
   when: string;            // "First Wednesday, 7.30 p.m. rosary · 8.00 p.m. Mass" | …
-  where: string;           // "Main Church" | "Chapel of St Joseph — with seminarians of SFXMS" | "Adoration Room" | …
+  where: string;           // "Main Church — inc. into Mass" | "Adoration Chapel, Level 1" | "Confessionals in Main Church" | "Main Church, Level 1" | "Venue with SignLight" | "Parish feast 2 August" | …
 }[] // 6
 
 export const images: {
@@ -1063,15 +1076,15 @@ export interface NavItem {
 ```ts
 // src/data/site.ts — single source for parish facts (as const)
 export const site: {
-  name: "St Joseph's Church (Bukit Timah)";
-  shortName: "St Joseph's Bukit Timah";
-  chineseName: "圣若瑟堂";
-  tagline: "A vibrant, evangelizing and missionary Church, under the patronage of St Joseph.";
+  name: "Church of St Mary of the Angels";
+  shortName: "St Mary's Bukit Batok";
+  chineseName: "天神之后圣母堂";
+  tagline: "A vibrant, evangelizing and missionary Church, under the patronage of St Mary.";
   vision: "To nourish faith in a loving, outreaching community.";
   address: {
-    street: "620 Upper Bukit Timah Road";
+    street: "5 Bukit Batok East Ave 2";
     city: "Singapore";
-    zip: "678116";
+    zip: "659918";
     readonly full: string;   // getter: `${street}, ${city} ${zip}`
     readonly query: string;  // getter: encodeURIComponent(full)
   };
@@ -1079,37 +1092,42 @@ export const site: {
     gates: "Daily, 8.00 a.m.–9.00 p.m.";
     mainChurch: "Open for Mass and private prayer";
     chapel: "Weekday Masses and scheduled devotion";
-    bookshop: "Sat 4.30–7.00 p.m.; Sun 8.30 a.m.–1.00 p.m. (2nd Sunday also 5.30–7.00 p.m.)";
+    reception/parishOffice/columbarium: "Sat 4.30–7.00 p.m.; Sun 8.30 a.m.–1.00 p.m. (2nd Sunday also 5.30–7.00 p.m.)";
     adorationRoom: "Tuesday Holy Hour, 8.00 p.m.";
   };
   mass: {
-    weekdayMorning: "Mon–Sat, 6.30 a.m. — Chapel of St Joseph";
-    weekdayEvening: "Mon–Fri, 6.30 p.m. — Chapel of St Joseph";
-    saturday: "5.30 p.m. English (Sunset Mass)";
-    sunday: readonly ["7.30 a.m. Mandarin", "9.30 a.m. English", "11.30 a.m. English", "5.30 p.m. English"];
-    confession: "15 minutes before all weekend Masses, open foyer of the Main Church";
-    adoration: "Every Tuesday, 8.00 p.m. — Adoration Room";
-    secondCollection: "4th Sunday of the month — Church Maintenance and Operation Fund";
+    weekdayMorning: "Mon–Fri, 7.00 a.m. (with Morning Prayer) and 12.15 p.m. — Main Church";
+    weekdayEvening: "Mon–Fri, 6.30 p.m. — Main Church";
+    saturday: "4.00 p.m. · 6.00 p.m. English · 7.45 p.m. Tamil";
+    sunday: readonly ["7.15 a.m. Mandarin", "9.00 a.m. English", "11.00 a.m. English", "1.00 p.m. English", "5.00 p.m. English", "7.00 p.m. English"];
+    confession: "Weekends, 30 min before English Masses until 10 min before: Sat 15.30/17.30, Sun 08.30/10.30/12.30/16.30/18.30";
+    adoration: "Adoration Chapel, daily 7.00 a.m.–9.30 p.m.";
+    secondCollection: "Church Maintenance Fund — announced in bulletin";
+    note: "All Masses in Main Church, Level 1, English unless indicated.";
   };
   contact: {
-    parishPriestPhone: "+65 6760 0052";
-    assistantPriestPhone: "+65 6760 4636";
-    officePhone: "+65 6769 1666";
+    parishPriestPhone: "+65 6567 3866";  // also officePhone (shared)
+    officePhone: "+65 6567 3866";
+    emergencyPhone: "+65 9682 7875";
+    columbariumPhone: "+65 6560 6361";
+    columbariumAfterHours: "+65 9774 7053";
+    email: "parish.stmary@catholic.org.sg";
+    connectEmail: "connect.stmary@catholic.org.sg";
   };
   transport: {
-    mrt: "Cashew MRT (Downtown Line)";
-    buses: "67, 75, 170, 176, 178, 184, 961, 963, 970";
+    mrt: "Bukit Batok (NS2) · Beauty World (DT5)";
+    buses: "Ave 6: 61,66,157,174,178,852,871 · Ave 2: 970,985 · Ave 3: 61,77,106,157,174,178,506,852,963,990 · Ave 4: 173,177,963";
   };
   feast: {
-    name: "Feast of St Joseph the Worker";
+    name: "Feast of Our Lady of the Angels · Portiuncula";
     date: "1 May";
   };
-  uen: "T08CC4043C";
+  uen: "T08CC4053H";
   chequePayee: "St. Joseph's Church (Bukit Timah)";
   facebook: "https://www.facebook.com/sjcbt/";
   archdiocese: "https://www.catholic.sg/";
-  mapsUrl: string;        // https://www.google.com/maps/search/?api=1&query=620+Upper+Bukit+Timah+Road+Singapore+678116
-  mapsEmbedSrc: string;   // https://www.google.com/maps?q=620+Upper+Bukit+Timah+Road,+Singapore+678116&output=embed
+  mapsUrl: string;        // https://www.google.com/maps/search/?api=1&query=620+Upper+Bukit+Timah+Road+Singapore+659918
+  mapsEmbedSrc: string;   // https://www.google.com/maps?q=620+Upper+Bukit+Timah+Road,+Singapore+659918&output=embed
 } // as const — Footer + Worship + About consume it; never duplicate parish facts in pages
 
 // src/components/SafeImage.tsx
@@ -1187,29 +1205,29 @@ export function cn(...inputs: ClassValue[]): string; // twMerge(clsx(...))
 | ADR-3 | Tailwind v4 CSS-first `@theme` | Tokens co-located with CSS, no `tailwind.config.*` drift; `index.css` is the palette (24 colors + 2 shadows unchanged from rothershrine) | Extend `@theme` only, never arbitrary hex |
 | ADR-4 | File-backed `src/data/*` (no CMS) | Typed arrays are enough for ~40 items (8+3+6+6+6+8+3+16+4+6) plus `site` + `nav`; CMS adds auth/ISR without benefit | Keep `content.ts`/`site.ts`/`nav.ts` as fallback if CMS is introduced behind `src/lib/cms/` |
 | ADR-5 | Alias `@→src/` sync contract | Short imports (`@/utils/cn`) without relative `../../../` | Two-file change (`vite.config.ts` + `tsconfig.json` `paths` + `include`) — must stay synced |
-| ADR-6 | `src.orig/` reference policy | The Rother Shrine original is **not committed to this repository**; eslint/vite-watch ignore entries are retained as inert defensive guards in case a local snapshot is dropped in | `eslint` ignores `src.orig/`; `vite watch` ignores it; never import from it |
+| ADR-6 | `src.orig/` reference policy | The St Joseph BT intermediate is **retained locally, ignored via `.gitignore` (not committed)**; `eslint`/`vite watch` ignore entries are active guards; lineage Rother → St Joseph BT (`src.orig/`) → St Mary of the Angels (`src`) | `eslint` ignores `src.orig/`; `vite watch` ignores it; never import from it; do not re-add to `tsconfig.json` `include` |
 
 ---
 
 ## Appendix B — Live-Site Validation
 
-**Smoke script (manual or `agent-browser` — Bukit Timah routes):**
+**Smoke script (manual or `agent-browser` — Bukit Batok / St Mary routes):**
 
 ```
 # after pnpm build && pnpm preview (:4173)
-1. /                      → hero (Wikimedia 2025 front view + hero-church fallback) + quick-facts + grounds 3 + events visible
-2. /about                 → parish identity + priests 3 + ppcMembers 16
-3. /history               → timeline 8 entries (1845–2017 hill milestones) via Timeline left rail
+1. /                      → hero (local `/images/hero-church.jpg` + `SafeImage` fallback) + quick-facts + grounds 3 + events visible
+2. /about                 → parish identity (Pray·Form·Go) + priests 4 OFM + ppcMembers 6
+3. /history               → timeline 8 entries (1957–2026 Franciscan/WOHA) via Timeline left rail + dot-pulse
 4. /worship               → #mass (weekday/weekend Mass), #confession (confession + adoration + devotions), #visit (map + hours + transport); test /mass-times, /hours-location, /visit aliases all land on Worship
 5. /worship#mass (direct) → lands on Mass schedule
 6. /worship#confession    → lands on Confession & Adoration
-7. /worship#visit         → lands on Find Us (map embed + Cashew MRT + buses)
+7. /worship#visit         → lands on Find Us (map embed + Bukit Batok NS2 / Beauty World DT5 + buses Ave 2/3/4/6)
 8. /ministries            → 6 pills + 6 alternating sections; click each #liturgical/#faith-formation/#pastoral-care/#family-life/#youth/#mandarin scrolls to section
 9. /ministries#liturgical (direct) → lands on Liturgical
 10. /ministry             → same as /ministries (alias)
-11. /news-events + /news-and-events → 6 events (Parish/Devotion/Formation/Archdiocese) + Youth href
-12. /serve + /volunteer   → serveRoles 4 + devotions 6
-13. /give + /donate       → 8 giving options (PayNow UEN, collections, cheque, SSVP, GIFT, Boys' Town, Mass offerings)
+11. /news-events + /news-and-events → 6 events (Parish/Devotion/Formation/Archdiocese)
+12. /serve + /volunteer   → serveRoles 4 (title+summary) + devotions 6 (title+when+where)
+13. /give + /donate       → 8 giving options (PayNow UEN T08CC4053H / Poor & Needy HRSM, Tap & Give, Church Maintenance Fund, cheque payable Church of St Mary of the Angels, cash at Reception, General Church Offering, Mass offerings)
 14. /faq                  → 6 Q&As via Accordion
 15. /does-not-exist       → NotFound
 16. refresh on /#/worship#visit → stays on-section (HashRouter)
@@ -1227,34 +1245,35 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 1. **ANALYZE** — Mine explicit, implicit, and ambiguous requirements; explore 2–3 approaches with trade-offs.
 2. **PLAN** — Sequenced phases with checklists + success criteria; present for approval.
 3. **VALIDATE** — Obtain explicit go-ahead before coding.
-4. **IMPLEMENT** — Library-first, modular, TDD Red→Green→Refactor (one cycle per commit) — harness is **green (11 files/67 + 27 E2E)**; gate on `lint && typecheck && test && test:e2e && build` + manual smoke.
+4. **IMPLEMENT** — Library-first, modular, TDD Red→Green→Refactor (one cycle per commit) — harness is **green (16 files/92 + 35 E2E)**; gate on `lint && typecheck && test && test:e2e && build` + manual smoke.
 5. **VERIFY** — `pnpm lint` + `pnpm typecheck` + `pnpm build` (+ `pnpm test`/`pnpm test:e2e` once rewritten) + a11y/perf review + edge cases.
 6. **DELIVER** — Usage instructions + runbook + follow-up recommendations.
 
 ---
 
-## Appendix D — Migration Note (Rother → Bukit Timah)
+## Appendix D — Migration Note (Rother → St Joseph BT → St Mary of the Angels — second hop)
 
 ### D.1 Provenance
 
 | Item | Detail |
 |---|---|
-| Origin | Blessed Stanley Rother Shrine (Oklahoma City) clone — `rothershrine-v2_SKILL.md` v1.3.0, 2026-08-27, 49 tests (29 unit + 20 E2E) green on fresh clones |
-| Port | St Joseph's Church (Bukit Timah), Singapore — https://stjoseph-bt.org.sg/ — second-oldest Catholic parish, 620 Upper Bukit Timah Road, S678116 |
-| Port version | **1.0.0** (`package.json` `version`) — reset from 1.3.0 to mark the Singapore line; stack and tooling versions unchanged (see §2) |
-| Date | 2026-08-27 |
+| Origin | Blessed Stanley Rother Shrine (Oklahoma City) clone — `rothershrine-v2_SKILL.md` v1.3.0, 2026-08-27, 49 tests (29 unit + 20 E2E) green |
+| Intermediate | St Joseph's Church (Bukit Timah), Singapore — https://stjoseph-bt.org.sg/ — 620 Upper Bukit Timah Road, S678116 — second-oldest parish, Palladian 1853, cemetery, 1845–2017 hill line; now archived as `src.orig/` (Rother→St Joseph) |
+| Port | Church of St Mary of the Angels, Bukit Batok — https://www.stmary.sg/ — 5 Bukit Batok East Ave 2, S659918 — Franciscan parish since 1970 (Portiuncula, OFM Custody of St Anthony), WOHA 2004, Garden of Peace, 1957–2026 timeline |
+| Port version | **1.1.0** (`package.json` `version`) — St Mary line (intermediate St Joseph was 1.0.0 → reset from 1.3.0 Rother); stack and tooling versions unchanged (see §2) |
+| Date | 2026-08-30 (second hop St Joseph → St Mary) |
 | Singlefile deploy | Unchanged — `dist/index.html` (+ `dist/images/` now **8** files vs orig 4) → GH Pages/S3 |
-| Test state | **0 unit tests** + **20 E2E stale** in the port (see §2 / §11) — orig 29 unit + 20 E2E are preserved only in `src.orig/` as reference |
-| Preservation | `src.orig/` is a frozen snapshot of the complete Rother Shrine original (not imported, eslint ignored, tsc excluded). Never import from it; never re-add it to `eslint.config.js` `ignores` exceptions or `tsconfig.json` `include`. |
+| Test state | **16 files / 92 tests + 35 E2E green** (St Mary green, same harness as St Joseph 1.3.0; orig 29 unit + 20 E2E preserved in `src.orig/` as Rother snapshot) |
+| Preservation | `src.orig/` is a frozen snapshot of the **St Joseph BT** port (which itself preserves the Rother original) — Rother → St Joseph (src.orig) → St Mary (src). `src.orig/` is retained locally, ignored via `.gitignore` (not committed), eslint + vite-watch ignored, never imported, never re-added to `include`. |
 
 ### D.2 What Changed (AUDIT diff summary)
 
 **Routes — 17 entries (16 paths + `*`) vs orig 16 (15 + `*`):**
 
-| Aspect | Current (Bukit Timah) | Orig (Rother Shrine) | Note |
+| Aspect | Current (St Mary of the Angels) | Intermediate (St Joseph BT, in `src.orig/`) / Orig (Rother) | Note |
 |---|---|---|---|
 | Total | 17 `Route` entries | 16 | +1 alias path |
-| Page components | 10 (Home, About, History, Worship, Ministries, NewsEvents, Serve, Give, FAQ, NotFound) | 10 (Home, AboutRother, History, WhatToSee, Pilgrimage, NewsEvents, Volunteer, Give, FAQ, NotFound) | 4 renamed: `AboutRother→About`, `WhatToSee→Ministries`, `Pilgrimage→Worship`, `Volunteer→Serve` |
+| Page components | 10 (Home, About, History, Worship, Ministries, NewsEvents, Serve, Give, FAQ, NotFound) — same as St Joseph | 10 (Home, AboutRother, History, WhatToSee, Pilgrimage, NewsEvents, Volunteer, Give, FAQ, NotFound) in Rother; St Joseph already had the 4 renames | Renames `AboutRother→About`, `WhatToSee→Ministries`, `Pilgrimage→Worship`, `Volunteer→Serve` were done in the first hop (Rother→St Joseph) and preserved |
 | Alias groups | 5 groups, 7 alias paths | 5 groups, 6 alias paths | See §5.4 |
 | `/about` | **Canonical** | Alias of `/about-blessed-stanley-rother` (canonical) | **Flipped** |
 | `/hours-location` | Alias of **`/worship`** | Alias of `/pilgrimage` | **Reassigned** |
@@ -1269,7 +1288,7 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 | Array / Export | Current | Orig | Diff |
 |---|---|---|---|
 | Interfaces | 8 (`TimelineEntry`, `GroundsPlace`, `Ministry`, `FaqItem`, `EventItem`, `GivingOption`, `Priest`, `PpcMember`) | 5 (`TimelineEntry`, `WhatToSeeSection`, `FaqItem`, `EventItem`, `GivingOption`) | `WhatToSeeSection` removed; `GroundsPlace`/`Ministry`/`Priest`/`PpcMember` added |
-| `lifeTimeline` | 8 — **1845–2017** Singapore hill mission | 8 — 1935–2023 Oklahoma/Guatemala martyr | Same length, different century/region |
+| `lifeTimeline` | 8 — **1957–2026** Franciscan Bukit Batok (WOHA) | 8 — 1845–2017 Singapore hill mission (intermediate) / 1935–2023 Oklahoma/Guatemala martyr (orig) | Same length, different century/parish — second hop shifts 1845–2017 → 1957–2026 |
 | `grounds` | 3 — `main-church`/`chapel`/`rosary-garden` (+ `imageFallback`) | `whatToSee` 3 — `pilgrim-center`/`shrine-church`/`tepeyac-hill` | Renamed + split; `GroundsPlace` extends `WhatToSeeSection` with `+imageFallback` |
 | `ministries` | 6 — `liturgical`/`faith-formation`/`pastoral-care`/`family-life`/`youth`/`mandarin` | *(none)* | New |
 | `faqs` | 6 — Mass/confession/MRT+ gates/feast 1 May/baptism-marriage/cemetery | 6 — shrine hours/cost/Mass duration/accessibility/burial | Same count, entirely rewritten |
@@ -1278,9 +1297,9 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 | `priests` | 3 | *(none)* | New |
 | `ppcMembers` | 16 | *(none)* | New |
 | `serveRoles` | 4 (untyped const) | *(none)* | New |
-| `devotions` | 6 — Mass in Honour of St Joseph, First Friday, Holy Hour for Vocations, Children's Mass, Divine Mercy, Adoration | *(none)* | New |
+| `devotions` | 6 — St Anthony Tue 18.30, Adoration daily 7–21.30, Reconciliation wknd, Lauds, Deaf Community Sun 16.00, Portiuncula 2 Aug | 6 — Mass in Honour of St Joseph, First Friday, Holy Hour for Vocations, Children's Mass, Divine Mercy, Adoration | Retained shape, devotion names updated for Franciscan parish |
 | `images` | **11 keys** — `hero` (Wikimedia 2025) + `heroFallback` `/images/hero-church.jpg` + `chapel`/`sanctuary`/`garden`/`glass`/`hall`/`cemetery`/`feast` + `naveCdn`/`courtyardCdn` (Pexels). CDN 3 on 2 hosts | 10 keys — `hero` (Pexels) + `heroFallback` `/images/hero-shrine.jpg` + `wheat`/`wheatFallback`/`atitlan`/`atitlanSunset`/`atitlanAerial`/`chapel`/`garden`/`hillChapel`. CDN 7 on 1 host | `hero` host changed to Wikimedia; wheat/atitlan set removed; local count 8 vs 3 |
-| `site.ts` | 17 top keys; `address` 620 Upper Bukit Timah, `hours` 5 (gates/mainChurch/chapel/bookshop/adorationRoom), `mass` 7 (weekdayMorning/Evening/saturday/sunday[4]/confession/adoration/secondCollection), `contact` 3 phones, `transport` mrt+buses, `feast` 1 May, `uen`/`chequePayee`/`facebook`/`archdiocese`/`mapsUrl`/`mapsEmbedSrc` | Orig `site.ts` had different address/hours/mass/contact/maps for 700 SE 89th St OKC | Entirely replaced |
+| `site.ts` | 17+ top keys; `address` 5 Bukit Batok East Ave 2 659918, `hours` 7 (gates/mainChurch/chapel/reception/parishOffice/columbarium/adorationRoom), `mass` 7 (weekdayMorning 7+12.15/weekdayEvening 18.30/saturday 16/18+19.45 Tamil/sunday[6] 7.15 Man+9/11/13/17/19 Eng/confession wknd 6 slots/adoration daily 7–21.30/secondCollection CMOF + note), `contact` 5 phones + 2 emails, `transport` Bukit Batok NS2/Beauty World DT5 + Ave 2/3/4/6 buses, `feast` 2 Aug Portiuncula, `uen` T08CC4053H + HRSM/`chequePayee`/`facebook`/`instagram`/`youtube`/`telegram`/`whatsapp`/`franciscans`/`mapsUrl`/`mapsEmbedSrc` + origin/url/ogImage | St Joseph intermediate: 620 Upper BT, hours 5 (gates/mainChurch/chapel/bookshop/adorationRoom), mass 7 (sunday[4], confession 15 min, adoration Tue, secondCollection 4th Sun), contact 3 phones, transport Cashew + 67 etc., feast 1 May, uen T08CC4043C, cheque St Joseph's Church (Bukit Timah) | Entirely replaced again (parish facts single-source) |
 
 **Config drift:**
 
@@ -1321,13 +1340,13 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 | Tokens (24 colors + 2 shadows) + utilities (22 + 6 keyframes) | `src/index.css` (`--font-sans` alias `--font-body`; utilities incl. `gold-rule`/`gold-rule-left`/`hero-ken-burns`/`rise-in`+`rise-in-d1..d4`/`menu-in`/`drawer-in`/`dot-pulse`/`card-lift`/`link-underline`/`reveal`+`reveal-visible`/`skip-link`/`divider-weave`+`divider-weave-thin`/`bg-grain`+`bg-adobe-texture`/`mask-fade-b`) |
 | Route table + aliases + anchors | `src/App.tsx` — 17 Route entries (16 content paths + `*`), 7 alias paths in 5 groups (see §5.4), 9 hash anchors (3 on `/worship`, 6 on `/ministries`) |
 | Nav single-source | `src/data/nav.ts` (`primaryNav` 6 + `footerNav` 10, with `description` on children) |
-| Content arrays (10) + images + site | `src/data/content.ts` (`priests` 3, `ppcMembers` 16, `lifeTimeline` 8 [1845–2017], `grounds` 3, `ministries` 6, `faqs` 6, `upcomingEvents` 6 [Parish/Devotion/Formation/Archdiocese + href?], `givingOptions` 8 + `serveRoles` 4 + `devotions` 6 + `images` 11) + `src/data/site.ts` (`site as const`: hours 5 + mass 7 + transport + feast 1 May + uen T08CC4043C + maps) |
+| Content arrays (10) + images + site | `src/data/content.ts` (`priests` 4 OFM + email, `ppcMembers` 6 (4 OFM + vision·Custody), `lifeTimeline` 8 [1957–2026 Franciscan/WOHA], `grounds` 3, `ministries` 6 (Language Communities last), `faqs` 6 (parking/columbarium), `upcomingEvents` 6 (WYD etc. no href), `givingOptions` 8 (Poor&Needy HRSM etc.), `serveRoles` 4 (summary), `devotions` 6 (St Anthony etc.) + `images` 11 all-local) + `src/data/site.ts` (`site as const`: hours 7 + mass 7 (sunday 6 + note) + transport NS2/DT5 + feast 2 Aug + uen T08CC4053H/HRSM + cheque + 4 socials + franciscans + maps + origin) |
 | Primitives | `src/components/ui/*` (Button/Container/SectionHeading/Accordion/Reveal) + SafeImage/Emblem/SkipLink/Timeline/SocialIcons/PageHero/Layout/Header/Footer |
 | Hooks | `src/hooks/useScrolled.ts` (threshold 12 default; Header uses 16) |
 | Merge helper | `src/utils/cn.ts` (`twMerge(clsx)`) |
-| Images | `public/images/*.jpg` (8 files → `dist/images/`) + Wikimedia hero + 2 Pexels CDN (`naveCdn`/`courtyardCdn`) + `images` export (onError→local via `SafeImage` with `hero-church.jpg` fallback) |
-| Vite alias + singlefile | `vite.config.ts` (`@→src`, `viteSingleFile()`; no `test` block, no `server.watch.ignored` — re-add if ENOSPC) |
-| TS strict + include | `tsconfig.json` (`strict` + `noUnused*` + `noFallthroughCasesInSwitch`/`isolatedModules`/`noEmit` + `include: ["src","vite.config.ts"]` + `types: ["node"]` + `paths @/*`) |
-| Pre-ship gate (current) | `pnpm lint && pnpm typecheck && pnpm build` → `dist/index.html` + `dist/images/` (8 files) → `pnpm preview` → manual smoke (see §11). Full gate `lint && typecheck && test && test:e2e && build` once `e2e/` rewritten + unit tests restored |
-| Frozen reference | `src.orig/` — complete Rother Shrine original for diff reference (not built, not linted, not type-checked; 6 test files/29 tests reference) |
-| CSP allowlist | `index.html` — `img-src` `upload.wikimedia.org` + `images.pexels.com` (for `images.hero`/`naveCdn`/`courtyardCdn` via `SafeImage`), `frame-src` `google.com` (maps embed) |
+| Images | `public/images/*.jpg` (8 files → `dist/images/`) — all local (`naveCdn`→`sanctuary.jpg`, `courtyardCdn`→`rosary-garden.jpg` are local aliases) + `images` export (11 keys all `/images/*`, `SafeImage` with `hero-church.jpg` fallback; legacy CDN allowlist retained) |
+| Vite alias + singlefile | `vite.config.ts` (`@→src`, `viteSingleFile()` + `test {globals,jsdom,setupFiles,include,exclude}` + `server.watch.ignored` [skills,dist,playwright-report,test-results,coverage,src.orig]) |
+| TS strict + include | `tsconfig.json` (`strict` + `noUnused*` + `noFallthroughCasesInSwitch`/`isolatedModules`/`noEmit` + `include: ["src","vite.config.ts","eslint.config.js","playwright.config.ts"]` + `types: ["node","vitest/globals"]` + `paths @/*` + `baseUrl:"."`) |
+| Pre-ship gate | `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` → 16/92 + 35 E2E green → `dist/index.html` + `dist/images/` (8 files) → `pnpm preview` → manual smoke (see §11) |
+| Frozen reference | `src.orig/` — archived St Joseph BT (Rother→St Joseph→St Mary lineage) for diff reference (not built, not linted, not type-checked; 16 tests + Rother 29 tests reference (see §2)) |
+| CSP allowlist | `index.html` — legacy `img-src` `upload.wikimedia.org` + `images.pexels.com` (all images now local; naveCdn/courtyardCdn are local aliases), `frame-src` `google.com` (maps embed) — `SafeImage` fallback `/images/hero-church.jpg` |

@@ -93,7 +93,7 @@ flowchart TB
 
 ```
 📂 st-mary-of-angels/
-├── 📄 index.html            # lang, viewport, meta description (St Mary 5 Bukit Batok East Ave 2), CSP (legacy allowlist), Google Fonts (Fraunces + Source Sans 3), #root + Church JSON-LD
+├── 📄 index.html            # lang, viewport, meta description (St Mary 5 Bukit Batok East Ave 2), CSP (legacy allowlist retained, unused — all images local), Google Fonts (Fraunces + Source Sans 3), #root + Church JSON-LD
 ├── 📄 eslint.config.js      # flat config (typescript-eslint 8 + react-hooks 5 + react-refresh) — ignores [dist, node_modules, coverage, playwright-report, test-results, skills, src.orig]
 ├── 📄 playwright.config.ts  # Playwright 1.55 (chromium, webServer → pnpm exec vite :5173, expect timeout 15s)
 ├── 📄 vite.config.ts        # plugins [react, tailwindcss, viteSingleFile] + alias @→src + test {globals, jsdom, setupFiles: src/test/setup.ts, include: src/**/*.{test,spec}.{ts,tsx}, exclude: e2e/** } + server.watch.ignored [skills/**, dist/**, playwright-report/**, test-results/**, coverage/**, src.orig/**]
@@ -143,7 +143,7 @@ flowchart TB
 │   ├── 📄 prompts.md        # Intent lineage
 │   ├── 📄 ui-ux-remediation-plan-2026-08-28.md # UI/UX audit + Sacred Motion enhancements
 │   └── 📄 code-review-audit-2026-08-28.md  # Tiered review + security audit
-├── 📄 src.orig note         # Archived previous port — St Joseph BT (Rother → St Joseph → St Mary lineage); not linted/built; ignore entries are active guards
+├── 📄 src.orig note         # Archived previous port — St Joseph BT (Rother → St Joseph → St Mary lineage); retained locally, ignored via .gitignore (not committed); not linted/built; ignore entries are active guards
 ├── 📄 CLAUDE.md             # Deep conventions (authoritative — update alongside README)
 └── 📄 AGENTS.md             # Compact agent cheat sheet
 ```
@@ -232,9 +232,9 @@ Tokens live in `src/index.css` `@theme`. Extend there — never use arbitrary `b
 
 ## Deployment
 
-Primary artifact `dist/index.html` (+ `dist/images/` — 8 files) — no server, no env vars, no rewrites needed. The artifact ships a scoped `Content-Security-Policy` meta (inline JS/CSS from the singlefile build, Google Fonts, legacy Wikimedia+Pexels imagery allowlist, Google Maps iframe) — set HSTS/X-Content-Type-Options at the CDN/host layer, which a static file cannot control.
+Primary artifact `dist/index.html` (+ `dist/images/` — 8 files) — no server, no env vars, no rewrites needed. The artifact ships a scoped `Content-Security-Policy` meta (inline JS/CSS from the singlefile build, Google Fonts, legacy Wikimedia+Pexels imagery allowlist retained, unused — all `images.*` now local, Google Maps iframe) — set HSTS/X-Content-Type-Options at the CDN/host layer, which a static file cannot control.
 
-CSP (current `index.html`): `img-src 'self' data: blob: https://images.pexels.com https://upload.wikimedia.org` + `frame-src https://www.google.com` + `style-src https://fonts.googleapis.com`.
+CSP (current `index.html`): `img-src 'self' data: blob: https://images.pexels.com https://upload.wikimedia.org` (legacy allowlist retained, unused) + `frame-src https://www.google.com` + `style-src https://fonts.googleapis.com`.
 
 ```bash
 pnpm build                # produces dist/index.html + dist/images/ (publicDir copy — singlefile inlines JS+CSS, not public/)
@@ -255,7 +255,7 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 - **Conventions:** `PascalCase.tsx` for components/pages, `camelCase.ts` for data/utils, `primaryNav` single-source, alias routes preserved, `cn()` for merges, `shrine-*` tokens only.
 - **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (16 unit files / 92 tests + 35 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
 
-> `skills/` is vendored, git-tracked reference content (agent skills index: `skills/skills-catalog.md`) — not project source; lint/build tooling ignores it. `src.orig/` is **archived St Joseph BT port** (Rother → St Joseph → St Mary lineage); its ignore entries are active guards. See `AGENTS.md` for the compact cheat sheet.
+> `skills/` is vendored, git-tracked reference content (agent skills index: `skills/skills-catalog.md`) — not project source; lint/build tooling ignores it. `src.orig/` is **archived St Joseph BT port** (Rother → St Joseph → St Mary lineage) retained locally, ignored via `.gitignore` (not committed); its ignore entries are active guards. See `AGENTS.md` for the compact cheat sheet.
 
 ## Troubleshooting
 
@@ -266,7 +266,7 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 | Hash anchor doesn't scroll (`#/worship#mass` or `#/ministries#liturgical` lands at top) | Target `id` missing — verify `id="mass"` / `id="confession"` / `id="visit"` in `Worship.tsx` or `id="liturgical"` etc. in `Ministries.tsx`; `Layout.tsx` is double-hash aware (`split on #` + strip `/`, `setTimeout 80ms`, fallback `window.scrollTo`). |
 | Bare `href="#mass"` routes to NotFound | Use `<Link to="/worship#mass">` (or `/ministries#liturgical`) — plain `#id` replaces the `HashRouter` hash and routes to `*`. |
 | `tsc --noEmit` fails on unused var | `noUnusedLocals/Params` is `true` — remove or prefix with `_` only if intentionally unused. |
-| External image not loading | `SafeImage` falls back to `fallback` (default `/images/hero-church.jpg`) via `dataset.fallback` guard; current `images.*` are all local but legacy CSP still allows `upload.wikimedia.org` / `images.pexels.com`. |
+| External image not loading | `SafeImage` falls back to `fallback` (default `/images/hero-church.jpg`) via `dataset.fallback` guard; current `images.*` are all local but legacy CSP allowlist `upload.wikimedia.org` / `images.pexels.com` is retained, unused. |
 | `pnpm test` finds 0 tests | Should list 16 files — `src/test/setup.ts` + `src/**/*.test.*` must exist. Re-add `vite.config.ts` `test` block and `tsconfig.json` `types [vitest/globals]`. |
 | `pnpm test:e2e` fails | Check `playwright.config.ts` `baseURL` / `webServer` and stale assertions — specs target `/worship#mass`, `/ministries#liturgical`, `/history`, `5 Bukit Batok East Ave 2`. Run `pnpm test:e2e:ui` to inspect. |
 
@@ -276,5 +276,5 @@ Private — all rights reserved. © Church of St Mary of the Angels, Archdiocese
 
 ---
 
-**Docs:** [`rothershrine-v2_SKILL.md`](rothershrine-v2_SKILL.md) · [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md) · **Live:** [www.stmary.sg](https://www.stmary.sg/)
+**Docs:** [`st-mary-of-angels_SKILL.md`](st-mary-of-angels_SKILL.md) (canonical) · [`rothershrine-v2_SKILL.md`](rothershrine-v2_SKILL.md) (redirect stub) · [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md) · **Live:** [www.stmary.sg](https://www.stmary.sg/)
 
