@@ -1,4 +1,4 @@
-import { Clock, MapPin, MoonStar, Sun } from "lucide-react";
+import { Clock, MapPin, MoonStar, Sun, type LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -9,7 +9,7 @@ import { site } from "@/data/site";
 import { massDayKey, type MassDayKey } from "@/utils/massDay";
 import { cn } from "@/utils/cn";
 
-const massDayIcons: Record<MassDayKey, typeof Clock> = {
+const massDayIcons: Record<MassDayKey, LucideIcon> = {
   weekdays: Clock,
   saturday: MoonStar,
   sunday: Sun,

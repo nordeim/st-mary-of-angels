@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { images, ppcMembers, priests } from "@/data/content";
 import { site } from "@/data/site";
+import { monogram } from "@/utils/monogram";
 
 const pillars = [
   {
@@ -20,21 +21,6 @@ const pillars = [
     body: "The Church exists to evangelise. Mission includes charity, hospitality, mentoring future leaders, and reaching those outside our parish or faith.",
   },
 ];
-
-/** Round-5 (docs/design-enhancement-round5-2026-08-30.md P-5): initials
- * monogram — first letters of the person's given name + surname, skipping
- * honorifics and order suffixes ("Friar Esmond Chua, OFM" → "EC"). */
-const MONOGRAM_TITLES = new Set(["friar", "fr", "rev", "father", "ofm"]);
-
-function monogram(name: string): string {
-  const words = name
-    .split(/\s+/)
-    .map((word) => word.replace(/[^A-Za-z]/g, ""))
-    .filter((word) => word.length > 0 && !MONOGRAM_TITLES.has(word.toLowerCase()));
-  const first = words[0]?.[0] ?? "";
-  const last = words[words.length - 1]?.[0] ?? "";
-  return `${first}${last}`.toUpperCase();
-}
 
 export function About() {
   return (

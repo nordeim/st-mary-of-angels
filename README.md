@@ -40,7 +40,7 @@ Every row below is implemented — no placeholders. Pages are named exports from
 | Icons | lucide-react | `1.34.0` | Header/footer + page iconography |
 | Utils | clsx + tailwind-merge | `2.1.1` / `3.6.0` | `cn()` class merging — always merge via `cn()` |
 | Bundling | vite-plugin-singlefile | `2.3.3` | Inlines JS+CSS into `dist/index.html` (`public/images/` copied to `dist/images/`) |
-| Testing | Vitest + Testing Library + jsdom | `3.2.6` / `16.2.0` / `26.1.0` | `vitest run` — **24 files / 134 tests** (`cn` 5 + `nav` 7 + `content` 10 + `site` 7 + `massDay` 5 + `Button` 11 + `SkipLink` 3 + `Accordion` 6 + `SafeImage` 6 + `Header` 16 + `BackToTop` 7 + `Ministries` 3 + `cta-bands` 4 + `worship-mass` 4 + `about-visuals` 3 + `event-chips` 3 + `Timeline` 3 + `NotFound` 2 + `History` 2 + `Layout` 2 + `useScrollProgress` 4 + `ScrollProgress` 2 + `head` 13 + `security-headers` 6) via `src/test/setup.ts` |
+| Testing | Vitest + Testing Library + jsdom | `3.2.6` / `16.2.0` / `26.1.0` | `vitest run` — **25 files / 141 tests** (`cn` 5 + `nav` 7 + `content` 10 + `site` 7 + `massDay` 5 + `monogram` 7 + `Button` 11 + `SkipLink` 3 + `Accordion` 6 + `SafeImage` 6 + `Header` 16 + `BackToTop` 7 + `Ministries` 3 + `cta-bands` 4 + `worship-mass` 4 + `about-visuals` 3 + `event-chips` 3 + `Timeline` 3 + `NotFound` 2 + `History` 2 + `Layout` 2 + `useScrollProgress` 4 + `ScrollProgress` 2 + `head` 13 + `security-headers` 6) via `src/test/setup.ts` |
 | E2E | Playwright | `1.55.1` | `chromium`, `webServer` → `pnpm exec vite --port 5173 --host 127.0.0.1 --strictPort`, `e2e/` — **42 tests** (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6) |
 | Linting | ESLint flat + typescript-eslint + react-hooks | `9.39.5` / `8.28.0` / `5.2.0` | `eslint . --max-warnings 0`, `eslint.config.js` (ignores `dist`, `skills`, `src.orig`) |
 | Fonts | Google Fonts | — | `Fraunces` (display) + `Source Sans 3` (body) via `index.html` |
@@ -132,7 +132,7 @@ flowchart TB
 │   │   └── 📄 massDay.ts    # massDayKey(date) — single source for the Worship today-highlight
 │   ├── 📂 test/
 │   │   └── 📄 setup.ts      # vitest jsdom setup (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub)
-│   └── 📂 **/*.test.{ts,tsx} # 24 files / 134 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
+│   └── 📂 **/*.test.{ts,tsx} # 25 files / 141 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), utils/monogram (7), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
 ├── 📂 e2e/                  # 42 tests (Playwright chromium)
 │   ├── 📄 smoke.spec.ts     # 11 smoke (hero + rise-in entrance + Worship/Ministries aliases + hash anchors + NotFound + mobile drawer + drawer same-route close regression + event chips + back-to-top)
 │   ├── 📄 navigation.spec.ts# 8 desktop Worship/Ministries dropdown + keyboard + SkipLink + footer 10 links + Give + aria-current nav states
@@ -153,7 +153,7 @@ flowchart TB
 └── 📄 AGENTS.md             # Compact agent cheat sheet
 ```
 
-Current audits — port + 2026-08-28 review + 2026-08-30 `src` vs `src.orig` validation + **2026-08-30 round-3 tiered review & security audit** (`docs/code-review-audit-round3-2026-08-30.md` — CSP/headers hardening, BackToTop focus release, SSH-key/lockfile/src.orig untracking, docs alignment) + **2026-08-30 round-4 L-5 closure** (`docs/remediation-round4-2026-08-30.md` — mobile drawer as modal dialog with focus trap/focus restore/outside-tap close; scroll-rail E2E race root-caused deterministic) + **2026-08-30 round-5 "Light of the Portiuncula" design enhancement** (`docs/design-enhancement-round5-2026-08-30.md` — Worship "today" Mass highlight via `massDayKey`, event category chips, Give closing band, sticky History story column, timeline gradient rail, `.img-zoom` image drift, Button icon nudge, About monogram discs, NotFound emblem warmth): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 24 unit files / 134 tests + 42 E2E green; singlefile `dist/index.html 387.84 kB` + `dist/_headers` + `dist/images/8` (pinned exact, pnpm 11).
+Current audits — port + 2026-08-28 review + 2026-08-30 `src` vs `src.orig` validation + **2026-08-30 round-3 tiered review & security audit** (`docs/code-review-audit-round3-2026-08-30.md` — CSP/headers hardening, BackToTop focus release, SSH-key/lockfile/src.orig untracking, docs alignment) + **2026-08-30 round-4 L-5 closure** (`docs/remediation-round4-2026-08-30.md` — mobile drawer as modal dialog with focus trap/focus restore/outside-tap close; scroll-rail E2E race root-caused deterministic) + **2026-08-30 round-5 "Light of the Portiuncula" design enhancement** (`docs/design-enhancement-round5-2026-08-30.md` — Worship "today" Mass highlight via `massDayKey`, event category chips, Give closing band, sticky History story column, timeline gradient rail, `.img-zoom` image drift, Button icon nudge, About monogram discs, NotFound emblem warmth) + **2026-08-30 round-5 audit + remediation** (`docs/code-review-audit-round5-2026-08-30.md` / extract `EventMeta`+`monogram`, `LucideIcon` typing — R5-M1/L2/L3): 17 route entries / 16 content paths / 5 alias groups (7 paths) / 10 pages; 25 unit files / 141 tests + 42 E2E green; singlefile `dist/index.html 387.43 kB` + `dist/_headers` + `dist/images/8` (pinned exact, pnpm 11).
 
 ## Quick Start
 
@@ -187,7 +187,7 @@ pnpm preview
 ```bash
 pnpm lint               # eslint flat — expect no output (clean)
 pnpm typecheck         # tsc --noEmit — expect no output (clean)
-pnpm test               # vitest jsdom — expect 24 files / 134 passed (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
+pnpm test               # vitest jsdom — expect 25 files / 141 passed (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + monogram 7 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
 pnpm test:e2e           # Playwright chromium — expect 36 passed (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9)
 pnpm build              # expect: "✓ built in ~3s" + "Inlining: index-*.js / style-*.css"
 ls -lh dist/index.html  # expect: single HTML file, no separate assets chunk
@@ -260,7 +260,7 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 - **Commits:** Conventional Commits — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `style:` — atomic, subject ≤72 chars.
 - **Branches:** `feat/<slug>`, `fix/<slug>`, `docs/<slug>` — short-lived (1–3 days), squash-merge.
 - **Conventions:** `PascalCase.tsx` for components/pages, `camelCase.ts` for data/utils, `primaryNav` single-source, alias routes preserved, `cn()` for merges, `shrine-*` tokens only.
-- **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (24 unit files / 134 tests + 42 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
+- **Pre-push gate:** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build` — all five green (25 unit files / 141 tests + 42 E2E + singlefile build) — CI mirrors this in `.github/workflows/ci.yml` (Node 24, pnpm 11).
 
 > `skills/` is committed-but-pruned vendored reference content — round 3 (2026-08-30) removed the agent-skills index (`skills/skills-catalog.md`) and all per-skill `SKILL.md` files from tracking (full historical tree retrievable at `c774ed9`); lint/build tooling ignores what remains. `src.orig/` is the **archived St Joseph BT port** (Rother → St Joseph → St Mary lineage), retained locally and untracked since round 3 (`.gitignore` active); its ignore entries are active guards. `package-lock.json` and `docs/ssh-key.txt` are also untracked (stale-lockfile drift + secret hygiene — see round-3 audit). See `AGENTS.md` for the compact cheat sheet.
 
@@ -274,7 +274,7 @@ This repo follows the six-phase workflow in `CLAUDE.md` (ANALYZE → PLAN → VA
 | Bare `href="#mass"` routes to NotFound | Use `<Link to="/worship#mass">` (or `/ministries#liturgical`) — plain `#id` replaces the `HashRouter` hash and routes to `*`. |
 | `tsc --noEmit` fails on unused var | `noUnusedLocals/Params` is `true` — remove or prefix with `_` only if intentionally unused. |
 | External image not loading | `SafeImage` falls back to `fallback` (default `/images/hero-church.jpg`) via `dataset.fallback` guard; current `images.*` are all local but legacy CSP allowlist `upload.wikimedia.org` / `images.pexels.com` is retained, unused. |
-| `pnpm test` finds 0 tests | Should list 17 files — `src/test/setup.ts` + `src/**/*.test.*` must exist. Re-add `vite.config.ts` `test` block and `tsconfig.json` `types [vitest/globals]`. |
+| `pnpm test` finds 0 tests | Should list 24 files — `src/test/setup.ts` + `src/**/*.test.*` must exist. Re-add `vite.config.ts` `test` block and `tsconfig.json` `types [vitest/globals]`. |
 | `pnpm test:e2e` fails | Check `playwright.config.ts` `baseURL` / `webServer` and stale assertions — specs target `/worship#mass`, `/ministries#liturgical`, `/history`, `5 Bukit Batok East Ave 2`. Run `pnpm test:e2e:ui` to inspect. |
 
 ## License
