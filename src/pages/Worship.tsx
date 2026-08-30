@@ -1,4 +1,4 @@
-import { Clock, MapPin } from "lucide-react";
+import { Clock, MapPin, MoonStar, Sun } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -6,6 +6,58 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { devotions, images } from "@/data/content";
 import { site } from "@/data/site";
+import { massDayKey, type MassDayKey } from "@/utils/massDay";
+import { cn } from "@/utils/cn";
+
+const massDayIcons: Record<MassDayKey, typeof Clock> = {
+  weekdays: Clock,
+  saturday: MoonStar,
+  sunday: Sun,
+};
+
+interface MassCardProps {
+  dayKey: MassDayKey;
+  title: string;
+  footnote: string;
+  children: React.ReactNode;
+  delay?: number;
+}
+
+/** Round-5 (docs/design-enhancement-round5-2026-08-30.md P-3): the card
+ * matching massDayKey(new Date()) carries a gold top rule, a "Today" chip,
+ * and data-today="true" — exactly one card highlights on any given day. */
+function MassCard({ dayKey, title, footnote, children, delay = 0 }: MassCardProps) {
+  const isToday = massDayKey(new Date()) === dayKey;
+  const Icon = massDayIcons[dayKey];
+  return (
+    <Reveal delay={delay} className="h-full">
+      <article
+        data-testid="mass-card"
+        data-card-day={dayKey}
+        data-today={isToday ? "true" : undefined}
+        className={cn(
+          "h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-8",
+          isToday && "border-t-2 border-t-shrine-gold-500",
+        )}
+      >
+        <div className="flex items-center justify-between">
+          <Icon className="h-5 w-5 text-shrine-gold-600" aria-hidden="true" />
+          {isToday ? (
+            <span
+              data-testid="mass-today-chip"
+              className="inline-flex items-center rounded-full bg-shrine-gold-500 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-shrine-maroon-900"
+            >
+              Today
+            </span>
+          ) : null}
+        </div>
+        <h3 className="mt-4 font-display text-2xl">{title}</h3>
+        {children}
+        <p className="mt-4 text-xs text-shrine-charcoal/70">{footnote}</p>
+      </article>
+    </Reveal>
+  );
+}
 
 export function Worship() {
   return (
@@ -26,46 +78,49 @@ export function Worship() {
             description="All Masses and services are held in the Main Church, Level 1, unless otherwise indicated."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            <Reveal>
-              <article className="rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
-                <Clock className="h-5 w-5 text-shrine-gold-600" aria-hidden="true" />
-                <h3 className="mt-4 font-display text-2xl">Weekdays</h3>
-                <p className="mt-3 text-sm leading-relaxed text-shrine-charcoal/85">
-                  {site.mass.weekdayMorning}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-shrine-charcoal/85">
-                  {site.mass.weekdayEvening}
-                </p>
-                <p className="mt-4 text-xs text-shrine-charcoal/70">
-                  Public holidays usually 8.00 a.m. and 6.30 p.m., unless a Church Solemnity.
-                </p>
-              </article>
-            </Reveal>
-            <Reveal delay={80}>
-              <article className="rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
-                <Clock className="h-5 w-5 text-shrine-gold-600" aria-hidden="true" />
-                <h3 className="mt-4 font-display text-2xl">Saturday</h3>
-                <p className="mt-3 text-sm leading-relaxed text-shrine-charcoal/85">{site.mass.saturday}</p>
-                <p className="mt-4 text-xs text-shrine-charcoal/70">
-                  Syro-Malabar Malayalam Qurbana: 3rd Saturday, 7.00 p.m., St Clare Hall.
-                </p>
-              </article>
-            </Reveal>
-            <Reveal delay={160}>
-              <article className="rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
-                <Clock className="h-5 w-5 text-shrine-gold-600" aria-hidden="true" />
-                <h3 className="mt-4 font-display text-2xl">Sunday</h3>
-                <ul className="mt-3 space-y-1.5 text-sm text-shrine-charcoal/85">
-                  {site.mass.sunday.map((time) => (
-                    <li key={time}>{time}</li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-xs text-shrine-charcoal/70">
-                  Sinhala 11.30 a.m. · Indonesian 4th Sunday 2.00 p.m. · Deaf Community 4.00 p.m. —
-                  St Clare Hall unless announced.
-                </p>
-              </article>
-            </Reveal>
+            <MassCard
+              dayKey="weekdays"
+              title="Weekdays"
+              footnote="Public holidays usually 8.00 a.m. and 6.30 p.m., unless a Church Solemnity."
+            >
+              <p className="mt-3 text-sm leading-relaxed text-shrine-charcoal/85">
+                {site.mass.weekdayMorning}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-shrine-charcoal/85">
+                {site.mass.weekdayEvening}
+              </p>
+            </MassCard>
+            <MassCard
+              dayKey="saturday"
+              title="Saturday"
+              footnote="Syro-Malabar Malayalam Qurbana: 3rd Saturday, 7.00 p.m., St Clare Hall."
+              delay={80}
+            >
+              <p className="mt-3 text-sm leading-relaxed text-shrine-charcoal/85">
+                {site.mass.saturday}
+              </p>
+            </MassCard>
+            <MassCard
+              dayKey="sunday"
+              title="Sunday"
+              footnote="Sinhala 11.30 a.m. · Indonesian 4th Sunday 2.00 p.m. · Deaf Community 4.00 p.m. — St Clare Hall unless announced."
+              delay={160}
+            >
+              <ul className="mt-3 space-y-1 text-sm text-shrine-charcoal/85">
+                {site.mass.sunday.map((time) => (
+                  <li
+                    key={time}
+                    className="flex items-center gap-2.5 rounded-sm px-2 py-1 transition-colors hover:bg-shrine-maroon-50/60"
+                  >
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-shrine-gold-500"
+                      aria-hidden="true"
+                    />
+                    {time}
+                  </li>
+                ))}
+              </ul>
+            </MassCard>
           </div>
         </Container>
       </section>
