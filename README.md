@@ -93,7 +93,7 @@ flowchart TB
 
 ```
 📂 st-mary-of-angels/
-├── 📄 index.html            # lang, viewport, meta description (St Mary 5 Bukit Batok East Ave 2), CSP (legacy allowlist retained, unused — all images local), Google Fonts (Fraunces + Source Sans 3), #root + Church JSON-LD
+├── 📄 index.html            # lang, viewport, meta description (St Mary 5 Bukit Batok East Ave 2), CSP tight img-src 'self' data: blob: (round-6: legacy allowlist removed — all images local), Google Fonts (Fraunces + Source Sans 3), #root + Church JSON-LD
 ├── 📄 eslint.config.js      # flat config (typescript-eslint 8 + react-hooks 5 + react-refresh) — ignores [dist, node_modules, coverage, playwright-report, test-results, skills, src.orig]
 ├── 📄 playwright.config.ts  # Playwright 1.55 (chromium, webServer → pnpm exec vite :5173, expect timeout 15s)
 ├── 📄 vite.config.ts        # plugins [react, tailwindcss, viteSingleFile] + alias @→src + test {globals, jsdom, setupFiles: src/test/setup.ts, include: src/**/*.{test,spec}.{ts,tsx}, exclude: e2e/** } + server.watch.ignored [skills/**, dist/**, playwright-report/**, test-results/**, coverage/**, src.orig/**]
@@ -105,12 +105,12 @@ flowchart TB
 ├── 📂 src/
 │   ├── 📄 App.tsx           # HashRouter + 17 Route entries (16 content paths + * → NotFound; 5 alias groups / 7 alias paths; hash anchors #mass/#confession/#visit + 6 ministry ids)
 │   ├── 📄 main.tsx          # StrictMode + createRoot
-│   ├── 📄 index.css         # @theme shrine-* tokens (24 colors + 2 shadows) + @layer base/utilities (26 utilities: text-balance, bg-adobe-texture, bg-gold-bloom, bg-grain, divider-weave, divider-weave-thin, gold-rule, gold-rule-left, hero-ken-burns, img-zoom, mask-fade-b, reveal, reveal-visible, rise-in + rise-in-d1..d4, menu-in, drawer-in, drawer-item-in, page-in, dot-pulse, card-lift, link-underline, skip-link + 8 keyframes)
+│   ├── 📄 index.css         # @theme shrine-* tokens (24 colors + 2 shadows) + @layer base/utilities (27 utilities: text-balance, bg-adobe-texture, bg-gold-bloom, bg-grain, divider-weave, divider-weave-thin, gold-rule, gold-rule-left, hero-ken-burns, img-zoom, mask-fade-b, reveal, reveal-visible, rise-in + rise-in-d1..d4, menu-in, drawer-in, drawer-item-in, page-in, dot-pulse, card-lift, card-tint, link-underline, skip-link + 8 keyframes + @media print for reveal)
 │   ├── 📂 components/
 │   │   ├── 📄 Layout.tsx    # Outlet + scroll/hash restoration (double-hash aware, split on #, strip /, setTimeout 80ms, fallback window.scrollTo) + ScrollProgress + SkipLink + keyed page-in container
-│   │   ├── 📄 Header.tsx    # fixed maroon-950 bar, useScrolled(16), hover/focus-open dropdown (primaryNav; trigger has no click-toggle — keyboard via onFocusCapture), mobile modal drawer (round-4: dialog + aria-modal + focus trap + focus restore; closes on in-drawer link, Escape, outside tap), includes top bar Give link
+│   │   ├── 📄 Header.tsx    # fixed maroon-950 bar, useScrolled(16), hover/focus-open dropdown (primaryNav; trigger has no click-toggle — keyboard via onFocusCapture), mobile modal drawer (round-4: dialog + aria-modal + focus trap + focus restore; closes on in-drawer link, Escape, outside tap), link-underline active state (round-6: gold underline on aria-current), includes top bar Give link
 │   │   ├── 📄 Footer.tsx    # 4-col + divider-weave-thin + 4 socials (Facebook/Instagram/YouTube/Telegram) + site.ts address
-│   │   ├── 📄 PageHero.tsx  # maroon hero primitive (bg-grain + gradients + rise-in)
+│   │   ├── 📄 PageHero.tsx  # maroon hero primitive (bg-grain + gradients + rise-in) — variant `dusk`|`light` (light = WOHA interiors Worship/Give/FAQ)
 │   │   ├── 📄 Emblem.tsx    # inline SVG emblem (crook + wheat)
 │   │   ├── 📄 SafeImage.tsx # local fallback (fallback default /images/hero-church.jpg, lazy, onError dataset.fallback guard, optional fetchPriority)
 │   │   ├── 📄 SkipLink.tsx  # skip-to-main-content (preventDefault + focus #main-content; never rewrites hash)
@@ -118,7 +118,7 @@ flowchart TB
 │   │   ├── 📄 Timeline.tsx  # gradient rail + display-serif years + Reveal — renders lifeTimeline (1957–2026)
 │   │   ├── 📄 BackToTop.tsx # threshold 480 + SVG progress ring (stroke-dashoffset via useScrollProgress) + reduced-motion
 │   │   ├── 📄 ScrollProgress.tsx # fixed gold rail (scaleX progress, aria-hidden, z-[60])
-│   │   └── 📂 ui/           # Button (to/href/button + icon; variants primary|secondary|ghost|outline-light), Container, SectionHeading, Accordion (single-open, inert), Reveal
+│   │   └── 📂 ui/           # Button (to/href/button + icon; variants primary|secondary|ghost|outline-light), Container, SectionHeading, Accordion (single-open, inert), Reveal (IntersectionObserver guard + print override)
 │   ├── 📂 hooks/
 │   │   ├── 📄 useScrolled.ts # scrollY > threshold → scrolled boolean (default 12; Header passes 16)
 │   │   └── 📄 useScrollProgress.ts # 0..1 progress, rAF-throttled, unscrollable guard
@@ -132,7 +132,7 @@ flowchart TB
 │   │   └── 📄 massDay.ts    # massDayKey(date) — single source for the Worship today-highlight
 │   ├── 📂 test/
 │   │   └── 📄 setup.ts      # vitest jsdom setup (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub)
-│   └── 📂 **/*.test.{ts,tsx} # 25 files / 141 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), utils/monogram (7), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
+│   └── 📂 **/*.test.{ts,tsx} # 28 files / ~152 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), utils/monogram (7), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (17), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), PageHero (new, variant), ui/Reveal (new, IO guard), pages/card-affordance (new, card-tint vs lift), head (14), security-headers (6)
 ├── 📂 e2e/                  # 42 tests (Playwright chromium)
 │   ├── 📄 smoke.spec.ts     # 11 smoke (hero + rise-in entrance + Worship/Ministries aliases + hash anchors + NotFound + mobile drawer + drawer same-route close regression + event chips + back-to-top)
 │   ├── 📄 navigation.spec.ts# 8 desktop Worship/Ministries dropdown + keyboard + SkipLink + footer 10 links + Give + aria-current nav states
@@ -233,13 +233,13 @@ Tokens live in `src/index.css` `@theme`. Extend there — never use arbitrary `b
 | `shadow-shrine` | `0 20px 60px -20px rgba(51,16,15,.45)` | Hero, cards, emblem |
 | `shadow-shrine-lg` | `0 40px 90px -30px rgba(51,16,15,.55)` | Elevated cards, header dropdown |
 
-**Typography:** `Fraunces` (display, quote, `font-display` / `h1–h4`) + `Source Sans 3` (body, `font-sans` / `font-body` alias) — loaded in `index.html`, set in `@theme` + `@layer base`. Utilities: `text-balance`, `bg-adobe-texture`, `bg-grain`, `divider-weave` / `divider-weave-thin`, `gold-rule` / `gold-rule-left`, `reveal` / `reveal-visible`, `skip-link`, `mask-fade-b`, `hero-ken-burns` (20s Ken Burns), plus the "Sacred Motion" set: `rise-in` (+ `rise-in-d1..d4` stagger delays) for hero/PageHero entrances, `menu-in` / `drawer-in` / `drawer-item-in` / `page-in` for dropdown/drawer/route entrances, `card-lift` (hover lift + shadow + gold border) for every interactive card, `link-underline` (gold underline draws in on hover/focus), `dot-pulse` (timeline halo). All are transform/opacity-only and gated by the global `prefers-reduced-motion` block in `src/index.css`.
+**Typography:** `Fraunces` (display, quote, `font-display` / `h1–h4`) + `Source Sans 3` (body, `font-sans` / `font-body` alias) — loaded in `index.html`, set in `@theme` + `@layer base`. Utilities: `text-balance`, `bg-adobe-texture`, `bg-grain`, `divider-weave` / `divider-weave-thin`, `gold-rule` / `gold-rule-left`, `reveal` / `reveal-visible`, `skip-link`, `mask-fade-b`, `hero-ken-burns` (20s Ken Burns), plus the "Sacred Motion" set: `rise-in` (+ `rise-in-d1..d4` stagger delays) for hero/PageHero entrances, `menu-in` / `drawer-in` / `drawer-item-in` / `page-in` for dropdown/drawer/route entrances, `card-lift` (interactive cards only) + `card-tint` (dead cards, border tint — round-6), `link-underline` (gold underline draws in on hover/focus + persists on `aria-current` — round-6), `dot-pulse` (timeline halo). All are transform/opacity-only and gated by the global `prefers-reduced-motion` block + `@media print` for `reveal` in `src/index.css`.
 
 ## Deployment
 
 Primary artifact `dist/index.html` (+ `dist/images/` — 8 files, + `dist/_headers`) — no server, no env vars, no rewrites needed. The artifact ships a scoped `Content-Security-Policy` meta (inline JS/CSS from the singlefile build, Google Fonts, Cloudflare Pages beacon allowance in `script-src`, `object-src 'none'`, `base-uri 'self'`, legacy Wikimedia+Pexels imagery allowlist retained, unused — all `images.*` now local, Google Maps iframe) + a `Referrer-Policy` meta. `public/_headers` adds the host-level headers a static file cannot set (HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`) on Cloudflare Pages — on other hosts, set HSTS/X-Content-Type-Options at the CDN/host layer.
 
-CSP (current `index.html`): `img-src 'self' data: blob: https://images.pexels.com https://upload.wikimedia.org` (legacy allowlist retained, unused) + `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com` (beacon allowance for the Cloudflare Pages deploy) + `object-src 'none'` + `base-uri 'self'` + `frame-src https://www.google.com` + `style-src https://fonts.googleapis.com`; `<meta name="referrer" content="strict-origin-when-cross-origin">`.
+CSP (current `index.html`, round-6 tight): `img-src 'self' data: blob:` (legacy `images.pexels.com`/`upload.wikimedia.org` removed — all `images.*` local) + `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com` (beacon allowance) + `object-src 'none'` + `base-uri 'self'` + `frame-src https://www.google.com` + `style-src https://fonts.googleapis.com`; `<meta name="referrer" content="strict-origin-when-cross-origin">`.
 
 Preview deployment: this repo is also exercised live at `https://st-mary-of-angels.jesspete.shop/` (Cloudflare Pages — verified byte-identical to the local build in the round-3 audit); canonical `og:url`/JSON-LD intentionally remain `https://www.stmary.sg/`.
 

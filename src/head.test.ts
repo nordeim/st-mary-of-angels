@@ -102,6 +102,12 @@ describe("index.html CSP & referrer hardening", () => {
     expect(csp).toContain("https://static.cloudflareinsights.com");
   });
 
+  it("tightens img-src to 'self' data: blob: (round-6: legacy allowlist removed)", () => {
+    expect(csp).toContain("img-src 'self' data: blob:");
+    expect(csp).not.toContain("images.pexels.com");
+    expect(csp).not.toContain("upload.wikimedia.org");
+  });
+
   it("declares a Referrer-Policy meta (host does not send the header)", () => {
     headIncludes('<meta name="referrer" content="strict-origin-when-cross-origin" />');
   });

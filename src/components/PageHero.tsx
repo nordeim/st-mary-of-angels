@@ -11,6 +11,7 @@ interface PageHeroProps {
   fallback?: string;
   children?: ReactNode;
   compact?: boolean;
+  variant?: "dusk" | "light";
 }
 
 export function PageHero({
@@ -21,7 +22,9 @@ export function PageHero({
   fallback,
   children,
   compact = false,
+  variant = "dusk",
 }: PageHeroProps) {
+  const isLight = variant === "light";
   return (
     <section
       className={cn(
@@ -34,11 +37,26 @@ export function PageHero({
           src={image}
           fallback={fallback}
           alt=""
-          className="h-full w-full object-cover opacity-35"
+          className={cn(
+            "h-full w-full object-cover",
+            isLight ? "opacity-60" : "opacity-35",
+          )}
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-shrine-maroon-950/50 via-shrine-maroon-950/75 to-shrine-maroon-950" />
-        <div className="absolute inset-0 bg-gradient-to-r from-shrine-maroon-950/55 to-transparent" />
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-b",
+            isLight
+              ? "from-shrine-maroon-950/35 via-shrine-maroon-950/45 to-shrine-maroon-950/85"
+              : "from-shrine-maroon-950/50 via-shrine-maroon-950/75 to-shrine-maroon-950",
+          )}
+        />
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-r",
+            isLight ? "from-shrine-maroon-950/35 to-transparent" : "from-shrine-maroon-950/55 to-transparent",
+          )}
+        />
         <div className="bg-grain pointer-events-none absolute inset-0" />
       </div>
       <Container className="relative">

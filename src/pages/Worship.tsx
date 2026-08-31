@@ -63,6 +63,7 @@ export function Worship() {
   return (
     <>
       <PageHero
+        variant="light"
         eyebrow="Worship"
         title="Mass, mercy, and a place to kneel"
         description={site.mass.note}
@@ -147,7 +148,7 @@ export function Worship() {
               {devotions.map((item) => (
                 <article
                   key={item.title}
-                  className="card-lift rounded-sm border border-shrine-stone bg-shrine-cream p-5"
+                  className="card-tint rounded-sm border border-shrine-stone bg-shrine-cream p-5"
                 >
                   <h4 className="font-display text-lg">{item.title}</h4>
                   <p className="mt-1 text-sm text-shrine-maroon-600">{item.when}</p>

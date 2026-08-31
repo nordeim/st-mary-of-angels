@@ -9,6 +9,7 @@ export function FAQ() {
     <>
       <PageHero
         compact
+        variant="light"
         eyebrow="Questions"
         title="Before you come"
         description="Mass, confession, parking, sacraments, and the columbarium."

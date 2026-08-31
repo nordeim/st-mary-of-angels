@@ -147,7 +147,7 @@ export function Header() {
                     aria-expanded={openDesktopMenu === item.label}
                     aria-current={parentActive ? "true" : undefined}
                     className={cn(
-                      "flex items-center gap-1 px-3 py-2 text-sm font-semibold uppercase tracking-wide text-shrine-cream/85 transition-colors hover:text-shrine-gold-300",
+                      "link-underline flex items-center gap-1 px-3 py-2 text-sm font-semibold uppercase tracking-wide text-shrine-cream/85 transition-colors hover:text-shrine-gold-300",
                       parentActive && "text-shrine-gold-300",
                     )}
                   >
@@ -159,7 +159,7 @@ export function Header() {
                     to={item.to}
                     aria-current={pathname === item.to ? "page" : undefined}
                     className={cn(
-                      "block px-3 py-2 text-sm font-semibold uppercase tracking-wide text-shrine-cream/85 transition-colors hover:text-shrine-gold-300",
+                      "link-underline block px-3 py-2 text-sm font-semibold uppercase tracking-wide text-shrine-cream/85 transition-colors hover:text-shrine-gold-300",
                       pathname === item.to && "text-shrine-gold-300",
                     )}
                   >

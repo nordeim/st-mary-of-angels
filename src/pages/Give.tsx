@@ -32,6 +32,7 @@ export function Give() {
   return (
     <>
       <PageHero
+        variant="light"
         eyebrow="Love offering"
         title="Sharing what you have"
         description="Your giving enables St Mary's to be united as one body, and to make Jesus real in this community."
@@ -50,7 +51,7 @@ export function Give() {
               const Icon = icons[option.icon];
               return (
                 <Reveal key={option.name} delay={index * 50}>
-                  <article className="card-lift flex gap-4 rounded-sm border border-shrine-stone bg-shrine-parchment p-6">
+                  <article className="card-tint flex gap-4 rounded-sm border border-shrine-stone bg-shrine-parchment p-6">
                     <Icon className="mt-1 h-6 w-6 shrink-0 text-shrine-gold-600" aria-hidden="true" />
                     <div>
                       <h3 className="font-display text-xl">{option.name}</h3>

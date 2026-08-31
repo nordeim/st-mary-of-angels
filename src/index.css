@@ -339,6 +339,17 @@
     border-color: var(--color-shrine-gold-300);
   }
 
+  .card-tint {
+    transition-property: border-color, background-color;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-tint:hover {
+    border-color: var(--color-shrine-gold-300);
+    background-color: var(--color-shrine-cream);
+  }
+
   /* Round-5 image drift: inside a `.group` card, the photograph drifts while
      the `.card-lift` frame lifts. Transform-only; the global
      prefers-reduced-motion block already collapses the transition. */
@@ -375,6 +386,11 @@
 
   .link-underline:hover::after,
   .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .link-underline[aria-current="page"]::after,
+  .link-underline[aria-current="true"]::after {
     transform: scaleX(1);
   }
 
@@ -420,6 +436,18 @@
     .dot-pulse::after {
       animation: none;
       opacity: 0;
+    }
+  }
+
+  @media print {
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .reveal-visible {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }

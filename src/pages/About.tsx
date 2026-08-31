@@ -43,7 +43,7 @@ export function About() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {pillars.map((pillar, index) => (
               <Reveal key={pillar.title} delay={index * 80}>
-                <article className="card-lift h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
+                <article className="card-tint h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
                   <p className="font-display text-5xl leading-none text-shrine-gold-300">
                     0{index + 1}
                   </p>
@@ -72,7 +72,7 @@ export function About() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {priests.map((priest, index) => (
               <Reveal key={priest.name} delay={index * 70} className="h-full">
-                <article className="card-lift h-full rounded-sm border border-shrine-stone bg-shrine-cream p-6">
+                <article className="card-tint h-full rounded-sm border border-shrine-stone bg-shrine-cream p-6">
                   <span
                     aria-hidden="true"
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-shrine-gold-400/50 bg-shrine-maroon-50 font-display text-sm font-semibold text-shrine-maroon-700"

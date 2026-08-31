@@ -22,6 +22,11 @@ export function Reveal({ children, className, delay = 0, as: Tag = "div" }: Reve
       return;
     }
 
+    if (typeof IntersectionObserver === "undefined" || !("IntersectionObserver" in window)) {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

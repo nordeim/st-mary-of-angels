@@ -26,7 +26,7 @@ export function Serve() {
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {serveRoles.map((role, index) => (
               <Reveal key={role.title} delay={index * 70}>
-                <article className="card-lift rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
+                <article className="card-tint rounded-sm border border-shrine-stone bg-shrine-parchment p-8">
                   <p className="text-xs font-semibold uppercase tracking-[0.25em] text-shrine-gold-600">
                     0{index + 1}
                   </p>

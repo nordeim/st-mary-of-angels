@@ -176,4 +176,11 @@ describe("Header", () => {
     expect(screen.queryByRole("dialog", { name: "Site menu" })).not.toBeInTheDocument();
     expect(document.activeElement).toBe(toggle);
   });
+
+  it("active desktop nav links carry link-underline so the gold underline persists on aria-current (R6-04)", () => {
+    renderHeader("/news-events");
+    const link = screen.getByRole("link", { name: "News & Events" });
+    expect(link).toHaveAttribute("aria-current", "page");
+    expect(link.className).toContain("link-underline");
+  });
 });

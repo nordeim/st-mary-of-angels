@@ -168,7 +168,7 @@ export function Home() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2">
             {featured.map((event, index) => (
               <Reveal key={event.title} delay={index * 70} className="h-full">
-                <article className="card-lift h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-6">
+                <article className="card-tint h-full rounded-sm border border-shrine-stone bg-shrine-parchment p-6">
                   <EventMeta category={event.category} date={event.date} />
                   <h3 className="mt-2 font-display text-2xl text-shrine-maroon-700">{event.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-shrine-charcoal/80">
