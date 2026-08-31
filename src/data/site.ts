@@ -74,6 +74,10 @@ export const site = {
   youtube: "https://www.youtube.com/c/StMarysgtv",
   telegram: "https://t.me/stmarysg",
   whatsapp: "https://whatsapp.com/channel/0029Va663rp3rZZdVEyToo08",
+  // Verified 2026-08-31 (HTTP 200) — the parish's canonical updates page and
+  // the News & Events weekly touchpoint (audit F-5; the parish publishes no
+  // stable weekly-bulletin URL, unlike the Risen Christ sister port).
+  parishUpdates: "https://www.stmary.sg/parish-updates",
   archdiocese: "https://www.catholic.sg/",
   franciscans: "https://franciscans.sg/",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=5+Bukit+Batok+East+Ave+2+Singapore+659918",

@@ -346,6 +346,7 @@ export const upcomingEvents: EventItem[] = [
     summary:
       "Friday 11 September, 7.30–9.30 p.m. at Gubbio, or Sunday 13 September, 2.30–4.30 p.m. in Rooms 1–3.",
     category: "Parish",
+    href: "https://www.stmary.sg/wyd",
   },
   {
     title: "Walking with St Francis: the Beatitudes",
@@ -367,6 +368,7 @@ export const upcomingEvents: EventItem[] = [
     summary:
       "A message from the Custos on the Jubilee Year — check what is in store for this Franciscan year of grace.",
     category: "Archdiocese",
+    href: "https://www.stmary.sg/franciscanjubilee",
   },
 ];
 

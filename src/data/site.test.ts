@@ -65,4 +65,10 @@ describe("site", () => {
     // ogImage is absolute and uses the same origin
     expect(site.ogImage.startsWith(site.origin)).toBe(true);
   });
+
+  it("has the verified parish updates touchpoint (audit F-5)", () => {
+    // Verified HTTP 200 on 2026-08-31; the parish publishes no stable
+    // weekly-bulletin URL, so News & Events routes here instead.
+    expect(site.parishUpdates).toBe("https://www.stmary.sg/parish-updates");
+  });
 });
