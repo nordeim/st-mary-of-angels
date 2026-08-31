@@ -19,6 +19,11 @@ Do not create any new git branch. All git commits must be to the main branch.
 
 please meticulously review @AGENTS.md , @CLAUDE.md , @README.md and @st-mary-of-angels_SKILL.md to have a deep understanding of the project and its codebase design and architecture. Next, meticulously plan to validate your deep understanding against the codebase to check for alignment and to confirm the project status.
 
+─
+please meticulously review @AGENTS.md , @CLAUDE.md , @README.md and @st-mary-of-angels_SKILL.md to have a deep understanding of the project and its codebase design and architecture. Next, please meticulously review and audit/validate the findings mentioned in @docs/review_findings_to_validate.md
+
+please meticulously review @AGENTS.md , @CLAUDE.md , @README.md and @st-mary-of-angels_SKILL.md to have a deep understanding of the project and its codebase design and architecture. Next, please meticulously plan to perform a meticulous code review and audit/validation of the code and document changes in the recent 'git commits' shown:
+
 in the current project folder, the original `src/` was moved to `src.orig/` and the current `src/` was rewritten for a port (migration) of `https://www.stmary.sg/` to the new design. so meticlously plan to adapt the project documentations, `AGENTS.md`, `CLAUDE.md`, `README.md` and `rothershrine-v2_SKILL.md` to the current (new) `src/`
 
 please meticulously plan to validate that the new codebase represented by folder `src/` has adopted and improved upon all the good design elements and practices from the old codebase represented by `src.orig/`.
