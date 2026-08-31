@@ -2,10 +2,10 @@
 name: st-mary-of-angels
 display_name: Church of St Mary of the Angels — Bukit Batok
 version: 1.2.0
-last_updated: 2026-08-30
-project_state: "static SPA — 25 files / 141 unit tests + 42 E2E green — port of www.stmary.sg, second hop Rother→St Joseph (src.orig) → St Mary (src)"
-verified: pnpm lint 0 + pnpm typecheck 0 + pnpm test 24/134 + pnpm test:e2e 42 + pnpm build → dist/index.html + dist/_headers + dist/images/8
-stack: react 19.2.8 / vite 7.3.6 / tailwind 4.3.3 (@tailwindcss/vite 4.1.17) / typescript 5.9.3 / react-router 7.18.2 / singlefile 2.3.3 / eslint 9.39.5 flat / vitest 3.2.6 jsdom / testing-library 16.2.0 / playwright 1.55.1 chromium (42 E2E green)
+last_updated: 2026-08-31
+project_state: "static SPA — 31 files / 172 unit tests + 45 E2E green — port of www.stmary.sg, second hop Rother→St Joseph (src.orig) → St Mary (src)"
+verified: pnpm lint 0 + pnpm typecheck 0 + pnpm test 31/172 + pnpm test:e2e 45 + pnpm build → dist/index.html + dist/_headers + dist/images/8
+stack: react 19.2.8 / vite 7.3.6 / tailwind 4.3.3 (@tailwindcss/vite 4.1.17) / typescript 5.9.3 / react-router 7.18.2 / singlefile 2.3.3 / eslint 9.39.5 flat / vitest 3.2.6 jsdom / testing-library 16.2.0 / playwright 1.55.1 chromium (45 E2E green)
 rendering: static SPA (HashRouter, no SSR)
 data_layer: file-backed typed arrays in src/data/* + const site object
 deploy: vite-plugin-singlefile → dist/index.html + dist/images/ → GH Pages / S3 (publicDir copy — not inlined)
@@ -110,8 +110,8 @@ port_provenance: Singapore port of https://www.stmary.sg/ — Church of St Mary 
 
 | Suite | Status | Detail |
 |---|---|---|
-| `vitest` unit (`pnpm test`) | **25 files / 141 tests — green** | `src/utils/cn` 5 + `data/nav` 7 + `data/content` 10 + `data/site` 7 + `utils/massDay` 5 + `utils/monogram` 7 + `ui/Button` 11 + `SkipLink` 3 + `ui/Accordion` 6 + `SafeImage` 6 + `Header` 16 + `BackToTop` 7 + `pages/Ministries` 3 + `pages/cta-bands` 4 + `pages/worship-mass` 4 + `pages/about-visuals` 3 + `pages/event-chips` 3 + `components/Timeline` 3 + `pages/NotFound` 2 + `pages/History` 2 + `Layout` 2 + `hooks/useScrollProgress` 4 + `ScrollProgress` 2 + `head` 13 + `security-headers` 6 via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub). Data values: priests 4 OFM (with email), ppc 6, lifeTimeline 1957–2026, grounds 3, ministries 6, faqs 6, events 6, giving 8, serveRoles 4, devotions 6, images 11 all-local. `vite.config.ts test { globals, jsdom, setupFiles, include, exclude }` keeps `e2e/**` out. |
-| `playwright` E2E (`pnpm test:e2e`) | **42 tests — green** | 6 specs `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6` (chromium) — Bukit Batok (St Mary) routes `/worship`/`/ministries`/`/serve`/`/give` + `#mass`/`#liturgical` etc. + `SafeImage` fallback via `route.abort` + mobile drawer same-route close regression + rise-in hero entrance + event chips + back-to-top + aria-current nav states + Round-2 audit (CTA-band cream, head completeness, page-in, progress rail/ring, drawer aria-current) + Round-4 (mobile drawer modal: dialog + `aria-modal` + trapped focus + Escape focus restore; scroll-rail deterministic mid-depth landing) + Round-5 (Worship today-Mass card via `utils/massDay` + Sunday gold-dot list, gold category chips + display-serif dates, Give closing band h2 cream, sticky History story `lg:sticky`, gradient timeline rail, `.img-zoom` grounds/ministries drift, `.bg-gold-bloom` dark bands, Button aria-hidden icon nudge, About ghost numerals + monogram discs, NotFound ghost emblem + rise-in). |
+| `vitest` unit (`pnpm test`) | **31 files / 172 tests — green** | `src/utils/cn` 5 + `data/nav` 7 + `data/content` 10 + `data/site` 8 + `utils/massDay` 5 + `utils/monogram` 7 + `ui/Button` 11 + `SkipLink` 3 + `ui/Accordion` 6 + `SafeImage` 6 + `Header` 17 + `BackToTop` 7 + `pages/Ministries` 3 + `pages/cta-bands` 4 + `pages/worship-mass` 4 + `pages/about-visuals` 3 + `pages/event-chips` 3 + `components/Timeline` 3 + `pages/NotFound` 2 + `pages/History` 2 + `Layout` 2 + `hooks/useScrollProgress` 4 + `ScrollProgress` 2 + `PageHero` 3 + `ui/Reveal` 3 + `pages/card-affordance` 6 + `wcag-contrast` 6 + `utils/deepLinks` 7 + `pages/news-events-journey` 3 + `head` 14 + `security-headers` 6 via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub). Data values: priests 4 OFM (with email), ppc 6, lifeTimeline 1957–2026, grounds 3, ministries 6, faqs 6, events 6, giving 8, serveRoles 4, devotions 6, images 11 all-local. `vite.config.ts test { globals, jsdom, setupFiles, include, exclude }` keeps `e2e/**` out. |
+| `playwright` E2E (`pnpm test:e2e`) | **45 tests — green** | 7 specs `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6 + deep-links 3` (chromium) — deep-links = audit F-3 path→hash redirects — Bukit Batok (St Mary) routes `/worship`/`/ministries`/`/serve`/`/give` + `#mass`/`#liturgical` etc. + `SafeImage` fallback via `route.abort` + mobile drawer same-route close regression + rise-in hero entrance + event chips + back-to-top + aria-current nav states + Round-2 audit (CTA-band cream, head completeness, page-in, progress rail/ring, drawer aria-current) + Round-4 (mobile drawer modal: dialog + `aria-modal` + trapped focus + Escape focus restore; scroll-rail deterministic mid-depth landing) + Round-5 (Worship today-Mass card via `utils/massDay` + Sunday gold-dot list, gold category chips + display-serif dates, Give closing band h2 cream, sticky History story `lg:sticky`, gradient timeline rail, `.img-zoom` grounds/ministries drift, `.bg-gold-bloom` dark bands, Button aria-hidden icon nudge, About ghost numerals + monogram discs, NotFound ghost emblem + rise-in). |
 | `lint` / `typecheck` / `build` | Green on fresh clones | `eslint 9.39.5` flat `--max-warnings 0`, `tsc --noEmit` strict, `viteSingleFile` → `dist/index.html` (387.84 kB, JS+CSS inlined) + `dist/_headers` + `dist/images/` 8 files |
 
 ---
@@ -127,8 +127,8 @@ pnpm install --frozen-lockfile  # deterministic — versions pinned exact (pnpm 
 pnpm dev                # → http://localhost:5173 (Vite HMR)
 pnpm lint               # → eslint 9.39.5 flat — must be clean (--max-warnings 0)
 pnpm typecheck          # → tsc --noEmit — must be silent
-pnpm test               # → vitest 3.2.6 jsdom — 25 files / 141 tests green (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + monogram 7 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
-pnpm test:e2e           # → playwright 1.55.1 chromium — 42 tests (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6) green
+pnpm test               # → vitest 3.2.6 jsdom — 31 files / 172 tests green (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + monogram 7 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
+pnpm test:e2e           # → playwright 1.55.1 chromium — 45 tests (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6 + deep-links 3) green
 pnpm build              # → dist/index.html + dist/images/ (viteSingleFile 2.3.3 inlines JS+CSS; publicDir copied)
 pnpm preview            # → http://localhost:4173 (preview dist)
 ```
@@ -146,10 +146,10 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 | `vite.config.ts` | `plugins: [react(), tailwindcss(), viteSingleFile()]` + `resolve.alias["@"]` + `test { globals, jsdom, setupFiles: src/test/setup.ts, include: src/**/*.{test,spec}.{ts,tsx}, exclude: e2e/** }` + `server.watch.ignored [skills/**, dist/**, playwright-report/**, test-results/**, coverage/**, src.orig/**]` | `test` keeps `e2e/**` out of unit runs; `server.watch.ignored` prevents `ENOSPC` from vendored `skills/` tree (large `.venv`). `@` must stay in sync (`vite.config.ts` ↔ `tsconfig.json` `paths`). |
 | `tsconfig.json` | `ES2020`/`ESNext`/`bundler`/`react-jsx`/`strict`/`noUnused*`/`isolatedModules`/`noEmit` + `include ["src","vite.config.ts","eslint.config.js","playwright.config.ts"]` + `types ["node","vitest/globals"]` + `paths {"@/*":["src/*"]}` + `baseUrl:"."` | `include` covers `src` + all config files (so `eslint.config.js` + `playwright.config.ts` are type-checked). `types [vitest/globals]` required for `describe/it/expect` globals. Adding a file outside `src/` requires expanding `include`. |
 | `eslint.config.js` | flat config (`eslint 9.39.5` + `@eslint/js 9.39.5` + `typescript-eslint 8.28.0` + `react-hooks 5.2.0` + `react-refresh 0.4.19` + `globals 16.1.0`) — ignores `dist/node_modules/coverage/playwright-report/test-results` **and `skills` and `src.orig`** | Flat. `pnpm lint:fix` → `eslint . --fix`. Ignoring `skills` + `src.orig` is what keeps the gate green. Never re-add `src.orig/` to lint/tsc. |
-| `playwright.config.ts` | `playwright 1.55.1` (`@playwright/test 1.55.1` chromium, `webServer` → `pnpm exec vite --port 5173 --host 127.0.0.1 --strictPort`) | `testDir: e2e`, `baseURL: http://localhost:5173`, `reuseExistingServer: !CI`, `expect.timeout: 15s`, `trace/video on failure`. **Green** — 42 tests: `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6`. |
-| `e2e/` | 42 tests — `smoke.spec.ts` (11), `navigation.spec.ts` (8), `ministries.spec.ts` (4), `give-faq.spec.ts` (4), `enhancements.spec.ts` (9), `enhancements-round5.spec.ts` (6) + `helpers.ts` | **green** — Worship/Ministries anchors + aliases + `SafeImage` fallback + drawer same-route close regression + rise-in entrance + event chips + back-to-top + aria-current nav + Round-2 audit (CTA-band cream h2, head completeness, page-in keyed wrapper, scroll-progress rail/ring, drawer aria-current) + Round-4 (modal drawer dialog/aria-modal/trapped focus + Escape restore; scroll-rail mid-depth landing) + Round-5 (today Mass card matches run date, Give band h2 cream, sticky story at 1440px, img-zoom matrix on hover, gradient rail, 404 emblem) |
+| `playwright.config.ts` | `playwright 1.55.1` (`@playwright/test 1.55.1` chromium, `webServer` → `pnpm exec vite --port 5173 --host 127.0.0.1 --strictPort`) | `testDir: e2e`, `baseURL: http://localhost:5173`, `reuseExistingServer: !CI`, `expect.timeout: 15s`, `trace/video on failure`. **Green** — 45 tests: `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6 + deep-links 3`. |
+| `e2e/` | 45 tests — `smoke.spec.ts` (11), `navigation.spec.ts` (8), `ministries.spec.ts` (4), `give-faq.spec.ts` (4), `enhancements.spec.ts` (9), `enhancements-round5.spec.ts` (6), `deep-links.spec.ts` (3, audit F-3) + `helpers.ts` | **green** — Worship/Ministries anchors + aliases + `SafeImage` fallback + drawer same-route close regression + rise-in entrance + event chips + back-to-top + aria-current nav + Round-2 audit (CTA-band cream h2, head completeness, page-in keyed wrapper, scroll-progress rail/ring, drawer aria-current) + Round-4 (modal drawer dialog/aria-modal/trapped focus + Escape restore; scroll-rail mid-depth landing) + Round-5 (today Mass card matches run date, Give band h2 cream, sticky story at 1440px, img-zoom matrix on hover, gradient rail, 404 emblem) |
 | `.github/workflows/ci.yml` | CI: lint → typecheck → test → test:e2e (chromium) → build + artifacts | `pnpm 11`, `node 24`. All five green — `dist/` + `playwright-report/` artifacts. |
-| `src/index.css` | `@import "tailwindcss"` + `@theme` (24 colors + 2 shadows) + `@layer base/utilities` (27 utilities incl. `hero-ken-burns`, `gold-rule`/`gold-rule-left`, `reveal`/`reveal-visible`, `rise-in`+`rise-in-d1..d4`, `menu-in`, `drawer-in`, `drawer-item-in`, `page-in`, `dot-pulse`, `card-lift`, `card-tint`, `link-underline` (+ `aria-current`), `skip-link`, `mask-fade-b`, `img-zoom`, `bg-gold-bloom` + 8 keyframes `gold-rule-draw`/`hero-ken-burns`/`rise-in`/`menu-in`/`drawer-in`/`drawer-item-in`/`page-in`/`halo-pulse` + themed scrollbar in `@layer base` + `@media print` for `reveal`) | Only token source; no `tailwind.config.*` exists. |
+| `src/index.css` | `@import "tailwindcss"` + `@theme` (26 colors + 2 shadows; round-7 added gold-700 `#85601f` 4.72:1 + terracotta-600 `#8f4c30` 5.36:1 AA text steps) + `@layer base/utilities` (27 utilities incl. `hero-ken-burns`, `gold-rule`/`gold-rule-left`, `reveal`/`reveal-visible`, `rise-in`+`rise-in-d1..d4`, `menu-in`, `drawer-in`, `drawer-item-in`, `page-in`, `dot-pulse`, `card-lift`, `card-tint`, `link-underline` (+ `aria-current`), `skip-link`, `mask-fade-b`, `img-zoom`, `bg-gold-bloom` + 8 keyframes `gold-rule-draw`/`hero-ken-burns`/`rise-in`/`menu-in`/`drawer-in`/`drawer-item-in`/`page-in`/`halo-pulse` + themed scrollbar in `@layer base` + `@media print` for `reveal`) | Only token source; no `tailwind.config.*` exists. |
 | `index.html` | `lang en`, `viewport`, `meta description`, scoped `Content-Security-Policy` meta + `referrer` meta, `/favicon.svg` link + `theme-color #200a0a`, full OG (`og:url`/`og:site_name`/`og:locale`/`og:image`+`og:image:alt`) + `twitter:card summary_large_image` + Church JSON-LD (drift-checked by `src/head.test.ts`), preconnect `fonts.googleapis.com`, `Fraunces`+`Source Sans 3`, `#root` + `src/main.tsx` | CSP tight (`img-src 'self' data: blob:` only, legacy `upload.wikimedia.org`/`images.pexels.com` removed round-6), allows inline script/style (singlefile), Google Fonts `self`/`data:`/`blob:` only (`images.*` all local), `frame-src https://www.google.com` (maps embed). Social share + search-engine identity for Church of St Mary of the Angels (www.stmary.sg, Portiuncula 2 Aug). |
 | `.gitignore` | Ignores `node_modules/`, `.next/`, `dist/`, `skills/`, `src.orig/`, `docs/ssh-key.txt`, `package-lock.json` + `nohup.out`, `.venv`, `bak.git/` | `skills/` ignore is ineffective for its 873 tracked files — `skills/` **is** committed (vendored, pruned in round 3; catalog + SKILL.md contents removed). `src.orig/`, `docs/ssh-key.txt` (C-1) and `package-lock.json` (H-1) are untracked since round 3 and effectively ignored — `eslint` + `vite.config.ts` ignore entries remain active guards. |
 
@@ -190,6 +190,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
   --color-shrine-gold-400: #d1a955;
   --color-shrine-gold-500: #c3963f;
   --color-shrine-gold-600: #a67a2e;
+  --color-shrine-gold-700: #85601f;
 
   --color-shrine-pine-500: #335840;
   --color-shrine-pine-600: #26402f;
@@ -197,6 +198,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm build
 
   --color-shrine-terracotta-400: #c17a53;
   --color-shrine-terracotta-500: #ab5f3c;
+  --color-shrine-terracotta-600: #8f4c30;
 
   --shadow-shrine: 0 20px 60px -20px rgba(51, 16, 15, 0.45);
   --shadow-shrine-lg: 0 40px 90px -30px rgba(51, 16, 15, 0.55);
@@ -242,7 +244,7 @@ Plus keyframes `gold-rule-draw` (scaleX 0→1), `hero-ken-burns`, `rise-in`, `me
 
 - Shadows: `shadow-shrine` (default) + `shadow-shrine-lg` (elevated cards/dropdowns). Radii are `rounded-sm` (buttons/cards) and `rounded-full` (emblem icon). Don't introduce `shadow-lg`/`rounded-xl` without a rationale.
 
-**Verification:** `grep --color shrine- src/index.css` → 24 colors + 2 shadows (26 theme entries); copy-paste `@theme` into this doc to prevent drift.
+**Verification:** `grep --color shrine- src/index.css` → 26 colors + 2 shadows (28 theme entries); copy-paste `@theme` into this doc to prevent drift.
 
 ---
 
@@ -266,7 +268,7 @@ No global store, no API layer, no `server/` — add only with an ADR.
 src/ (64 files — 38 source + 25 tests + 1 setup)
   App.tsx                 # HashRouter + 17 Route entries (16 content paths + * NotFound; 5 alias groups, 7 alias paths)
   main.tsx                # StrictMode + createRoot + explicit #root guard
-  index.css               # @theme (24 colors + 2 shadows) + @layer base/utilities (26 utilities + 8 keyframes + themed scrollbar)
+  index.css               # @theme (26 colors + 2 shadows; round-7 added gold-700 `#85601f` 4.72:1 + terracotta-600 `#8f4c30` 5.36:1 AA text steps) + @layer base/utilities (26 utilities + 8 keyframes + themed scrollbar)
   components/
     Layout.tsx            # Outlet + hash-aware scroll restoration (double-hash aware, 80ms, timeout cleanup) + ScrollProgress (decoupled rail z-[60]) + SkipLink + BackToTop + keyed page-in container
     Header.tsx            # z-50 fixed maroon-950 bar (solid = scrolled||!isHome||mobileOpen; translucent+blur when solid, transparent at top of Home), useScrolled(16) (default 12), hover/focus-open dropdown (no click-toggle — keyboard via onFocusCapture), mobile modal drawer (round-4 L-5: role=dialog + aria-modal + initial focus + Tab/Shift+Tab focus trap + focus restore to hamburger + outside-tap close; Escape handler, parentActive, 44px hamburger, menu-in/drawer-in)
@@ -298,7 +300,7 @@ src/ (64 files — 38 source + 25 tests + 1 setup)
     massDay.ts            # massDayKey(date): 'weekdays'|'saturday'|'sunday' — single source for the Worship today-highlight
   test/
     setup.ts              # vitest jsdom setup (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs)
-  **/*.test.{ts,tsx}      # 25 files / 141 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), utils/monogram (7), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
+  **/*.test.{ts,tsx}      # 31 files / 172 tests: utils/cn (5), data/nav (7), data/content (10), data/site (7), utils/massDay (5), utils/monogram (7), ui/Button (11), SkipLink (3), ui/Accordion (6), SafeImage (6), Header (16), BackToTop (7), pages/Ministries (3), pages/cta-bands (4), pages/worship-mass (4), pages/about-visuals (3), pages/event-chips (3), components/Timeline (3), pages/NotFound (2), pages/History (2), Layout (2), hooks/useScrollProgress (4), ScrollProgress (2), head (13), security-headers (6)
 ```
 
 **Counts:** `find src -type f | wc -l` → 61 (36 source + 24 tests + 1 setup); `public/images/` → 8 files (`hero-church.jpg`, `chapel-interior.jpg`, `sanctuary.jpg`, `rosary-garden.jpg`, `stained-glass.jpg`, `parish-hall.jpg`, `cemetery.jpg`, `feast.jpg`) → `dist/images/` on build (not inlined) + `public/favicon.svg`. Tests cover ScrollProgress/useScrollProgress/BackToTop/cta-bands/head etc.
@@ -587,7 +589,7 @@ Each entry: symptom → root cause → fix → lesson. Severity: `Critical` (bre
 | `pnpm dev` → `EADDRINUSE :5173` | Port in use | `pnpm dev -- --port 5174` or `lsof -i:5173` then kill |
 | `Cannot find module '@/utils/cn'` | Alias desync (see §9 #5) | Align `vite.config.ts` ↔ `tsconfig.json` `paths @/*` (`baseUrl:"."`) — change both; restart Vite |
 | `npx tsc --noEmit` → `TS6133 'x' is declared but never used` | `noUnusedLocals`/`Params` (`strict` + `noUnusedLocals:true` `noUnusedParameters:true`) | Remove import or use it; for intentionally unused param, prefix `_` (e.g., `_idx`) |
-| `pnpm test` → "no test files found" | `src/test/setup.ts` missing or `vite.config.ts test.include` misconfigured | Verify `src/test/setup.ts` exists and `vite.config.ts test` includes `src/**/*.{test,spec}.{ts,tsx}` with `exclude: ["e2e/**"]` — should be 25 files / 141 tests |
+| `pnpm test` → "no test files found" | `src/test/setup.ts` missing or `vite.config.ts test.include` misconfigured | Verify `src/test/setup.ts` exists and `vite.config.ts test` includes `src/**/*.{test,spec}.{ts,tsx}` with `exclude: ["e2e/**"]` — should be 31 files / 172 tests |
 | `pnpm test:e2e` → failures on `#mass`/`#liturgical` etc. | Missing `id` or `Layout` double-hash logic stale | Verify `Worship.tsx` has `id="mass"`/`"confession"`/`"visit"` and `Ministries.tsx` has 6 ministry `id`s; `Layout` `resolveAnchor` must handle `/#/worship#mass` form |
 | Hash anchor lands at top (`/#/worship#mass` or `/#/ministries#liturgical`) | Target `id` missing or `Layout` effect stale | Verify `id="mass"` in `Worship.tsx` and `id="liturgical"` in `Ministries.tsx`; check `Layout` `useEffect` deps `[pathname, hash]`; jump nav must be `<Link to="/ministries#id">` (not plain `<a href="#id">`, see §9 #11) |
 | Double-hash `#/ministries#liturgical` doesn't scroll | `Layout` `resolveAnchor` not matching `pathname` | Verify `resolveAnchor` splits `window.location.hash` on `#`, filters, strips leading `/`, and compares against `pathname.replace(/^\//,"")` — the `cleaned === pathname…` guard prevents false anchors |
@@ -624,8 +626,8 @@ Run in order — every step must be green before pushing `main` (`main` is the d
 ```bash
 pnpm lint                      # 1 — eslint 9.39.5 flat --max-warnings 0
 pnpm typecheck                 # 2 — tsc --noEmit (strict + noUnusedLocals/Params + noFallthroughCasesInSwitch)
-pnpm test                      # 3 — vitest 3.2.6 jsdom — 25 files / 141 tests green (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + monogram 7 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
-pnpm test:e2e                  # 4 — playwright 1.55.1 chromium — 42 tests green (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6)
+pnpm test                      # 3 — vitest 3.2.6 jsdom — 31 files / 172 tests green (cn 5 + nav 7 + content 10 + site 7 + massDay 5 + monogram 7 + Button 11 + SkipLink 3 + Accordion 6 + SafeImage 6 + Header 16 + BackToTop 7 + Ministries 3 + cta-bands 4 + worship-mass 4 + about-visuals 3 + event-chips 3 + Timeline 3 + NotFound 2 + History 2 + Layout 2 + useScrollProgress 4 + ScrollProgress 2 + head 13 + security-headers 6)
+pnpm test:e2e                  # 4 — playwright 1.55.1 chromium — 45 tests green (smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6 + deep-links 3)
 pnpm build                     # 5 — singlefile 2.3.3 build → dist/index.html (JS+CSS inlined) + dist/images/ (8 files, copied not inlined)
 pnpm preview &                 # 6 — smoke: spot-check 10 routes + 7 alias paths + 9 hash anchors (3 on /worship + 6 on /ministries)
 ls -lh dist/                   # 7 — confirm dist/index.html + dist/images/ (8 files) — publicDir copy expected, not inlined
@@ -637,8 +639,8 @@ git push origin main           # 9 — deploy (GH Pages / S3 upload of dist/inde
 |---|---|---|
 | Lint | `pnpm lint` clean | `eslint 9.39.5` flat `eslint . --max-warnings 0` (`typescript-eslint 8.28.0` + `react-hooks 5.2.0`) — ignores `skills` + `src.orig` |
 | Types | `pnpm typecheck` (`npx tsc --noEmit`) clean | `strict` + `noUnusedLocals`/`noUnusedParameters`/`noFallthroughCasesInSwitch`/`isolatedModules`/`noEmit` pass; `tsconfig.json` `include` covers `src` + `vite.config.ts` + `eslint.config.js` + `playwright.config.ts` with `types [node, vitest/globals]` |
-| Tests | `pnpm test` — 25 files / 141 tests green | `vitest 3.2.6 jsdom` via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub) + `vite.config.ts test.include [src/**/*.{test,spec}.{ts,tsx}]` — `e2e/**` excluded |
-| E2E | `pnpm test:e2e` — 42 tests green (6 specs) | `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6` — Bukit Batok aliases + hash anchors + SafeImage fallback + mobile drawer same-route close regression + modal drawer focus trap (round-4) + rise-in hero entrance + event chips + back-to-top progress ring + aria-current nav + ScrollProgress rail. `playwright.config.ts` `expect.timeout: 15s` + `webServer → pnpm exec vite :5173` |
+| Tests | `pnpm test` — 31 files / 172 tests green | `vitest 3.2.6 jsdom` via `src/test/setup.ts` (jest-dom + IntersectionObserver mock + scrollTo/scrollIntoView stubs + matchMedia stub) + `vite.config.ts test.include [src/**/*.{test,spec}.{ts,tsx}]` — `e2e/**` excluded |
+| E2E | `pnpm test:e2e` — 45 tests green (7 specs) | `smoke 11 + navigation 8 + ministries 4 + give-faq 4 + enhancements 9 + enhancements-round5 6 + deep-links 3 (audit F-3 path→hash redirects)` — Bukit Batok aliases + hash anchors + SafeImage fallback + mobile drawer same-route close regression + modal drawer focus trap (round-4) + rise-in hero entrance + event chips + back-to-top progress ring + aria-current nav + ScrollProgress rail. `playwright.config.ts` `expect.timeout: 15s` + `webServer → pnpm exec vite :5173` |
 | Build | `pnpm build` greens | `viteSingleFile 2.3.3` inlines JS + CSS; `dist/images/` 8 files copied (not inlined) — verify one-file `dist/index.html` |
 | Routes | All 10 pages + 7 alias paths + 9 hash anchors navigate (HashRouter) | Manual or `agent-browser` smoke (`Layout` double-hash aware `#/ministries#id` → split + 80ms `scrollIntoView`) |
 | A11y | Contrast ≥4.5:1 on body, `alt` on content images (`SafeImage` fallback), `aria-expanded` on toggle, `SkipLink` hash discipline, `aria-label="Jump to ministry"` | Spot-check per §8 table + `axe-core` on Header/Home hero/FAQ/Worship map |
@@ -921,7 +923,7 @@ Tailwind defaults only (no custom config). Project usage:
 
 ## 19. Color Reference (Complete)
 
-Every hex matches `src/index.css` `@theme` byte-for-byte. **Fail the build if it drifts.** Palette is unchanged from the rothershrine line — verification command `grep shrine- src/index.css` → 24 colors + 2 shadows.
+Every hex matches `src/index.css` `@theme` byte-for-byte. **Fail the build if it drifts.** Palette is unchanged from the rothershrine line — verification command `grep shrine- src/index.css` → 26 colors + 2 shadows (round-7 added gold-700/terracotta-600 AA text steps).
 
 | Token | Hex | RGB | Tailwind Class | Usage (St Mary / Bukit Batok context) |
 |---|---|---|---|---|
@@ -1215,7 +1217,7 @@ export function cn(...inputs: ClassValue[]): string; // twMerge(clsx(...))
 |---|---|---|---|
 | ADR-1 | `HashRouter` over `BrowserRouter` | Zero-config deploy to GH Pages/S3 — no server rewrites; deep-links (`/#/worship#mass`, `/#/ministries#liturgical`) survive refresh | URLs contain `/#/` — acceptable for a parish SPA; `404.html` shim required if migrating to `BrowserRouter` |
 | ADR-2 | `vite-plugin-singlefile` | Primary `dist/index.html` (+ `dist/images/` public copy — 8 files) — trivial upload, no asset path breakage | Singlefile inlines JS+CSS only; `publicDir` is copied; no code-splitting; keep `index.html` ≤400 kB |
-| ADR-3 | Tailwind v4 CSS-first `@theme` | Tokens co-located with CSS, no `tailwind.config.*` drift; `index.css` is the palette (24 colors + 2 shadows unchanged from rothershrine) | Extend `@theme` only, never arbitrary hex |
+| ADR-3 | Tailwind v4 CSS-first `@theme` | Tokens co-located with CSS, no `tailwind.config.*` drift; `index.css` is the palette (26 colors + 2 shadows — round-7 extended gold/terracotta scales with AA text steps) | Extend `@theme` only, never arbitrary hex |
 | ADR-4 | File-backed `src/data/*` (no CMS) | Typed arrays are enough for ~40 items (8+3+6+6+6+8+3+16+4+6) plus `site` + `nav`; CMS adds auth/ISR without benefit | Keep `content.ts`/`site.ts`/`nav.ts` as fallback if CMS is introduced behind `src/lib/cms/` |
 | ADR-5 | Alias `@→src/` sync contract | Short imports (`@/utils/cn`) without relative `../../../` | Two-file change (`vite.config.ts` + `tsconfig.json` `paths` + `include`) — must stay synced |
 | ADR-6 | `src.orig/` reference policy | The St Joseph BT intermediate is **retained locally, ignored via `.gitignore` (not committed)**; `eslint`/`vite watch` ignore entries are active guards; lineage Rother → St Joseph BT (`src.orig/`) → St Mary of the Angels (`src`) | `eslint` ignores `src.orig/`; `vite watch` ignores it; never import from it; do not re-add to `tsconfig.json` `include` |
@@ -1276,7 +1278,7 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 | Port version | **1.2.0** (`package.json` `version`) — St Mary line (intermediate St Joseph was 1.0.0 → reset from 1.3.0 Rother); stack and tooling versions unchanged (see §2) |
 | Date | 2026-08-30 (second hop St Joseph → St Mary) |
 | Singlefile deploy | Unchanged — `dist/index.html` (+ `dist/images/` now **8** files vs orig 4) → GH Pages/S3 |
-| Test state | **25 files / 141 tests + 42 E2E green** (St Mary green, same harness as St Joseph 1.3.0; orig 29 unit + 20 E2E preserved in `src.orig/` as Rother snapshot) |
+| Test state | **31 files / 172 tests + 42 E2E green** (St Mary green, same harness as St Joseph 1.3.0; orig 29 unit + 20 E2E preserved in `src.orig/` as Rother snapshot) |
 | Preservation | `src.orig/` is a frozen snapshot of the **St Joseph BT** port (which itself preserves the Rother original) — Rother → St Joseph (src.orig) → St Mary (src). `src.orig/` is retained locally, untracked since round 3 (2026-08-30 — `git rm -r --cached` + `.gitignore`), eslint + vite-watch ignored, never imported, never re-added to `include`. |
 
 ### D.2 What Changed (AUDIT diff summary)
@@ -1327,7 +1329,7 @@ This project follows **ANALYZE → PLAN → VALIDATE → IMPLEMENT → VERIFY �
 
 ### D.3 What Stayed
 
-- **Design tokens** — `src/index.css` `@theme` (24 colors + 2 shadows) + `@layer` utilities (22 + 6 keyframes) + typography (Fraunces + Source Sans 3) — byte-for-byte identical.
+- **Design tokens** — `src/index.css` `@theme` (26 colors + 2 shadows; round-7 added gold-700 `#85601f` 4.72:1 + terracotta-600 `#8f4c30` 5.36:1 AA text steps) + `@layer` utilities (22 + 6 keyframes) + typography (Fraunces + Source Sans 3) — byte-for-byte identical.
 - **Component primitives** — `Button`/`Container`/`SectionHeading`/`Accordion`/`Reveal`/`SafeImage`/`Emblem`/`SkipLink`/`Timeline`/`SocialIcons`/`Header`/`Footer`/`PageHero`/`Layout` — same files, same APIs, only `SafeImage` default fallback updated (`hero-church.jpg`).
 - **Hook** — `useScrolled.ts` identical; Header still `useScrolled(16)`.
 - **Stack & versions** — React 19.2.8, Vite 7.3.6, Tailwind 4.3.3, TypeScript 5.9.3, React Router 7.18.2, singlefile 2.3.3, eslint 9.39.5, vitest 3.2.6, playwright 1.55.1 — all pinned exact.
@@ -1374,7 +1376,7 @@ Recorded in `README.md` (Current audits + File Hierarchy `docs/`) and `AGENTS.md
 | 60-sec agent cheat sheet | `AGENTS.md` |
 | Deep workflow + hill-parish fidelity | `CLAUDE.md` |
 | Intent lineage | `docs/prompts.md` (if present) |
-| Tokens (24 colors + 2 shadows) + utilities (26 + 8 keyframes) | `src/index.css` (`--font-sans` alias `--font-body`; utilities incl. `gold-rule`/`gold-rule-left`/`hero-ken-burns`/`rise-in`+`rise-in-d1..d4`/`menu-in`/`drawer-in`/`dot-pulse`/`card-lift`/`link-underline`/`reveal`+`reveal-visible`/`skip-link`/`divider-weave`+`divider-weave-thin`/`bg-grain`+`bg-adobe-texture`+`bg-gold-bloom`/`mask-fade-b`/`img-zoom`/`page-in`/`drawer-item-in`) |
+| Tokens (26 colors + 2 shadows; round-7 added gold-700 `#85601f` 4.72:1 + terracotta-600 `#8f4c30` 5.36:1 AA text steps) + utilities (26 + 8 keyframes) | `src/index.css` (`--font-sans` alias `--font-body`; utilities incl. `gold-rule`/`gold-rule-left`/`hero-ken-burns`/`rise-in`+`rise-in-d1..d4`/`menu-in`/`drawer-in`/`dot-pulse`/`card-lift`/`link-underline`/`reveal`+`reveal-visible`/`skip-link`/`divider-weave`+`divider-weave-thin`/`bg-grain`+`bg-adobe-texture`+`bg-gold-bloom`/`mask-fade-b`/`img-zoom`/`page-in`/`drawer-item-in`) |
 | Route table + aliases + anchors | `src/App.tsx` — 17 Route entries (16 content paths + `*`), 7 alias paths in 5 groups (see §5.4), 9 hash anchors (3 on `/worship`, 6 on `/ministries`) |
 | Nav single-source | `src/data/nav.ts` (`primaryNav` 6 + `footerNav` 10, with `description` on children) |
 | Content arrays (10) + images + site | `src/data/content.ts` (`priests` 4 OFM + email, `ppcMembers` 6 (4 OFM + vision·Custody), `lifeTimeline` 8 [1957–2026 Franciscan/WOHA], `grounds` 3, `ministries` 6 (Language Communities last), `faqs` 6 (parking/columbarium), `upcomingEvents` 6 (WYD etc. no href), `givingOptions` 8 (Poor&Needy HRSM etc.), `serveRoles` 4 (summary), `devotions` 6 (St Anthony etc.) + `images` 11 all-local) + `src/data/site.ts` (`site as const`: hours 7 + mass 7 (sunday 6 + note) + transport NS2/DT5 + feast 2 Aug + uen T08CC4053H/HRSM + cheque + 4 socials + franciscans + maps + origin) |
