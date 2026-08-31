@@ -22,6 +22,7 @@
   --color-shrine-gold-400: #d1a955;
   --color-shrine-gold-500: #c3963f;
   --color-shrine-gold-600: #a67a2e;
+  --color-shrine-gold-700: #85601f;
 
   --color-shrine-pine-500: #335840;
   --color-shrine-pine-600: #26402f;
@@ -29,6 +30,7 @@
 
   --color-shrine-terracotta-400: #c17a53;
   --color-shrine-terracotta-500: #ab5f3c;
+  --color-shrine-terracotta-600: #8f4c30;
 
   --shadow-shrine: 0 20px 60px -20px rgba(51, 16, 15, 0.45);
   --shadow-shrine-lg: 0 40px 90px -30px rgba(51, 16, 15, 0.55);
